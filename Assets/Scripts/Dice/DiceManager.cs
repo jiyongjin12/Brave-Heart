@@ -10,9 +10,7 @@ public class DiceManager : MonoBehaviour
     private bool isDragging = false;
     private float moveSpeed = 20f;
 
-    private float throwSpeed = 50f;
-    private float throwAcceleration = 1f;
-    private float stopTime = 4f;
+    private float throwSpeed = 35f;
 
     private void Update()
     {
