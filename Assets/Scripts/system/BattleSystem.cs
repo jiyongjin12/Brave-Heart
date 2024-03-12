@@ -10,16 +10,17 @@ public class BattleSystem : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
 
-    public Transform playerBattleTrans;
-    public Transform enemyBattleTrans;
+    public Transform playerBattleTrans; //플레이어의 좌표
+    public Transform[] enemyBattleTrans; //에너미 좌표
 
     Unit playerUnit;
     Unit enemyUnit;
 
-    public Text dialogueText;
-
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
+
+    private int enemyCount; //0이 되면 플레이어 승리
+    private int curEnemy; //생성될 에너미 수
 
     public BattleState state;
 
@@ -34,14 +35,17 @@ public class BattleSystem : MonoBehaviour
         GameObject playerGo = Instantiate(playerPrefab, playerBattleTrans);
         playerGo.GetComponent<Unit>();
 
-        GameObject enemyGo = Instantiate(enemyPrefab, enemyBattleTrans);
-        enemyGo.GetComponent<Unit>();
-
-        dialogueText.text = enemyUnit.unitName;
+        for(int i = 0; i < enemyBattleTrans.Length-1; i++)
+        {
+            GameObject enemyGo = Instantiate(enemyPrefab, enemyBattleTrans[i]);
+            enemyGo.GetComponent<Unit>();
+            curEnemy--;
+        }
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
 
+        Debug.Log("1");
         yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
@@ -57,6 +61,11 @@ public class BattleSystem : MonoBehaviour
 
         if (isDead)
         {
+            enemyCount--;
+            
+        }
+        if(enemyCount == 0)
+        {
             state = BattleState.WON;
             EndBattle();
         }
@@ -71,6 +80,7 @@ public class BattleSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
+        
         bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
 
         playerHUD.SetHp(playerUnit.curHp);
