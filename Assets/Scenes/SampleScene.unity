@@ -177,7 +177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &278956227
 Rigidbody2D:
   serializedVersion: 4
@@ -304,9 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb73224fed6c87049a003b6760582b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: 1.2
-  minScale: 0.5
-  shrinkSpeed: 0.15
+  maxHeight: 4
+  diceSides: []
 --- !u!1 &331856382
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,7 +739,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &657893757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -754,7 +753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diceList:
-  - {fileID: 1265541034}
+  - {fileID: 1279557297}
   - {fileID: 1602928486}
   - {fileID: 2063046062}
   - {fileID: 278956227}
@@ -793,7 +792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &800074433
 Rigidbody2D:
   serializedVersion: 4
@@ -920,9 +919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb73224fed6c87049a003b6760582b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: 1.2
-  minScale: 0.5
-  shrinkSpeed: 0.15
+  maxHeight: 4
+  diceSides: []
 --- !u!1 &961850697
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,7 +1198,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1279557296}
   m_RootOrder: 0
@@ -1243,30 +1241,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb73224fed6c87049a003b6760582b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: 1.2
-  minScale: 0.6
-  shrinkSpeed: 0.18
---- !u!50 &1265541034
-Rigidbody2D:
-  serializedVersion: 4
+  maxHeight: 1.5
+  diceSides: []
+--- !u!114 &1265541034
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265541028}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 0f2dae863dc16f346aedac7edd114d9c, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f57d6a060cefe4fb693c7d17061597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceSides:
+  - {fileID: 21300000, guid: dc8cd064ee287da459b8a9e09b9bfd23, type: 3}
+  - {fileID: 21300000, guid: 7d2c8eac79db49c4699cb498e7cff078, type: 3}
+  - {fileID: 21300000, guid: f503711da370cf64aab04df7e34e96a8, type: 3}
+  - {fileID: 21300000, guid: fc6f259a0b2fe75499dc7ef043100939, type: 3}
+  - {fileID: 21300000, guid: d1562df3c42928c4b8fa5c3bc17b6d00, type: 3}
+  - {fileID: 21300000, guid: f7e126887b02b28438a0977477933e3f, type: 3}
 --- !u!1 &1279557295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,6 +1271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1279557296}
+  - component: {fileID: 1279557297}
   m_Layer: 0
   m_Name: Dice1
   m_TagString: Untagged
@@ -1300,6 +1296,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1279557297
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279557295}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: 0f2dae863dc16f346aedac7edd114d9c, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1410481264
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,9 +1463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb73224fed6c87049a003b6760582b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: 1.2
-  minScale: 0.5
-  shrinkSpeed: 0.3
+  maxHeight: 4
+  diceSides: []
 --- !u!1 &1602928483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,7 +1484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1602928484
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1595,9 +1611,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb73224fed6c87049a003b6760582b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: 1.2
-  minScale: 0.5
-  shrinkSpeed: 0.15
+  maxHeight: 4
+  diceSides: []
 --- !u!1 &1767537279
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,7 +1628,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1767537280
 Transform:
   m_ObjectHideFlags: 0
@@ -1622,7 +1637,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767537279}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6, y: -0.6, z: 0}
+  m_LocalPosition: {x: -0.60000014, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1648,7 +1663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &2063046062
 Rigidbody2D:
   serializedVersion: 4
@@ -1775,6 +1790,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb73224fed6c87049a003b6760582b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: 1.2
-  minScale: 0.5
-  shrinkSpeed: 0.15
+  maxHeight: 4
+  diceSides: []
