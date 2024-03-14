@@ -7,13 +7,15 @@ public class EnemyData : ScriptableObject
 {
     public enum EnemyType { Slime, Goblin, Orc, Humman}
     public EnemyType enemyType;
-    public int EnemyId;
     public string EnemyName;
     [TextArea]
     public string EnemyDesc;
 
-    public float baseDamage;
-    public int basehp;
+    public int unitLevel;
+
+    public float damage;
     public float[] damages;
-    public int[] hp;
+
+    public float maxHp;
+    public float curHp;
 }
