@@ -12,9 +12,24 @@ public class Unit : MonoBehaviour
     public float maxHp;
     public float curHp;
 
+    public static float enmeyNum;
+
     public bool TakeDamage(float dmg)
     {
         curHp -= dmg;
+
+        if (curHp <= 0)
+            return true;
+        else
+            return false;
+    }
+
+    public bool EnemyHit(float dmg)
+    {
+        if(enmeyNum == 1)
+        {
+            curHp -= dmg;
+        }
 
         if (curHp <= 0)
             return true;

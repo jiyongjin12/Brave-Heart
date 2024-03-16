@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9076197679635151398}
   - component: {fileID: 9076197679635151397}
-  - component: {fileID: 9076197679635151392}
-  - component: {fileID: 9076197679635151399}
+  - component: {fileID: 5335420522683115055}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: goblin 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9076197679635151392
+--- !u!114 &5335420522683115055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,26 +94,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9076197679635151396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86ef1d9347e921047ad5dff25bc8d6a7, type: 3}
+  m_Script: {fileID: 11500000, guid: df8d461470d9416448a3e8861a41a337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: enemy
-  unitLevel: 1
-  damage: 1
-  maxHp: 1
-  curHp: 1
---- !u!114 &9076197679635151399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9076197679635151396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc9ec9b39ea91b24ab76ee2e45624cb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: {fileID: 0}
-  levelText: {fileID: 0}
-  hpSlider: {fileID: 0}
+  enemyData: {fileID: 11400000, guid: d77d7cade092cf24992b20aca5cf75db, type: 2}
+  Level: 0

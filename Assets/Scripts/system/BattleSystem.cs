@@ -7,114 +7,74 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
-    public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject PlayerPrefab;
+    public GameObject[] enemyPrefab;
 
+    public static BattleSystem instance { get; private set; }
     public Transform playerBattleTrans; //플레이어의 좌표
     public Transform[] enemyBattleTrans; //에너미 좌표
 
-    Unit playerUnit;
-    Unit enemyUnit;
+    public int enemyCount; //0이 되면 플레이어 승리
+    public int curEnemy; //생성될 에너미 수
 
-    public BattleHUD playerHUD;
-    public BattleHUD enemyHUD;
-
-    private int enemyCount; //0이 되면 플레이어 승리
-    private int curEnemy; //생성될 에너미 수
-
-    public BattleState state;
-
-    private void Start()
+    public float Num;
+    public enum State
     {
-        state = BattleState.START;
-        StartCoroutine(SetupBattle());
+        start, playerTurn, enemyTurn, win, loss
     }
 
-    IEnumerator SetupBattle()
+    public State state;
+
+    private void Awake()
     {
-        GameObject playerGo = Instantiate(playerPrefab, playerBattleTrans);
-        playerGo.GetComponent<Unit>();
+        Instantiate(PlayerPrefab, playerBattleTrans);
+        instance = this;
+        state = State.start;
+        BattleStart();
+    }
 
-        for(int i = 0; i < enemyBattleTrans.Length-1; i++)
+    private void BattleStart()
+    {
+        for (int i = 0; i < enemyBattleTrans.Length - 1; i++)
         {
-            GameObject enemyGo = Instantiate(enemyPrefab, enemyBattleTrans[i]);
-            enemyGo.GetComponent<Unit>();
-            curEnemy--;
+            Instantiate(enemyPrefab[Random.Range(0, 3)], enemyBattleTrans[i]);
+            Num++;
         }
+        state = State.playerTurn;
+    }
 
-        playerHUD.SetHUD(playerUnit);
-        enemyHUD.SetHUD(enemyUnit);
+    public void PlayerAttackButton()
+    {
+        if (state != State.playerTurn)
+            return;
 
-        Debug.Log("1");
-        yield return new WaitForSeconds(2f);
-
-        state = BattleState.PLAYERTURN;
+        Num = 0;
+        StartCoroutine(PlayerAttack());
     }
 
     IEnumerator PlayerAttack()
     {
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+        yield return new WaitForSeconds(1f);
 
-        enemyHUD.SetHp(enemyUnit.curHp);
+        if(Enemy.instance.enemyNum == 0)
+            Enemy.instance.hp -= GameManager.instance.playerDamage;
+        else
+            Enemy.instance.hp -= 0;
 
-        yield return new WaitForSeconds(2f);
-
-        if (isDead)
+        if (enemyCount == 0)
         {
-            enemyCount--;
-            
-        }
-        if(enemyCount == 0)
-        {
-            state = BattleState.WON;
-            EndBattle();
+            state = State.win;
+            BatleWin();
         }
         else
         {
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
+            Debug.Log("게임 종료");
+            //state = State.enemyTurn;
         }
     }
 
-    IEnumerator EnemyTurn()
+    void BatleWin()
     {
-        yield return new WaitForSeconds(1f);
-
-        
-        bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
-
-        playerHUD.SetHp(playerUnit.curHp);
-
-        yield return new WaitForSeconds(1f);
-
-        if (isDead)
-        {
-            state = BattleState.LOST;
-            EndBattle();
-        }
-        else
-        {
-            state = BattleState.PLAYERTURN;
-        }
-    }
-
-    void EndBattle()
-    {
-        if(state == BattleState.WON)
-        {
-            //승리했을때
-        }
-        if (state == BattleState.LOST)
-        {
-            //졌을때
-        }
-    }
-
-    public void OnAttackButton()
-    {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
-        StartCoroutine(PlayerAttack());
+        Debug.Log("게임 승리");
     }
 }
