@@ -17,7 +17,8 @@ public class BattleSystem : MonoBehaviour
     public int enemyCount; //0이 되면 플레이어 승리
     public int curEnemy; //생성될 에너미 수
 
-    public float Num;
+    public float Num = 0;
+    public int number = 0;
     public enum State
     {
         start, playerTurn, enemyTurn, win, loss
@@ -39,6 +40,7 @@ public class BattleSystem : MonoBehaviour
         {
             Instantiate(enemyPrefab[Random.Range(0, 3)], enemyBattleTrans[i]);
             Num++;
+            number++;
         }
         state = State.playerTurn;
     }
@@ -56,7 +58,7 @@ public class BattleSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        if(Enemy.instance.enemyNum == 0)
+        if(Enemy.instance.enemyNum[0] == 0)
             Enemy.instance.hp -= GameManager.instance.playerDamage;
         else
             Enemy.instance.hp -= 0;

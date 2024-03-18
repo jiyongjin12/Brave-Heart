@@ -11,9 +11,18 @@ public class GameManager : MonoBehaviour
     public float hp;
     public float Maxhp;
 
+    public List<Enemy> enemySlot = new List<Enemy>(); //적 4명까지 저장
+
+    Enemy enemy;
+
     private void Awake()
     {
         instance = this;
         hp = Maxhp;
+    }
+
+    private void Update()
+    {
+        
     }
 }

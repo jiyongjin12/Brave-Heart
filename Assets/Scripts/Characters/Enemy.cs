@@ -10,14 +10,13 @@ public class Enemy : MonoBehaviour
     public float hp;
     public float damage;
 
-    public float enemyNum;
+    public float[] enemyNum;
     private bool deadEnemy = false;
 
     public static Enemy instance { get; private set; }
 
     private void Awake()
     {
-        enemyNum = BattleSystem.instance.Num;
         instance = this;
         hp = enemyData.baseHp + enemyData.maxHp[Level];
         damage = enemyData.baseDamage + enemyData.damages[Level];
@@ -30,11 +29,7 @@ public class Enemy : MonoBehaviour
             Dead();
         }
         if(deadEnemy == true)
-        {
             deadEnemy = false;
-            enemyNum--;
-            BattleSystem.instance.Num--;
-        }
     }
 
     IEnumerator Dead()
