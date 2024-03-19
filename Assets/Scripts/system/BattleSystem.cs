@@ -16,9 +16,6 @@ public class BattleSystem : MonoBehaviour
 
     public int enemyCount; //0이 되면 플레이어 승리
     public int curEnemy; //생성될 에너미 수
-
-    public float Num = 0;
-    public int number = 0;
     public enum State
     {
         start, playerTurn, enemyTurn, win, loss
@@ -38,9 +35,8 @@ public class BattleSystem : MonoBehaviour
     {
         for (int i = 0; i < enemyBattleTrans.Length - 1; i++)
         {
-            Instantiate(enemyPrefab[Random.Range(0, 3)], enemyBattleTrans[i]);
-            Num++;
-            number++;
+            GameObject enemy = Instantiate(enemyPrefab[Random.Range(0, 3)], enemyBattleTrans[i]);
+            GameManager.instance.enemySlot[i] = enemy.GetComponentInChildren<Enemy>();
         }
         state = State.playerTurn;
     }
@@ -50,7 +46,6 @@ public class BattleSystem : MonoBehaviour
         if (state != State.playerTurn)
             return;
 
-        Num = 0;
         StartCoroutine(PlayerAttack());
     }
 
@@ -58,10 +53,9 @@ public class BattleSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        if(Enemy.instance.enemyNum[0] == 0)
-            Enemy.instance.hp -= GameManager.instance.playerDamage;
-        else
-            Enemy.instance.hp -= 0;
+
+        if (GameManager.instance.enemySlot[0].hp > 0)
+            GameManager.instance.enemySlot[0].hp -= GameManager.instance.playerDamage;
 
         if (enemyCount == 0)
         {
@@ -70,8 +64,33 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            Debug.Log("게임 종료");
-            //state = State.enemyTurn;
+            Debug.Log("적 턴");
+            state = State.enemyTurn;
+            StartCoroutine(EnemyTurn());
+        }
+    }
+
+    IEnumerator EnemyTurn()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (GameManager.instance.enemySlot[0].transform.position.x != -2)
+            for (int i = 0; i < GameManager.instance.enemySlot.Count; i++)
+            {
+                //GameManager.instance.enemySlot[i].transform.position.x -= 2;
+            }
+        else
+            GameManager.instance.hp -= GameManager.instance.enemySlot[0].damage;
+
+        if (GameManager.instance.hp == 0)
+        {
+            state = State.loss;
+            BatleWin();
+        }
+        else
+        {
+            Debug.Log("적 턴");
+            state = State.playerTurn;
         }
     }
 

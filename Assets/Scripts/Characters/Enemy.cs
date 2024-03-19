@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
     public float hp;
     public float damage;
 
-    public float[] enemyNum;
     private bool deadEnemy = false;
 
     public static Enemy instance { get; private set; }

@@ -23,6 +23,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        
+        DeadEnmey();
+    }
+
+    void DeadEnmey()
+    {
+        if (enemySlot[0].hp > 0)
+            return;
+
+        for (int i = 1; i < enemySlot.Count; i++)
+        {
+            enemySlot[i - 1] = enemySlot[i];
+        }
     }
 }
