@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9076197679635151397}
   - component: {fileID: 5335420522683115055}
   m_Layer: 0
-  m_Name: goblin
+  m_Name: Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.2622522, g: 0.74058676, b: 0.8018868, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8d461470d9416448a3e8861a41a337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: d77d7cade092cf24992b20aca5cf75db, type: 2}
+  enemyData: {fileID: 11400000, guid: 7006fc01e60381645abc9865aae62c27, type: 2}
   Level: 0
   hp: 0
   damage: 0

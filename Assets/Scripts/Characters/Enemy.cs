@@ -9,8 +9,13 @@ public class Enemy : MonoBehaviour
 
     public float hp;
     public float damage;
+    [SerializeField]
+    private GameObject ray;
 
     private bool deadEnemy = false;
+
+
+    RaycastHit2D hit;
 
     public static Enemy instance { get; private set; }
 
@@ -25,10 +30,13 @@ public class Enemy : MonoBehaviour
     {
         if(hp <= 0)
         {
-            Dead();
+            StartCoroutine(Dead());
         }
         if(deadEnemy == true)
             deadEnemy = false;
+
+        hit = Physics2D.Raycast(ray.transform.position , Vector2.left);
+        Debug.DrawRay(ray.transform.position, Vector2.left * hit.distance, Color.red);
     }
 
     IEnumerator Dead()
@@ -37,6 +45,24 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
         BattleSystem.instance.enemyCount--;
+    }
+
+    
+    public void Turn()
+    {
+        if (hit.collider.tag == "Player")
+            GameManager.instance.hp -= GameManager.instance.enemySlot[0].damage;
+        else if (hit.collider.tag == "Enemy")
+            return;
+        else
+        {
+            for (int i = 0; i < GameManager.instance.enemySlot.Count; i++)
+            {
+                Vector2 trans = GameManager.instance.enemySlot[i].transform.position;
+                trans = new Vector3(trans.x - 2, trans.y);
+            }
+        }
+            
     }
 
     public void LevelUp()

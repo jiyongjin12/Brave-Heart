@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 289feac20754315408691a0117043af0, type: 3}
-  m_Name: Goblin
+  m_Name: Slime
   m_EditorClassIdentifier: 
-  enemyType: 1
-  EnemyName: "\uACE0\uBE14\uB9B0"
+  enemyType: 0
+  EnemyName: "\uC2AC\uB77C\uC784"
   baseDamage: 1
-  baseHp: 10
+  baseHp: 5
   damages:
-  - 2
-  - 2
-  - 2
+  - 1
+  - 1
+  - 1
   maxHp:
   - 5
-  - 5
-  - 5
+  - 2
+  - 2
