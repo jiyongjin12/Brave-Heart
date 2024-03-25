@@ -18,6 +18,7 @@ public class BattleSystem : MonoBehaviour
     public int curEnemy; //생성될 에너미 수
 
     public GameObject enemy;
+    Enemy enemys;
     public enum State
     {
         start, playerTurn, enemyTurn, win, loss
@@ -76,7 +77,7 @@ public class BattleSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        Enemy.instance.Turn();
+        enemys.Turn();
 
         if (GameManager.instance.hp == 0)
         {

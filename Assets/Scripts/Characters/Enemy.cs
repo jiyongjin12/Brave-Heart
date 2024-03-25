@@ -17,11 +17,11 @@ public class Enemy : MonoBehaviour
 
     RaycastHit2D hit;
 
-    public static Enemy instance { get; private set; }
+    //public static Enemy instance { get; private set; }
 
     private void Awake()
     {
-        instance = this;
+        //instance = this;
         hp = enemyData.baseHp + enemyData.maxHp[Level];
         damage = enemyData.baseDamage + enemyData.damages[Level];
     }
