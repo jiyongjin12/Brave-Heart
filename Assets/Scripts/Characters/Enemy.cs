@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour
 
     private bool deadEnemy = false;
 
-
     RaycastHit2D hit;
 
     //public static Enemy instance { get; private set; }
@@ -44,6 +43,7 @@ public class Enemy : MonoBehaviour
         deadEnemy = true;
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
+        GameManager.instance.DeadEnmey();
         BattleSystem.instance.enemyCount--;
     }
 
@@ -51,16 +51,16 @@ public class Enemy : MonoBehaviour
     public void Turn()
     {
         if (hit.collider.tag == "Player")
-            GameManager.instance.hp -= GameManager.instance.enemySlot[0].damage;
+            GameManager.instance.hp -= BattleSystem.instance.enemySlot[0].damage;
         else if (hit.collider.tag == "Enemy")
             return;
         else
         {
-            for (int i = 0; i < GameManager.instance.enemySlot.Count; i++)
-            {
-                Vector2 trans = GameManager.instance.enemySlot[i].transform.position;
-                trans = new Vector3(trans.x - 2, trans.y);
-            }
+            //for (int i = 0; i < BattleSystem.instance.enemySlot.Length; i++)
+            //{
+            //    Vector2 trans = BattleSystem.instance.enemySlot[i].transform.position;
+            //    trans = new Vector3(trans.x - 2, trans.y);
+            //}
         }
             
     }

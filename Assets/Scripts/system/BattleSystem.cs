@@ -12,13 +12,13 @@ public class BattleSystem : MonoBehaviour
 
     public static BattleSystem instance { get; private set; }
     public Transform playerBattleTrans; //플레이어의 좌표
-    public Transform[] enemyBattleTrans; //에너미 좌표
+    public Enemy[] enemySlot;
 
     public int enemyCount; //0이 되면 플레이어 승리
     public int curEnemy; //생성될 에너미 수
 
     public GameObject enemy;
-    Enemy enemys;
+
     public enum State
     {
         start, playerTurn, enemyTurn, win, loss
@@ -36,10 +36,10 @@ public class BattleSystem : MonoBehaviour
 
     private void BattleStart()
     {
-        for (int i = 0; i < enemyBattleTrans.Length - 1; i++)
+        for (int i = 0; i < 3; i++)
         {
-            enemy = Instantiate(enemyPrefab[Random.Range(0, 3)], enemyBattleTrans[i]);
-            GameManager.instance.enemySlot[i] = enemy.GetComponentInChildren<Enemy>();
+            enemy = Instantiate(enemyPrefab[Random.Range(0, 3)], new Vector3(4 + i * 2, 3), Quaternion.identity);
+            enemySlot[i] = enemy.GetComponent<Enemy>();
         }
         state = State.playerTurn;
     }
@@ -57,8 +57,10 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
 
-        if (GameManager.instance.enemySlot[0].hp > 0)
-            GameManager.instance.enemySlot[0].hp -= GameManager.instance.playerDamage;
+        if (enemySlot[0].hp > 0)
+            enemySlot[0].hp -= GameManager.instance.playerDamage;
+
+        //enemySlot[0].hp -= GameManager.instance.playerDamage;
 
         if (enemyCount == 0)
         {
@@ -77,7 +79,7 @@ public class BattleSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        enemys.Turn();
+        //enemys.Turn();
 
         if (GameManager.instance.hp == 0)
         {

@@ -14,8 +14,6 @@ public class GameManager : MonoBehaviour
     public bool isNew;
     private int number;
 
-    public List<Enemy> enemySlot = new List<Enemy>(); //적 4명까지 저장
-
     Enemy enemy;
 
     private void Awake()
@@ -26,21 +24,17 @@ public class GameManager : MonoBehaviour
         hp = Maxhp;
     }
 
-    private void Update()
+    public void DeadEnmey()
     {
-        DeadEnmey();
-    }
 
-    void DeadEnmey()
-    {
-        if (enemySlot[0].hp > 0)
-            return;
+        for (int i = 1; i < BattleSystem.instance.enemySlot.Length; i++)
+        {
+            if (i == BattleSystem.instance.enemySlot.Length - 1)
+                BattleSystem.instance.enemySlot[i] = null;
 
-        enemySlot.RemoveAt(0);
-        //for (int i = 1; i < enemySlot.Count; i++)
-        //{
-        //    enemySlot[i - 1] = enemySlot[i];
-        //}
+            BattleSystem.instance.enemySlot[i - 1] = BattleSystem.instance.enemySlot[i];
+
+        }
     }
 
     void NewEnemy()
