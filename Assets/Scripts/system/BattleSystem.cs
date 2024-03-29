@@ -40,6 +40,7 @@ public class BattleSystem : MonoBehaviour
         {
             enemy = Instantiate(enemyPrefab[Random.Range(0, 3)], new Vector3(4 + i * 2, 3), Quaternion.identity);
             enemySlot[i] = enemy.GetComponent<Enemy>();
+            GameManager.instance.number++;
         }
         state = State.playerTurn;
     }
@@ -60,7 +61,7 @@ public class BattleSystem : MonoBehaviour
         if (enemySlot[0].hp > 0)
             enemySlot[0].hp -= GameManager.instance.playerDamage;
 
-        //enemySlot[0].hp -= GameManager.instance.playerDamage;
+        //enemySlot[1].hp -= GameManager.instance.playerDamage;
 
         if (enemyCount == 0)
         {

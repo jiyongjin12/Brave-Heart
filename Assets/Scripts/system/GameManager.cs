@@ -12,14 +12,15 @@ public class GameManager : MonoBehaviour
     public float Maxhp;
 
     public bool isNew;
-    private int number;
+    public int number;
 
-    Enemy enemy;
+    private int emptyEnemy;
 
     private void Awake()
     {
         isNew = false;
         number = 0;
+        emptyEnemy = 1;
         instance = this;
         hp = Maxhp;
     }
@@ -29,12 +30,22 @@ public class GameManager : MonoBehaviour
 
         for (int i = 1; i < BattleSystem.instance.enemySlot.Length; i++)
         {
-            if (i == BattleSystem.instance.enemySlot.Length - 1)
+
+            if (BattleSystem.instance.enemySlot[i] == null)
+            {
+                emptyEnemy++;
+                continue;
+            }
+
+            BattleSystem.instance.enemySlot[i - emptyEnemy] = BattleSystem.instance.enemySlot[i];
+
+            if (i == BattleSystem.instance.enemySlot.Length - emptyEnemy)
+            {
                 BattleSystem.instance.enemySlot[i] = null;
-
-            BattleSystem.instance.enemySlot[i - 1] = BattleSystem.instance.enemySlot[i];
-
+                emptyEnemy = 1;
+            }
         }
+        emptyEnemy = 1;
     }
 
     void NewEnemy()
