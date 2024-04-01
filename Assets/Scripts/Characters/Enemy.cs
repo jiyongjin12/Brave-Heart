@@ -14,8 +14,6 @@ public class Enemy : MonoBehaviour
 
     private bool deadEnemy = false;
 
-    RaycastHit2D hit;
-
     //public static Enemy instance { get; private set; }
 
     private void Awake()
@@ -33,9 +31,6 @@ public class Enemy : MonoBehaviour
         }
         if(deadEnemy == true)
             deadEnemy = false;
-
-        hit = Physics2D.Raycast(ray.transform.position , Vector2.left);
-        Debug.DrawRay(ray.transform.position, Vector2.left * hit.distance, Color.red);
     }
 
     IEnumerator Dead()
@@ -45,24 +40,6 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
         GameManager.instance.DeadEnmey();
         BattleSystem.instance.enemyCount--;
-    }
-
-    
-    public void Turn()
-    {
-        if (hit.collider.tag == "Player")
-            GameManager.instance.hp -= BattleSystem.instance.enemySlot[0].damage;
-        else if (hit.collider.tag == "Enemy")
-            return;
-        else
-        {
-            //for (int i = 0; i < BattleSystem.instance.enemySlot.Length; i++)
-            //{
-            //    Vector2 trans = BattleSystem.instance.enemySlot[i].transform.position;
-            //    trans = new Vector3(trans.x - 2, trans.y);
-            //}
-        }
-            
     }
 
     public void LevelUp()

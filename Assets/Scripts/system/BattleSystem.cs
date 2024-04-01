@@ -19,6 +19,9 @@ public class BattleSystem : MonoBehaviour
 
     public GameObject enemy;
 
+    public int number;
+    private Vector3 attackLine = new Vector3(-4, 3);
+
     public enum State
     {
         start, playerTurn, enemyTurn, win, loss
@@ -30,6 +33,7 @@ public class BattleSystem : MonoBehaviour
     {
         Instantiate(PlayerPrefab, playerBattleTrans);
         instance = this;
+        number = 0;
         state = State.start;
         BattleStart();
     }
@@ -38,9 +42,10 @@ public class BattleSystem : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            enemy = Instantiate(enemyPrefab[Random.Range(0, 3)], new Vector3(4 + i * 2, 3), Quaternion.identity);
-            enemySlot[i] = enemy.GetComponent<Enemy>();
-            GameManager.instance.number++;
+            enemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], new Vector3(4 + i * 2, 3), Quaternion.identity);
+            enemySlot[number] = enemy.GetComponent<Enemy>();
+            number++;
+            curEnemy--;
         }
         state = State.playerTurn;
     }
@@ -61,8 +66,6 @@ public class BattleSystem : MonoBehaviour
         if (enemySlot[0].hp > 0)
             enemySlot[0].hp -= GameManager.instance.playerDamage;
 
-        //enemySlot[1].hp -= GameManager.instance.playerDamage;
-
         if (enemyCount == 0)
         {
             state = State.win;
@@ -71,6 +74,7 @@ public class BattleSystem : MonoBehaviour
         else
         {
             Debug.Log("적 턴");
+            yield return new WaitForSeconds(1f);
             state = State.enemyTurn;
             StartCoroutine(EnemyTurn());
         }
@@ -80,7 +84,8 @@ public class BattleSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        //enemys.Turn();
+        NewEnemy();
+        Turn();
 
         if (GameManager.instance.hp == 0)
         {
@@ -89,8 +94,35 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            Debug.Log("적 턴");
+            Debug.Log("플레이어 턴");
             state = State.playerTurn;
+        }
+    }
+
+    void NewEnemy()
+    {
+        if (curEnemy == 0)
+            return;
+
+        enemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], new Vector3(10, 3), Quaternion.identity);
+        enemySlot[number] = enemy.GetComponent<Enemy>();
+        number++;
+        curEnemy--;
+    }
+
+    void Turn()
+    {
+        if (enemySlot[0].transform.position == attackLine)
+            GameManager.instance.hp -= enemySlot[0].damage;
+        else
+        {
+            for (int i = 0; i < enemySlot.Length; i++)
+            {
+                if (enemySlot[i] == null)
+                    break;
+                Vector3 trans = enemySlot[i].transform.position;
+                enemySlot[i].transform.position = new Vector3(trans.x - 2, trans.y);
+            }
         }
     }
 
