@@ -21,6 +21,7 @@ public class BattleSystem : MonoBehaviour
 
     public int number;
     private Vector3 attackLine = new Vector3(-4, 3);
+    private bool click;
 
     public enum State
     {
@@ -34,6 +35,7 @@ public class BattleSystem : MonoBehaviour
         Instantiate(PlayerPrefab, playerBattleTrans);
         instance = this;
         number = 0;
+        click = false;
         state = State.start;
         BattleStart();
     }
@@ -52,10 +54,29 @@ public class BattleSystem : MonoBehaviour
 
     public void PlayerAttackButton()
     {
-        if (state != State.playerTurn)
+        if (state != State.playerTurn || click)
             return;
 
+        click = true;
         StartCoroutine(PlayerAttack());
+    }
+
+    public void PlayerDefenseButton()
+    {
+        if (state != State.playerTurn || click)
+            return;
+
+        click = true;
+        StartCoroutine(PlayerDefense());
+    }
+
+    public void PlayerCounterButton()
+    {
+        if (state != State.playerTurn || click)
+            return;
+
+        click = true;
+        StartCoroutine(PlayerCounter());
     }
 
     IEnumerator PlayerAttack()
@@ -63,13 +84,12 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
 
-        if (enemySlot[0].hp > 0)
-            enemySlot[0].hp -= GameManager.instance.playerDamage;
+        if (enemySlot[0].hp > 0) enemySlot[0].hp -= GameManager.instance.playerDamage;
 
         if (enemyCount == 0)
         {
             state = State.win;
-            BatleWin();
+            BatleEnd();
         }
         else
         {
@@ -80,21 +100,49 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    IEnumerator PlayerDefense()
+    {
+        yield return new WaitForSeconds(1f);
+
+        GameManager.instance.shield = 5;
+
+        Debug.Log("적 턴");
+        yield return new WaitForSeconds(1f);
+        state = State.enemyTurn;
+        StartCoroutine(EnemyTurn());
+    }
+
+    IEnumerator PlayerCounter()
+    {
+        yield return new WaitForSeconds(1f);
+
+        GameManager.instance.counter = 3;
+        GameManager.instance.counterAttack = true;
+
+        Debug.Log("적 턴");
+        yield return new WaitForSeconds(1f);
+        state = State.enemyTurn;
+        StartCoroutine(EnemyTurn());
+    }
+
     IEnumerator EnemyTurn()
     {
         yield return new WaitForSeconds(1f);
 
+        click = false;
+
         NewEnemy();
         Turn();
 
-        if (GameManager.instance.hp == 0)
+        if (GameManager.instance.hp <= 0)
         {
             state = State.loss;
-            BatleWin();
+            BatleEnd();
         }
         else
         {
             Debug.Log("플레이어 턴");
+            GameManager.instance.counterAttack = false;
             state = State.playerTurn;
         }
     }
@@ -112,22 +160,67 @@ public class BattleSystem : MonoBehaviour
 
     void Turn()
     {
-        if (enemySlot[0].transform.position == attackLine)
-            GameManager.instance.hp -= enemySlot[0].damage;
+        if (enemySlot[0].transform.position == attackLine) EnemyAttack();
         else
         {
             for (int i = 0; i < enemySlot.Length; i++)
             {
                 if (enemySlot[i] == null)
                     break;
+
                 Vector3 trans = enemySlot[i].transform.position;
                 enemySlot[i].transform.position = new Vector3(trans.x - 2, trans.y);
             }
         }
     }
 
-    void BatleWin()
+    void EnemyAttack()
     {
-        Debug.Log("게임 승리");
+        if (GameManager.instance.counterAttack == true) Counter();
+        else if(GameManager.instance.shield > 0)
+        {
+            GameManager.instance.shield -= enemySlot[0].damage;
+            if (GameManager.instance.shield < 0) GameManager.instance.hp += GameManager.instance.shield;
+        }
+        else GameManager.instance.hp -= enemySlot[0].damage;
+    }
+
+    void Counter()
+    {
+        if(GameManager.instance.shield > 0)
+        {
+            if (enemySlot[0].damage > GameManager.instance.counter)
+            {
+                GameManager.instance.shield -= enemySlot[0].damage * 2;
+                if (GameManager.instance.shield < 0) GameManager.instance.hp += GameManager.instance.shield;
+            }
+            else if (enemySlot[0].damage == GameManager.instance.counter) enemySlot[0].hp -= enemySlot[0].damage * 2;
+            else
+            {
+                GameManager.instance.shield -= enemySlot[0].damage / 2;
+                if (GameManager.instance.shield < 0)
+                    GameManager.instance.hp += GameManager.instance.shield;
+                enemySlot[0].hp -= enemySlot[0].damage;
+            }
+        }
+        else
+        {
+            if (enemySlot[0].damage > GameManager.instance.counter)
+            {
+                GameManager.instance.hp -= enemySlot[0].damage * 2;
+            }
+            else if (enemySlot[0].damage == GameManager.instance.counter) enemySlot[0].hp -= enemySlot[0].damage * 2;
+            else
+            {
+                GameManager.instance.hp -= enemySlot[0].damage / 2;
+                enemySlot[0].hp -= enemySlot[0].damage;
+            }
+        }
+    }
+
+    void BatleEnd()
+    {
+        if(GameManager.instance.hp > 0)   Debug.Log("게임 승리");
+        if (GameManager.instance.hp <= 0) Debug.Log("게임 패배");
     }
 }

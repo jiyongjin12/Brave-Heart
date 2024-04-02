@@ -25,11 +25,8 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if(hp <= 0)
-        {
-            StartCoroutine(Dead());
-        }
-        if(deadEnemy == true)
+        if(hp <= 0) StartCoroutine(Dead());
+        if (deadEnemy == true)
             deadEnemy = false;
     }
 

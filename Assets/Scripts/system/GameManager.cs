@@ -11,6 +11,11 @@ public class GameManager : MonoBehaviour
     public float hp;
     public float Maxhp;
 
+    public float shield;
+    public float counter;
+
+    public bool counterAttack = false;
+
     private int emptyEnemy;
 
     private void Awake()
@@ -18,6 +23,7 @@ public class GameManager : MonoBehaviour
         emptyEnemy = 1;
         instance = this;
         hp = Maxhp;
+        counterAttack = false;
     }
 
     public void DeadEnmey()
@@ -30,8 +36,7 @@ public class GameManager : MonoBehaviour
                 emptyEnemy++;
                 break;
             }
-            else
-                BattleSystem.instance.enemySlot[i - emptyEnemy] = BattleSystem.instance.enemySlot[i];
+            else BattleSystem.instance.enemySlot[i - emptyEnemy] = BattleSystem.instance.enemySlot[i];
 
             if (i == BattleSystem.instance.enemySlot.Length - 1)
             {
