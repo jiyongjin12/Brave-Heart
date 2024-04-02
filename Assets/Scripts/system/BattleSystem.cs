@@ -129,8 +129,6 @@ public class BattleSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        click = false;
-
         NewEnemy();
         Turn();
 
@@ -139,10 +137,16 @@ public class BattleSystem : MonoBehaviour
             state = State.loss;
             BatleEnd();
         }
+        if(enemyCount == 0)
+        {
+            state = State.win;
+            BatleEnd();
+        }
         else
         {
             Debug.Log("플레이어 턴");
             GameManager.instance.counterAttack = false;
+            click = false;
             state = State.playerTurn;
         }
     }
@@ -160,6 +164,9 @@ public class BattleSystem : MonoBehaviour
 
     void Turn()
     {
+        if (enemyCount == 0)
+            return;
+
         if (enemySlot[0].transform.position == attackLine) EnemyAttack();
         else
         {
@@ -170,6 +177,7 @@ public class BattleSystem : MonoBehaviour
 
                 Vector3 trans = enemySlot[i].transform.position;
                 enemySlot[i].transform.position = new Vector3(trans.x - 2, trans.y);
+
             }
         }
     }
@@ -220,7 +228,7 @@ public class BattleSystem : MonoBehaviour
 
     void BatleEnd()
     {
-        if(GameManager.instance.hp > 0)   Debug.Log("게임 승리");
+        if (GameManager.instance.hp > 0)  Debug.Log("게임 승리");
         if (GameManager.instance.hp <= 0) Debug.Log("게임 패배");
     }
 }
