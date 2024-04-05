@@ -9,18 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 289feac20754315408691a0117043af0, type: 3}
-  m_Name: Goblin
+  m_Script: {fileID: 11500000, guid: 04288deb820452a4ea4db92935f45834, type: 3}
+  m_Name: SingleAttack
   m_EditorClassIdentifier: 
-  enemyType: 1
-  EnemyName: "\uACE0\uBE14\uB9B0"
-  baseDamage: 1
-  baseHp: 10
-  damages:
-  - 1
-  - 1
-  - 1
-  maxHp:
-  - 5
-  - 5
-  - 5
+  itemType: 0
+  ItemName: "\uD654\uC0B4"
+  itemDesc: 
+  itemIcon: {fileID: 0}
+  baseDamage: 5
+  baseHp: 0
+  damages: []
+  hps: []

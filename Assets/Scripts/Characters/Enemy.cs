@@ -9,32 +9,25 @@ public class Enemy : MonoBehaviour
 
     public float hp;
     public float damage;
+    [SerializeField]
+    private GameObject ray;
 
-    public float enemyNum;
     private bool deadEnemy = false;
 
-    public static Enemy instance { get; private set; }
+    //public static Enemy instance { get; private set; }
 
     private void Awake()
     {
-        enemyNum = BattleSystem.instance.Num;
-        instance = this;
+        //instance = this;
         hp = enemyData.baseHp + enemyData.maxHp[Level];
         damage = enemyData.baseDamage + enemyData.damages[Level];
     }
 
     private void Update()
     {
-        if(hp <= 0)
-        {
-            Dead();
-        }
-        if(deadEnemy == true)
-        {
+        if(hp <= 0) StartCoroutine(Dead());
+        if (deadEnemy == true)
             deadEnemy = false;
-            enemyNum--;
-            BattleSystem.instance.Num--;
-        }
     }
 
     IEnumerator Dead()
@@ -42,6 +35,7 @@ public class Enemy : MonoBehaviour
         deadEnemy = true;
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
+        GameManager.instance.DeadEnmey();
         BattleSystem.instance.enemyCount--;
     }
 

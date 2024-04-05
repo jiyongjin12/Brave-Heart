@@ -12,12 +12,17 @@ public class BattleSystem : MonoBehaviour
 
     public static BattleSystem instance { get; private set; }
     public Transform playerBattleTrans; //플레이어의 좌표
-    public Transform[] enemyBattleTrans; //에너미 좌표
+    public Enemy[] enemySlot;
 
     public int enemyCount; //0이 되면 플레이어 승리
     public int curEnemy; //생성될 에너미 수
 
-    public float Num;
+    public GameObject enemy;
+
+    public int number;
+    private Vector3 attackLine = new Vector3(-4, 3);
+    private bool click;
+
     public enum State
     {
         start, playerTurn, enemyTurn, win, loss
@@ -29,52 +34,201 @@ public class BattleSystem : MonoBehaviour
     {
         Instantiate(PlayerPrefab, playerBattleTrans);
         instance = this;
+        number = 0;
+        click = false;
         state = State.start;
         BattleStart();
     }
 
     private void BattleStart()
     {
-        for (int i = 0; i < enemyBattleTrans.Length - 1; i++)
+        for (int i = 0; i < 3; i++)
         {
-            Instantiate(enemyPrefab[Random.Range(0, 3)], enemyBattleTrans[i]);
-            Num++;
+            enemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], new Vector3(4 + i * 2, 3), Quaternion.identity);
+            enemySlot[number] = enemy.GetComponent<Enemy>();
+            number++;
+            curEnemy--;
         }
         state = State.playerTurn;
     }
 
     public void PlayerAttackButton()
     {
-        if (state != State.playerTurn)
+        if (state != State.playerTurn || click)
             return;
 
-        Num = 0;
+        click = true;
         StartCoroutine(PlayerAttack());
+    }
+
+    public void PlayerDefenseButton()
+    {
+        if (state != State.playerTurn || click)
+            return;
+
+        click = true;
+        StartCoroutine(PlayerDefense());
+    }
+
+    public void PlayerCounterButton()
+    {
+        if (state != State.playerTurn || click)
+            return;
+
+        click = true;
+        StartCoroutine(PlayerCounter());
     }
 
     IEnumerator PlayerAttack()
     {
         yield return new WaitForSeconds(1f);
 
-        if(Enemy.instance.enemyNum == 0)
-            Enemy.instance.hp -= GameManager.instance.playerDamage;
-        else
-            Enemy.instance.hp -= 0;
+
+        if (enemySlot[0].hp > 0) enemySlot[0].hp -= GameManager.instance.playerDamage;
 
         if (enemyCount == 0)
         {
             state = State.win;
-            BatleWin();
+            BatleEnd();
         }
         else
         {
-            Debug.Log("게임 종료");
-            //state = State.enemyTurn;
+            Debug.Log("적 턴");
+            yield return new WaitForSeconds(1f);
+            state = State.enemyTurn;
+            StartCoroutine(EnemyTurn());
         }
     }
 
-    void BatleWin()
+    IEnumerator PlayerDefense()
     {
-        Debug.Log("게임 승리");
+        yield return new WaitForSeconds(1f);
+
+        GameManager.instance.shield = 5;
+
+        Debug.Log("적 턴");
+        yield return new WaitForSeconds(1f);
+        state = State.enemyTurn;
+        StartCoroutine(EnemyTurn());
+    }
+
+    IEnumerator PlayerCounter()
+    {
+        yield return new WaitForSeconds(1f);
+
+        GameManager.instance.counter = 3;
+        GameManager.instance.counterAttack = true;
+
+        Debug.Log("적 턴");
+        yield return new WaitForSeconds(1f);
+        state = State.enemyTurn;
+        StartCoroutine(EnemyTurn());
+    }
+
+    IEnumerator EnemyTurn()
+    {
+        yield return new WaitForSeconds(1f);
+
+        NewEnemy();
+        Turn();
+
+        if (GameManager.instance.hp <= 0)
+        {
+            state = State.loss;
+            BatleEnd();
+        }
+        if(enemyCount == 0)
+        {
+            state = State.win;
+            BatleEnd();
+        }
+        else
+        {
+            Debug.Log("플레이어 턴");
+            GameManager.instance.counterAttack = false;
+            click = false;
+            state = State.playerTurn;
+        }
+    }
+
+    void NewEnemy()
+    {
+        if (curEnemy == 0)
+            return;
+
+        enemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], new Vector3(10, 3), Quaternion.identity);
+        enemySlot[number] = enemy.GetComponent<Enemy>();
+        number++;
+        curEnemy--;
+    }
+
+    void Turn()
+    {
+        if (enemyCount == 0)
+            return;
+
+        if (enemySlot[0].transform.position == attackLine) EnemyAttack();
+        else
+        {
+            for (int i = 0; i < enemySlot.Length; i++)
+            {
+                if (enemySlot[i] == null)
+                    break;
+
+                Vector3 trans = enemySlot[i].transform.position;
+                enemySlot[i].transform.position = new Vector3(trans.x - 2, trans.y);
+
+            }
+        }
+    }
+
+    void EnemyAttack()
+    {
+        if (GameManager.instance.counterAttack == true) Counter();
+        else if(GameManager.instance.shield > 0)
+        {
+            GameManager.instance.shield -= enemySlot[0].damage;
+            if (GameManager.instance.shield < 0) GameManager.instance.hp += GameManager.instance.shield;
+        }
+        else GameManager.instance.hp -= enemySlot[0].damage;
+    }
+
+    void Counter()
+    {
+        if(GameManager.instance.shield > 0)
+        {
+            if (enemySlot[0].damage > GameManager.instance.counter)
+            {
+                GameManager.instance.shield -= enemySlot[0].damage * 2;
+                if (GameManager.instance.shield < 0) GameManager.instance.hp += GameManager.instance.shield;
+            }
+            else if (enemySlot[0].damage == GameManager.instance.counter) enemySlot[0].hp -= enemySlot[0].damage * 2;
+            else
+            {
+                GameManager.instance.shield -= enemySlot[0].damage / 2;
+                if (GameManager.instance.shield < 0)
+                    GameManager.instance.hp += GameManager.instance.shield;
+                enemySlot[0].hp -= enemySlot[0].damage;
+            }
+        }
+        else
+        {
+            if (enemySlot[0].damage > GameManager.instance.counter)
+            {
+                GameManager.instance.hp -= enemySlot[0].damage * 2;
+            }
+            else if (enemySlot[0].damage == GameManager.instance.counter) enemySlot[0].hp -= enemySlot[0].damage * 2;
+            else
+            {
+                GameManager.instance.hp -= enemySlot[0].damage / 2;
+                enemySlot[0].hp -= enemySlot[0].damage;
+            }
+        }
+    }
+
+    void BatleEnd()
+    {
+        if (GameManager.instance.hp > 0)  Debug.Log("게임 승리");
+        if (GameManager.instance.hp <= 0) Debug.Log("게임 패배");
     }
 }
