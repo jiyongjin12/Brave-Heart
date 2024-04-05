@@ -21,6 +21,9 @@ public class Dice : MonoBehaviour
 
     public event Action<float> HeightChanged; // 현재 높이값 변경 이벤트
 
+    private bool isHolding;
+    private bool Doubleclickprevention = true;
+
     private void Start()
     {
         rend = GetComponent<SpriteRenderer>();
@@ -28,50 +31,68 @@ public class Dice : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        
+        if (DiceManager.instance.isDragging)
         {
-            height = maxHeight;
-            transform.localScale = Vector3.one * height;
-            acceleration = 0;
-            loringCheck = true;
+            isHolding = true;
         }
-        else
+
+        //if(diceMgr.isRollingDice)
+        //{
+
+        //}
+
+        if (isHolding)
         {
-            acceleration -= Time.deltaTime * 0.2f; // 변경된 가속도 값
-            height += acceleration;
-
-            if (height <= .6)
+            if (Input.GetMouseButton(0) && Doubleclickprevention)
             {
-                // 가속도값에 -곱하여 +로 만듬
-                acceleration = (acceleration / 1.12f) * -1;
-                height = .6f;
-                bouncingCount += 1;
-
-                // 주사위 눈 바꾸기
-                randomDiceSides = UnityEngine.Random.Range(0, 6);
-                rend.sprite = diceSides[randomDiceSides];
+                height = maxHeight;
+                transform.localScale = Vector3.one * height;
+                acceleration = 0;
+                loringCheck = true;
             }
-
-            
-
-            if (Mathf.Abs(acceleration) <= 0.013f && Mathf.Abs(height) <= .7f || bouncingCount >= 5)
+            else
             {
-                acceleration = 0f;
-                height = .7f;
-                bouncingCount = 0;
+                Doubleclickprevention = false;
 
-                if (loringCheck)
+                acceleration -= Time.deltaTime * 0.2f; 
+                height += acceleration;  // 높이값에 가속력값 계속 더하기
+
+                if (height <= .6)
                 {
-                    finalSide = randomDiceSides + 1;
+                    // 가속도값에 -곱하여 +로 만듬
+                    acceleration = (acceleration / 1.12f) * -1;
+                    height = .6f;
+                    bouncingCount += 1;
 
-                    Debug.Log(finalSide);
-                    loringCheck = false;
+                    // 주사위 눈 바꾸기
+                    randomDiceSides = UnityEngine.Random.Range(0, 6);
+                    rend.sprite = diceSides[randomDiceSides];
                 }
+
+
+
+                if (Mathf.Abs(acceleration) <= 0.013f && Mathf.Abs(height) <= .7f || bouncingCount >= 5)
+                {
+                    acceleration = 0f;
+                    height = .7f;
+                    bouncingCount = 0;
+
+                    if (loringCheck)
+                    {
+                        finalSide = randomDiceSides + 1;
+
+                        Debug.Log(finalSide);
+                        loringCheck = false;
+                        isHolding = false;
+                        Doubleclickprevention = true;
+                    }
+                }
+
+                transform.localScale = Vector3.one * height;
+
+                HeightChanged?.Invoke(height);
             }
-
-            transform.localScale = Vector3.one * height;
-
-            HeightChanged?.Invoke(height);
         }
     } 
 }
