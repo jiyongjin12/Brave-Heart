@@ -23,18 +23,6 @@ public class DiceManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetMouseButton(0))
-        //{
-        //    isDragging = true;
-        //}
-
-        //if (Input.GetMouseButtonUp(0))
-        //{
-        //    isDragging = false;
-        //    RollingDice();
-        //    isRollingDice = false;
-        //}
-
         if (isRollingDice)
         {
             if (Input.GetMouseButton(0))

@@ -37,11 +37,6 @@ public class Dice : MonoBehaviour
             isHolding = true;
         }
 
-        //if(diceMgr.isRollingDice)
-        //{
-
-        //}
-
         if (isHolding)
         {
             if (Input.GetMouseButton(0) && Doubleclickprevention)
