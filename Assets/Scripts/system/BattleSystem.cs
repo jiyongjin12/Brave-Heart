@@ -9,6 +9,10 @@ public class BattleSystem : MonoBehaviour
 {
     public GameObject PlayerPrefab;
     public GameObject[] enemyPrefab;
+    [SerializeField]
+    private GameObject[] button;
+    [SerializeField]
+    private GameObject shieldIcon;
 
     public static BattleSystem instance { get; private set; }
     public Transform playerBattleTrans; //플레이어의 좌표
@@ -19,9 +23,11 @@ public class BattleSystem : MonoBehaviour
 
     public GameObject enemy;
 
-    public int number;
+    public int number = 0;
     private Vector3 attackLine = new Vector3(-4, 3);
-    private bool click;
+
+    private float battleMotion = 0;
+    private bool click = false;
 
     public enum State
     {
@@ -34,9 +40,8 @@ public class BattleSystem : MonoBehaviour
     {
         Instantiate(PlayerPrefab, playerBattleTrans);
         instance = this;
-        number = 0;
-        click = false;
         state = State.start;
+        shieldIcon.SetActive(false);
         BattleStart();
     }
 
@@ -57,8 +62,14 @@ public class BattleSystem : MonoBehaviour
         if (state != State.playerTurn || click)
             return;
 
+        battleMotion = 1;
         click = true;
-        StartCoroutine(PlayerAttack());
+        for(int i = 0; i < button.Length; i++)
+        {
+            button[i].SetActive(false);
+        }
+            
+        StartCoroutine(PlayerTurn());
     }
 
     public void PlayerDefenseButton()
@@ -66,8 +77,9 @@ public class BattleSystem : MonoBehaviour
         if (state != State.playerTurn || click)
             return;
 
+        battleMotion = 2;
         click = true;
-        StartCoroutine(PlayerDefense());
+        StartCoroutine(PlayerTurn());
     }
 
     public void PlayerCounterButton()
@@ -75,16 +87,33 @@ public class BattleSystem : MonoBehaviour
         if (state != State.playerTurn || click)
             return;
 
+        battleMotion = 3;
         click = true;
-        StartCoroutine(PlayerCounter());
+        StartCoroutine(PlayerTurn());
     }
 
-    IEnumerator PlayerAttack()
+    IEnumerator PlayerTurn()
     {
         yield return new WaitForSeconds(1f);
 
-
-        if (enemySlot[0].hp > 0) enemySlot[0].hp -= GameManager.instance.playerDamage;
+        if (battleMotion == 1)
+            if (enemySlot[0].hp > 0)
+            {
+                Debug.Log("공격");
+                enemySlot[0].hp -= GameManager.instance.playerDamage;
+            }
+        if (battleMotion == 2)
+        {
+            Debug.Log("쉴드 생성");
+            shieldIcon.SetActive(true);
+            GameManager.instance.shield = 5;
+        }
+        if (battleMotion == 3)
+        {
+            Debug.Log("카운터");
+            GameManager.instance.counter = 3;
+            GameManager.instance.counterAttack = true;
+        }
 
         if (enemyCount == 0)
         {
@@ -98,31 +127,6 @@ public class BattleSystem : MonoBehaviour
             state = State.enemyTurn;
             StartCoroutine(EnemyTurn());
         }
-    }
-
-    IEnumerator PlayerDefense()
-    {
-        yield return new WaitForSeconds(1f);
-
-        GameManager.instance.shield = 5;
-
-        Debug.Log("적 턴");
-        yield return new WaitForSeconds(1f);
-        state = State.enemyTurn;
-        StartCoroutine(EnemyTurn());
-    }
-
-    IEnumerator PlayerCounter()
-    {
-        yield return new WaitForSeconds(1f);
-
-        GameManager.instance.counter = 3;
-        GameManager.instance.counterAttack = true;
-
-        Debug.Log("적 턴");
-        yield return new WaitForSeconds(1f);
-        state = State.enemyTurn;
-        StartCoroutine(EnemyTurn());
     }
 
     IEnumerator EnemyTurn()
@@ -147,6 +151,10 @@ public class BattleSystem : MonoBehaviour
             Debug.Log("플레이어 턴");
             GameManager.instance.counterAttack = false;
             click = false;
+            for (int i = 0; i < button.Length; i++)
+            {
+                button[i].SetActive(true);
+            }
             state = State.playerTurn;
         }
     }
@@ -188,7 +196,11 @@ public class BattleSystem : MonoBehaviour
         else if(GameManager.instance.shield > 0)
         {
             GameManager.instance.shield -= enemySlot[0].damage;
-            if (GameManager.instance.shield < 0) GameManager.instance.hp += GameManager.instance.shield;
+            if (GameManager.instance.shield < 0)
+            {
+                shieldIcon.SetActive(false);
+                GameManager.instance.hp += GameManager.instance.shield;
+            }
         }
         else GameManager.instance.hp -= enemySlot[0].damage;
     }
@@ -202,12 +214,18 @@ public class BattleSystem : MonoBehaviour
                 GameManager.instance.shield -= enemySlot[0].damage * 2;
                 if (GameManager.instance.shield < 0) GameManager.instance.hp += GameManager.instance.shield;
             }
-            else if (enemySlot[0].damage == GameManager.instance.counter) enemySlot[0].hp -= enemySlot[0].damage * 2;
+            else if (enemySlot[0].damage == GameManager.instance.counter)
+            {
+                enemySlot[0].hp -= enemySlot[0].damage * 2;
+            }
             else
             {
                 GameManager.instance.shield -= enemySlot[0].damage / 2;
                 if (GameManager.instance.shield < 0)
+                {
+                    shieldIcon.SetActive(false);
                     GameManager.instance.hp += GameManager.instance.shield;
+                }   
                 enemySlot[0].hp -= enemySlot[0].damage;
             }
         }
