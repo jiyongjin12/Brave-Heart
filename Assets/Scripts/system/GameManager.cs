@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public float hp;
     public float Maxhp;
+
+    [SerializeField] private Image _hpBar;
 
     public float shield;
     public float counter;
@@ -24,6 +27,11 @@ public class GameManager : MonoBehaviour
         instance = this;
         hp = Maxhp;
         counterAttack = false;
+    }
+
+    private void Update()
+    {
+        _hpBar.fillAmount =  hp / Maxhp;
     }
 
     public void DeadEnmey()

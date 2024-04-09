@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Enemy", menuName = "Scriptable Object/EnemyData")]
 public class EnemyData : ScriptableObject
 {
-    public enum EnemyType { Slime, Goblin, Orc, Humman, Boss}
+    public enum EnemyType { Almost, Archer, Boss}
     public EnemyType enemyType;
     public string EnemyName;
 
