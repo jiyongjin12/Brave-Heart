@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289feac20754315408691a0117043af0, type: 3}
   m_Name: Slime
   m_EditorClassIdentifier: 
-  enemyType: 0
   EnemyName: "\uC2AC\uB77C\uC784"
   baseDamage: 1
   baseHp: 5
   damages:
   - 1
-  - 1
-  - 1
+  - 2
+  - 3
   maxHp:
-  - 5
   - 2
+  - 4
+  - 6
+  Wizarddmg:
+  - 1
   - 2
+  - 3

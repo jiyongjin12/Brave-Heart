@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public float Maxhp;
 
     [SerializeField] private Image _hpBar;
+    [SerializeField] private Text TextDefense;
 
     public float shield;
     public float counter;

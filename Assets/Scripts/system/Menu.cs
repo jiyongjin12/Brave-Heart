@@ -30,4 +30,9 @@ public class Menu : MonoBehaviour
     {
         AudioListener.volume = AudioListener.volume == 0 ? 1 : 0;
     }
+
+    public void PointerEnter()
+    {
+        
+    }
 }

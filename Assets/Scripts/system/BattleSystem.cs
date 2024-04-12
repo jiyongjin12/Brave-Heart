@@ -25,6 +25,7 @@ public class BattleSystem : MonoBehaviour
 
     public int number = 0;
     private Vector3 attackLine = new Vector3(-4, 3);
+    private Vector3 ArcherAttackLine = new Vector3(-5, 3);
 
     private float battleMotion = 0;
     private bool click = false;
@@ -64,10 +65,6 @@ public class BattleSystem : MonoBehaviour
 
         battleMotion = 1;
         click = true;
-        for(int i = 0; i < button.Length; i++)
-        {
-            button[i].SetActive(false);
-        }
             
         StartCoroutine(PlayerTurn());
     }
@@ -94,21 +91,27 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerTurn()
     {
+        for (int i = 0; i < button.Length; i++)
+        {
+            button[i].SetActive(false);
+        }
         yield return new WaitForSeconds(1f);
 
         if (battleMotion == 1)
+        {
             if (enemySlot[0].hp > 0)
             {
                 Debug.Log("공격");
                 enemySlot[0].hp -= GameManager.instance.playerDamage;
             }
-        if (battleMotion == 2)
+        }    
+        else if (battleMotion == 2)
         {
             Debug.Log("쉴드 생성");
             shieldIcon.SetActive(true);
             GameManager.instance.shield = 5;
         }
-        if (battleMotion == 3)
+        else
         {
             Debug.Log("카운터");
             GameManager.instance.counter = 3;
@@ -129,7 +132,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    IEnumerator EnemyTurn()
+    public IEnumerator EnemyTurn()
     {
         yield return new WaitForSeconds(1f);
 
@@ -141,7 +144,7 @@ public class BattleSystem : MonoBehaviour
             state = State.loss;
             BatleEnd();
         }
-        if(enemyCount == 0)
+        else if(enemyCount == 0)
         {
             state = State.win;
             BatleEnd();
@@ -196,11 +199,7 @@ public class BattleSystem : MonoBehaviour
         else if(GameManager.instance.shield > 0)
         {
             GameManager.instance.shield -= enemySlot[0].damage;
-            if (GameManager.instance.shield < 0)
-            {
-                shieldIcon.SetActive(false);
-                GameManager.instance.hp += GameManager.instance.shield;
-            }
+            ShieldBreak();
         }
         else GameManager.instance.hp -= enemySlot[0].damage;
     }
@@ -212,7 +211,7 @@ public class BattleSystem : MonoBehaviour
             if (enemySlot[0].damage > GameManager.instance.counter)
             {
                 GameManager.instance.shield -= enemySlot[0].damage * 2;
-                if (GameManager.instance.shield < 0) GameManager.instance.hp += GameManager.instance.shield;
+                ShieldBreak();
             }
             else if (enemySlot[0].damage == GameManager.instance.counter)
             {
@@ -221,11 +220,7 @@ public class BattleSystem : MonoBehaviour
             else
             {
                 GameManager.instance.shield -= enemySlot[0].damage / 2;
-                if (GameManager.instance.shield < 0)
-                {
-                    shieldIcon.SetActive(false);
-                    GameManager.instance.hp += GameManager.instance.shield;
-                }   
+                ShieldBreak();
                 enemySlot[0].hp -= enemySlot[0].damage;
             }
         }
@@ -241,6 +236,15 @@ public class BattleSystem : MonoBehaviour
                 GameManager.instance.hp -= enemySlot[0].damage / 2;
                 enemySlot[0].hp -= enemySlot[0].damage;
             }
+        }
+    }
+
+    void ShieldBreak()
+    {
+        if (GameManager.instance.shield < 0)
+        {
+            shieldIcon.SetActive(false);
+            GameManager.instance.hp += GameManager.instance.shield;
         }
     }
 
