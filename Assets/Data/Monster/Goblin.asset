@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289feac20754315408691a0117043af0, type: 3}
   m_Name: Goblin
   m_EditorClassIdentifier: 
-  enemyType: 1
   EnemyName: "\uACE0\uBE14\uB9B0"
   baseDamage: 1
   baseHp: 10
   damages:
   - 2
-  - 2
-  - 2
+  - 4
+  - 6
   maxHp:
   - 5
-  - 5
-  - 5
+  - 10
+  - 15
+  Wizarddmg:
+  - 3
+  - 7
+  - 11

@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: f48a14ca71d6bb142a946791c01ffe79, type: 2}
+  enemyType: 0
+  Enemykind: 1
   Level: 0
   hp: 0
   damage: 0
-  ray: {fileID: 4483964442747495472, guid: c283f3a3afc249b4ab2b6cf148744466, type: 3}

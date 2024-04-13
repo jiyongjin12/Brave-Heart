@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289feac20754315408691a0117043af0, type: 3}
   m_Name: Orc
   m_EditorClassIdentifier: 
-  enemyType: 2
   EnemyName: "\uC624\uD06C"
   baseDamage: 5
   baseHp: 15
   damages:
   - 5
-  - 5
-  - 5
+  - 10
+  - 15
   maxHp:
   - 10
-  - 10
-  - 10
+  - 20
+  - 30
+  Wizarddmg:
+  - 0
+  - 0
+  - 0
