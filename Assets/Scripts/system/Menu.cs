@@ -10,6 +10,7 @@ public class Menu : MonoBehaviour
     public AudioMixer mixer;
     public Slider audio;
 
+    public Vector2 newSize = new Vector2(200, 100);
     public void ExitGame()
     {
 #if UNITY_EDITOR
@@ -33,6 +34,15 @@ public class Menu : MonoBehaviour
 
     public void PointerEnter()
     {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+
+        float width = rectTransform.rect.width;
+        float height = rectTransform.rect.height;
         
+    }
+
+    public void GameStart()
+    {
+        SceneManager.LoadScene("InGame");
     }
 }

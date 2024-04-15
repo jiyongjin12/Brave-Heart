@@ -1089,7 +1089,7 @@ MonoBehaviour:
   hp: 20
   Maxhp: 100
   _hpBar: {fileID: 2054459025}
-  TextDefense: {fileID: 0}
+  TextDefense: {fileID: 2047484136}
   shield: 0
   counter: 0
   counterAttack: 0

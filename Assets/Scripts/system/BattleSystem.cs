@@ -25,10 +25,11 @@ public class BattleSystem : MonoBehaviour
 
     public int number = 0;
     private Vector3 attackLine = new Vector3(-4, 3);
-    private Vector3 ArcherAttackLine = new Vector3(-5, 3);
+    private Vector3 newEnemyPos = new Vector3(10, 3);
 
     private float battleMotion = 0;
     private bool click = false;
+
 
     public enum State
     {
@@ -44,6 +45,20 @@ public class BattleSystem : MonoBehaviour
         state = State.start;
         shieldIcon.SetActive(false);
         BattleStart();
+    }
+
+    private void FixedUpdate()
+    {
+        if (enemyCount == 0)
+        {
+            state = State.win;
+            BatleEnd();
+        }
+        else if (GameManager.instance.hp <= 0)
+        {
+            state = State.loss;
+            BatleEnd();
+        }
     }
 
     private void BattleStart()
@@ -99,11 +114,8 @@ public class BattleSystem : MonoBehaviour
 
         if (battleMotion == 1)
         {
-            if (enemySlot[0].hp > 0)
-            {
-                Debug.Log("공격");
-                enemySlot[0].hp -= GameManager.instance.playerDamage;
-            }
+            Debug.Log("공격");
+            enemySlot[0].hp -= GameManager.instance.playerDamage;
         }    
         else if (battleMotion == 2)
         {
@@ -118,18 +130,10 @@ public class BattleSystem : MonoBehaviour
             GameManager.instance.counterAttack = true;
         }
 
-        if (enemyCount == 0)
-        {
-            state = State.win;
-            BatleEnd();
-        }
-        else
-        {
-            Debug.Log("적 턴");
-            yield return new WaitForSeconds(1f);
-            state = State.enemyTurn;
-            StartCoroutine(EnemyTurn());
-        }
+        Debug.Log("적 턴");
+        yield return new WaitForSeconds(1f);
+        state = State.enemyTurn;
+        StartCoroutine(EnemyTurn());
     }
 
     public IEnumerator EnemyTurn()
@@ -137,111 +141,124 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         NewEnemy();
-        Turn();
-
-        if (GameManager.instance.hp <= 0)
-        {
-            state = State.loss;
-            BatleEnd();
-        }
-        else if(enemyCount == 0)
-        {
-            state = State.win;
-            BatleEnd();
-        }
-        else
-        {
-            Debug.Log("플레이어 턴");
-            GameManager.instance.counterAttack = false;
-            click = false;
-            for (int i = 0; i < button.Length; i++)
-            {
-                button[i].SetActive(true);
-            }
-            state = State.playerTurn;
-        }
+        StartCoroutine(Turn());
     }
 
     void NewEnemy()
     {
-        if (curEnemy == 0)
+        if (curEnemy == 0 || enemySlot[6] != null)
             return;
 
-        enemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], new Vector3(10, 3), Quaternion.identity);
+        enemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], newEnemyPos, Quaternion.identity);
         enemySlot[number] = enemy.GetComponent<Enemy>();
         number++;
         curEnemy--;
     }
 
-    void Turn()
+    IEnumerator Turn()
     {
-        if (enemyCount == 0)
-            return;
-
-        if (enemySlot[0].transform.position == attackLine) EnemyAttack();
+        if (enemySlot[0].transform.position == attackLine && Enemy.instance.enemyType != Enemy.EnemyType.Archer ||
+            Enemy.instance.enemyType != Enemy.EnemyType.Wizard && enemySlot[0].transform.position == attackLine)
+        {
+            EnemyAttack(0);
+            StartCoroutine(Attack());
+        }
         else
         {
             for (int i = 0; i < enemySlot.Length; i++)
             {
-                if (enemySlot[i] == null)
+                if (enemySlot[i] == null || enemySlot[i].isMovement)
                     break;
 
                 Vector3 trans = enemySlot[i].transform.position;
                 enemySlot[i].transform.position = new Vector3(trans.x - 2, trans.y);
-
+                yield return new WaitForSeconds(0.5f);
+                if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
+                    Enemy.instance.AttackArcher(i);
+                if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
+                    Enemy.instance.AttackWizard(i);
+                yield return new WaitForSeconds(1f);
+                if (enemySlot[i] == null) i--;
             }
         }
+
+        Debug.Log("플레이어 턴");
+        GameManager.instance.counterAttack = false;
+        click = false;
+        for (int i = 0; i < button.Length; i++)
+        {
+            button[i].SetActive(true);
+        }
+
+        state = State.playerTurn;
     }
 
-    void EnemyAttack()
+    public IEnumerator Attack()
     {
-        if (GameManager.instance.counterAttack == true) Counter();
+        for(int i = 0; i < enemySlot.Length; i++)
+        {
+            yield return new WaitForSeconds(0.5f);
+            if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
+                Enemy.instance.AttackArcher(i);
+            else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
+                Enemy.instance.AttackWizard(i);
+            else
+                break;
+            yield return new WaitForSeconds(0.5f);
+        }
+        
+    }
+
+    public void EnemyAttack(int num)
+    {
+
+        if (GameManager.instance.counterAttack == true) Counter(num);
         else if(GameManager.instance.shield > 0)
         {
-            GameManager.instance.shield -= enemySlot[0].damage;
+            GameManager.instance.shield -= enemySlot[num].damage;
             ShieldBreak();
         }
-        else GameManager.instance.hp -= enemySlot[0].damage;
+        else GameManager.instance.hp -= enemySlot[num].damage;
     }
 
-    void Counter()
+    void Counter(int num)
     {
         if(GameManager.instance.shield > 0)
         {
-            if (enemySlot[0].damage > GameManager.instance.counter)
+            if (enemySlot[num].damage > GameManager.instance.counter)
             {
-                GameManager.instance.shield -= enemySlot[0].damage * 2;
+                GameManager.instance.shield -= enemySlot[num].damage * 2;
                 ShieldBreak();
             }
-            else if (enemySlot[0].damage == GameManager.instance.counter)
+            else if (enemySlot[num].damage == GameManager.instance.counter)
             {
-                enemySlot[0].hp -= enemySlot[0].damage * 2;
+                enemySlot[num].hp -= enemySlot[num].damage * 2;
             }
             else
             {
-                GameManager.instance.shield -= enemySlot[0].damage / 2;
+                GameManager.instance.shield -= enemySlot[num].damage / 2;
                 ShieldBreak();
-                enemySlot[0].hp -= enemySlot[0].damage;
+                enemySlot[num].hp -= enemySlot[num].damage;
             }
         }
         else
         {
-            if (enemySlot[0].damage > GameManager.instance.counter)
+            if (enemySlot[num].damage > GameManager.instance.counter)
             {
-                GameManager.instance.hp -= enemySlot[0].damage * 2;
+                GameManager.instance.hp -= enemySlot[num].damage * 2;
             }
-            else if (enemySlot[0].damage == GameManager.instance.counter) enemySlot[0].hp -= enemySlot[0].damage * 2;
+            else if (enemySlot[num].damage == GameManager.instance.counter) enemySlot[num].hp -= enemySlot[num].damage * 2;
             else
             {
-                GameManager.instance.hp -= enemySlot[0].damage / 2;
-                enemySlot[0].hp -= enemySlot[0].damage;
+                GameManager.instance.hp -= enemySlot[num].damage / 2;
+                enemySlot[num].hp -= enemySlot[num].damage;
             }
         }
     }
 
     void ShieldBreak()
     {
-        if (GameManager.instance.shield < 0)
+        if (GameManager.instance.shield <= 0)
         {
             shieldIcon.SetActive(false);
             GameManager.instance.hp += GameManager.instance.shield;

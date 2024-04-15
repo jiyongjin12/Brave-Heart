@@ -13,17 +13,22 @@ public class Enemy : MonoBehaviour
 
     public float hp;
     public float damage;
+    public bool isMovement = false;
 
     private bool deadEnemy = false;
 
-    //public static Enemy instance { get; private set; }
+    [SerializeField]
+    private int Charge;
+
+    public static Enemy instance { get; private set; }
 
     private void Awake()
     {
+        Charge = 0;
         hp = enemyData.baseHp + enemyData.maxHp[Level];
         damage = enemyData.baseDamage + enemyData.damages[Level];
         RandomType();
-        //instance = this;
+        instance = this;
     }
 
     private void Update()
@@ -40,6 +45,24 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
         GameManager.instance.DeadEnmey();
         BattleSystem.instance.enemyCount--;
+    }
+
+    public void AttackArcher(int i)
+    {
+
+        BattleSystem.instance.EnemyAttack(i);
+    }
+
+    public void AttackWizard(int i)
+    {
+
+        BattleSystem.instance.enemySlot[i].Charge++;
+        if(BattleSystem.instance.enemySlot[i].Charge >= 3)
+        {
+            BattleSystem.instance.EnemyAttack(i);
+            BattleSystem.instance.enemySlot[i].Charge = 0;
+        }
+        
     }
 
     void RandomType()
