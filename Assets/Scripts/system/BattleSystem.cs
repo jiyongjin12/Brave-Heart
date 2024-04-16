@@ -189,7 +189,19 @@ public class BattleSystem : MonoBehaviour
         {
             button[i].SetActive(true);
         }
-
+        int num = 0;
+        for (int j = 0; j < 10; j++)
+        {
+            if (enemySlot[j] == null && enemySlot[j + 1] == null)
+            {
+                num++;
+            }
+            else if (enemySlot[j] == null && enemySlot[j + 1] != null)
+            {
+                enemySlot[j - num] = enemySlot[j + 1];
+                enemySlot[j + 1] = null;
+            }
+        }
         state = State.playerTurn;
     }
 
