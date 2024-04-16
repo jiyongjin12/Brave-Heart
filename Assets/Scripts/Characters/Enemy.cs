@@ -43,7 +43,8 @@ public class Enemy : MonoBehaviour
         deadEnemy = true;
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
-        GameManager.instance.DeadEnmey();
+        if(BattleSystem.instance.state == BattleSystem.State.playerTurn) GameManager.instance.DeadEnmey();
+        if(BattleSystem.instance.state == BattleSystem.State.enemyTurn) BattleSystem.instance.number--;
         BattleSystem.instance.enemyCount--;
     }
 
