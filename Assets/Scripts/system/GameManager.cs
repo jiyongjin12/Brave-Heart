@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        emptyEnemy = 0;
+        emptyEnemy = 1;
         instance = this;
         hp = Maxhp;
         counterAttack = false;
@@ -44,25 +44,23 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < BattleSystem.instance.enemySlot.Length; i++)
         {
             
-            if (BattleSystem.instance.enemySlot[i - emptyEnemy] == null)
+            if (BattleSystem.instance.enemySlot[i] == null && BattleSystem.instance.enemySlot[i + emptyEnemy] == null)
             {
                 BattleSystem.instance.number--;
                 emptyEnemy++;
                 break;
             }
-            else if (BattleSystem.instance.enemySlot[i] == null)
+            else if (BattleSystem.instance.enemySlot[i] == null && BattleSystem.instance.enemySlot[i + 1] != null)
             {
                 BattleSystem.instance.number--;
-                emptyEnemy++;
-                break;
+                BattleSystem.instance.enemySlot[i - emptyEnemy] = BattleSystem.instance.enemySlot[i + 1];
             }
-            else BattleSystem.instance.enemySlot[i - emptyEnemy] = BattleSystem.instance.enemySlot[i];
 
             if (i == BattleSystem.instance.enemySlot.Length - emptyEnemy)
             {
                 BattleSystem.instance.enemySlot[i] = null;
             }
         }
-        emptyEnemy = 0;
+        emptyEnemy = 1;
     }
 }
