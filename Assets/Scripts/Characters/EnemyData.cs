@@ -12,5 +12,4 @@ public class EnemyData : ScriptableObject
 
     public float[] damages;
     public float[] maxHp;
-    public float[] Wizarddmg;
 }

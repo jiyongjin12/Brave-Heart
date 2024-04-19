@@ -30,7 +30,6 @@ public class BattleSystem : MonoBehaviour
     private float battleMotion = 0;
     private bool click = false;
 
-
     public enum State
     {
         start, playerTurn, enemyTurn, win, loss
@@ -78,8 +77,8 @@ public class BattleSystem : MonoBehaviour
         if (state != State.playerTurn || click)
             return;
 
-        battleMotion = 1;
         click = true;
+        battleMotion = 1;
             
         StartCoroutine(PlayerTurn());
     }
@@ -89,8 +88,8 @@ public class BattleSystem : MonoBehaviour
         if (state != State.playerTurn || click)
             return;
 
-        battleMotion = 2;
         click = true;
+        battleMotion = 2;
         StartCoroutine(PlayerTurn());
     }
 
@@ -99,8 +98,8 @@ public class BattleSystem : MonoBehaviour
         if (state != State.playerTurn || click)
             return;
 
-        battleMotion = 3;
         click = true;
+        battleMotion = 3;
         StartCoroutine(PlayerTurn());
     }
 
@@ -110,7 +109,7 @@ public class BattleSystem : MonoBehaviour
         {
             button[i].SetActive(false);
         }
-        yield return new WaitForSeconds(1f);
+        yield return YieldCache.WaitForSeconds(1f);
 
         if (battleMotion == 1)
         {
@@ -121,24 +120,24 @@ public class BattleSystem : MonoBehaviour
         {
             Debug.Log("쉴드 생성");
             shieldIcon.SetActive(true);
-            GameManager.instance.shield = 5;
+            GameManager.instance.shield = 15;
         }
         else
         {
             Debug.Log("카운터");
-            GameManager.instance.counter = 3;
+            GameManager.instance.counter = 4;
             GameManager.instance.counterAttack = true;
         }
 
         Debug.Log("적 턴");
-        yield return new WaitForSeconds(2f);
+        yield return YieldCache.WaitForSeconds(2);
         state = State.enemyTurn;
         StartCoroutine(EnemyTurn());
     }
 
     public IEnumerator EnemyTurn()
     {
-        yield return new WaitForSeconds(1f);
+        yield return YieldCache.WaitForSeconds(1);
 
         NewEnemy();
         StartCoroutine(Turn());
@@ -172,12 +171,12 @@ public class BattleSystem : MonoBehaviour
 
                 Vector3 trans = enemySlot[i].transform.position;
                 enemySlot[i].transform.position = new Vector3(trans.x - 2, trans.y);
-                yield return new WaitForSeconds(0.5f);
+                yield return YieldCache.WaitForSeconds(0.5f);
                 if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
                     Enemy.instance.AttackArcher(i);
                 if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
                     Enemy.instance.AttackWizard(i);
-                yield return new WaitForSeconds(1f);
+                yield return YieldCache.WaitForSeconds(1);
                 if (enemySlot[i] == null) i--;
             }
         }
@@ -209,14 +208,14 @@ public class BattleSystem : MonoBehaviour
     {
         for(int i = 0; i < enemySlot.Length; i++)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return YieldCache.WaitForSeconds(0.5f);
             if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
                 Enemy.instance.AttackArcher(i);
             else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
                 Enemy.instance.AttackWizard(i);
             else
                 break;
-            yield return new WaitForSeconds(0.5f);
+            yield return YieldCache.WaitForSeconds(0.5f);
         }
         
     }
@@ -281,5 +280,34 @@ public class BattleSystem : MonoBehaviour
     {
         if (GameManager.instance.hp > 0)  Debug.Log("게임 승리");
         if (GameManager.instance.hp <= 0) Debug.Log("게임 패배");
+    }
+}
+
+static class YieldCache
+{
+    public static readonly WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
+    public static readonly WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
+
+    private static readonly Dictionary<float, WaitForSeconds>
+_timeInterval = new Dictionary<float, WaitForSeconds>(new FloatComparer());
+
+    class FloatComparer : IEqualityComparer<float>
+    {
+        bool IEqualityComparer<float>.Equals(float x, float y)
+        {
+            return x == y;
+        }
+        int IEqualityComparer<float>.GetHashCode(float obj)
+        {
+            return obj.GetHashCode();
+        }
+    }
+
+    public static WaitForSeconds WaitForSeconds(float seconds)
+    {
+        WaitForSeconds wfs;
+        if (!_timeInterval.TryGetValue(seconds, out wfs))
+            _timeInterval.Add(seconds, wfs = new WaitForSeconds(seconds));
+        return wfs;
     }
 }

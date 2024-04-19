@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9076197679635151397}
   - component: {fileID: 5335420522683115055}
   m_Layer: 0
-  m_Name: orc
+  m_Name: SlimeWizard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.16538422, g: 0.7735849, b: 0.13622873, a: 1}
+  m_Color: {r: 0.2622522, g: 0.74058676, b: 0.8018868, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,9 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8d461470d9416448a3e8861a41a337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: f48a14ca71d6bb142a946791c01ffe79, type: 2}
-  enemyType: 0
-  Enemykind: 1
+  enemyData: {fileID: 11400000, guid: a458c1310dfbda64196786b51f0cccf6, type: 2}
+  enemyType: 2
+  Enemykind: 0
   Level: 0
   hp: 0
   damage: 0
+  isMovement: 0
+  Charge: 0

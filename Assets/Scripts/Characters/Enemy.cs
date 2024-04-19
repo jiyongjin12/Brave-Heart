@@ -27,7 +27,6 @@ public class Enemy : MonoBehaviour
         Charge = 0;
         hp = enemyData.baseHp + enemyData.maxHp[Level];
         damage = enemyData.baseDamage + enemyData.damages[Level];
-        RandomType();
         instance = this;
     }
 
@@ -64,46 +63,6 @@ public class Enemy : MonoBehaviour
             BattleSystem.instance.enemySlot[i].Charge = 0;
         }
         
-    }
-
-    void RandomType()
-    {
-        int rand_Type = Random.Range(0, 3);
-
-        switch (rand_Type)
-        {
-            case (int)EnemyType.Warrior:
-                this.enemyType = EnemyType.Warrior;
-                break;
-            case (int)EnemyType.Archer:
-                this.enemyType = EnemyType.Archer;
-                break;
-            case (int)EnemyType.Wizard:
-                this.enemyType = EnemyType.Wizard;
-                break;
-        }
-        if (this.Enemykind == EnemyKind.Orc) this.enemyType = EnemyType.Warrior;
-
-        EnemyTypeData();
-    }
-
-    void EnemyTypeData()
-    {
-        switch (enemyType)
-        {
-            case EnemyType.Warrior:
-                hp = enemyData.baseHp + enemyData.maxHp[Level];
-                damage = enemyData.baseDamage + enemyData.damages[Level];
-                break;
-            case EnemyType.Archer:
-                hp = enemyData.baseHp / 2 + enemyData.maxHp[Level];
-                damage = enemyData.baseDamage + enemyData.damages[Level];
-                break;
-            case EnemyType.Wizard:
-                hp = enemyData.baseHp / 2 + enemyData.maxHp[Level] / 2;
-                damage = enemyData.baseDamage + enemyData.Wizarddmg[Level] * 2;
-                break;
-        }
     }
 
     public void LevelUp()
