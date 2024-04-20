@@ -8,6 +8,7 @@ public class DiceManager : MonoBehaviour
     public List<Dice> diceList = new List<Dice>();   // 턴 엔드나 다시 돌릴거 없을때 여기꺼 받아오면 되쟈나? 나 ㅄ인가?
     public List<Rigidbody2D> diceRollingList = new List<Rigidbody2D>();   //
     public List<Dice> selectedDice = new List<Dice>();                    // 우클릭시 이 두 리스트의 관계는 Dice.cs에 있음
+    public List<Dice> diceEventCheckList = new List<Dice>(); // 코드 재사용성 안좋음(아마)
 
     public int rerollNum = 4;
     public TMP_Text RollingNumText;
@@ -18,9 +19,9 @@ public class DiceManager : MonoBehaviour
     private float deceleration = 1.7f; // 감속도
 
     public bool isRollingDice = true;
-    public bool isSelectedDice = false;
 
     public static DiceManager instance { get; private set; }
+
 
     private void Awake()
     {
@@ -29,6 +30,8 @@ public class DiceManager : MonoBehaviour
         foreach(var n in diceList)
         {
             diceRollingList.Add(n.GetComponent<Rigidbody2D>());
+            diceEventCheckList.Add(n.GetComponent<Dice>());
+  
         }
     }
 
@@ -39,9 +42,11 @@ public class DiceManager : MonoBehaviour
 
         if (isRollingDice)
         {
+
             if (Input.GetMouseButton(0))
             {
                 isDragging = true;
+                
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -49,6 +54,7 @@ public class DiceManager : MonoBehaviour
                 isDragging = false;
                 RollingDice();
                 isRollingDice = false;
+                rerollNum -= 1;
             }
         }
 
@@ -72,21 +78,24 @@ public class DiceManager : MonoBehaviour
             }
         }
 
-        if (rerollNum > 0)
+        if (diceEventCheckList.Count != 0) // diceEventCheckList가 0이되서 오류나는것을 방지
         {
-            if (Input.GetKeyDown(KeyCode.R) && !isRollingDice)
+            if (rerollNum > 0 && !diceEventCheckList[0].BounceTime)
             {
-                isRollingDice = true;
-                rerollNum -= 1;
+                if (diceEventCheckList[0].endLoring && !isRollingDice)
+                {
+                    isRollingDice = true;
+                    //rerollNum -= 1;
+                }
             }
         }
+        
+        if (rerollNum <= 0 && diceEventCheckList[0].endLoring) // 여기 dice.endLoring으로 추가 해주면 될듯? R말고 다시 시작이 있다면
+        {
+            StartCoroutine(DiceEndMove());
+        }
 
-        //if (rerollNum <= 0) // 코루틴으로 바꿀만함
-        //{
-        //    StartCoroutine(DiceEndMove());
-        //}
-
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L)) // 초기화 버튼 (없앨예정)
         {
             IsMyTurn();
         }
@@ -105,7 +114,8 @@ public class DiceManager : MonoBehaviour
 
     private void IsMyTurn()
     {
-        diceRollingList.Clear();
+        diceRollingList.Clear(); // L 연타시 늘어나는거 방지 , 나중에 없에야 할것
+        diceEventCheckList.Clear(); // L 연타시 늘어나는거 방지 , 나중에 없에야 할것
         selectedDice.Clear();
         rerollNum = 4;
 
@@ -118,19 +128,19 @@ public class DiceManager : MonoBehaviour
             switch (n)
             {
                 case 0:
-                    StartDicePos = new Vector3(-3.32f, -2, 0f);
+                    StartDicePos = new Vector3(-3.32f, -1.65f, 0f);
                     break;
                 case 1:
-                    StartDicePos = new Vector3(-1.68f, -2, 0f);
+                    StartDicePos = new Vector3(-1.68f, -1.65f, 0f);
                     break;
                 case 2:
-                    StartDicePos = new Vector3(-0.04f, -2, 0f);
+                    StartDicePos = new Vector3(-0.04f, -1.65f, 0f);
                     break;
                 case 3:
-                    StartDicePos = new Vector3(1.58f, -2, 0f);
+                    StartDicePos = new Vector3(1.58f, -1.65f, 0f);
                     break;
                 case 4:
-                    StartDicePos = new Vector3(3.22f, -2, 0f);
+                    StartDicePos = new Vector3(3.22f, -1.65f, 0f);
                     break;
             }
 
@@ -139,12 +149,13 @@ public class DiceManager : MonoBehaviour
             diceList[n].dice.transform.localScale = Vector3.one * StartDiceScale; // 초반 크기
 
             diceList[n].dice.GetComponent<SpriteRenderer>().sprite = diceList[n].diceSides[0]; //오브젝트 1로 바꾸기
-            diceList[n].endLoring = false;
+            diceList[n].endLoring = true;
         }
 
         foreach (var n in diceList)
         {
             diceRollingList.Add(n.GetComponent<Rigidbody2D>());
+            diceEventCheckList.Add(n.GetComponent<Dice>());
             for (int i = 0; i < 5; i++)
             {
                 diceList[i].SelectedDice = false;
@@ -210,12 +221,15 @@ public class DiceManager : MonoBehaviour
     {
         foreach (Dice dice in diceList)
         {
-            if (!dice.endLoring) // 선택되지 않은 주사위만 선택된 주사위로 이동
+            if (!selectedDice.Contains(dice)) // 이미 선택된 주사위는 제외하고 선택된 주사위로 추가
             {
                 selectedDice.Add(dice);
-                dice.endLoring = true;
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(.1f);
             }
         }
+
+        // diceRollingList를 비웁니다.
+        diceRollingList.Clear();
+        yield return null;
     }
 }

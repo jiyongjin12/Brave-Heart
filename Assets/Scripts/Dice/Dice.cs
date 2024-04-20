@@ -27,7 +27,7 @@ public class Dice : MonoBehaviour
     private bool isHolding;
 
     public bool endLoring = true;
-    public bool reRollCheck = false;
+    //public bool reRollCheck = false;
 
     private void Start()
     {
@@ -43,6 +43,7 @@ public class Dice : MonoBehaviour
         {
             // 여기서 DiceManager의 diceRollingList에서 해당 오브젝트를 제거하는 코드
             DiceManager.instance.diceRollingList.Remove(GetComponent<Rigidbody2D>());
+            DiceManager.instance.diceEventCheckList.Remove(GetComponent<Dice>());
             DiceManager.instance.selectedDice.Add(GetComponent<Dice>());
             SelectedDice = true;
         }
@@ -75,7 +76,6 @@ public class Dice : MonoBehaviour
         }
         else // 마우스를 땠을때
         {
-            
             BounceTime = true;
 
             acceleration -= Time.deltaTime * 0.2f;
@@ -107,8 +107,8 @@ public class Dice : MonoBehaviour
                 isHolding = false;
                 BounceTime = false;
                 endLoring = true;
+                
             }
-
             dice.localScale = Vector3.one * height;
 
             HeightChanged?.Invoke(height);
