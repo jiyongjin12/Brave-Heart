@@ -50,12 +50,6 @@ public class GameManager : MonoBehaviour
                 emptyEnemy++;
                 break;
             }
-            else if (BattleSystem.instance.enemySlot[i] == null)
-            {
-                BattleSystem.instance.number--;
-                emptyEnemy++;
-                break;
-            }
             else BattleSystem.instance.enemySlot[i - emptyEnemy] = BattleSystem.instance.enemySlot[i];
 
             if (i == BattleSystem.instance.enemySlot.Length - emptyEnemy)
