@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DiceScore : MonoBehaviour
 {
     public float DamageScore = 0;
     public bool fullHouse;
-    public bool fourOfAKind;
+    public bool fourOfKind;
     public bool straight;
     public bool yacht;
+    public TextEffect fullHouseText;
+    public TextEffect fourOfKingText;
+    public TextEffect straightText;
+    public TextEffect yachtText;
+
+    public TMP_Text DamageText;
 
     private void Update()
     {
@@ -26,6 +33,8 @@ public class DiceScore : MonoBehaviour
         }
         DamageScore = sum;
 
+        DamageText.text = DamageScore.ToString("0.0");
+
         // DiceManager에 있는 diceList.finalSide 값을 가져와서 배열에 저장
         int[] sides = new int[manager.diceList.Count];
         for (int i = 0; i < manager.diceList.Count; i++)
@@ -41,59 +50,67 @@ public class DiceScore : MonoBehaviour
         CheckYacht(sides);
     }
 
-    // Full House 패턴 확인
+    // Full House
     private void CheckFullHouse(int[] sides)
     {
-        if ((sides[0] == sides[1] && sides[1] == sides[2] && sides[3] == sides[4]) ||
-            (sides[0] == sides[1] && sides[2] == sides[3] && sides[3] == sides[4]))
+        if ((sides[0] == sides[2] && sides[3] == sides[4] && sides[0] != sides[3]) ||
+        (sides[0] == sides[1] && sides[2] == sides[4] && sides[0] != sides[2]))
         {
             fullHouse = true;
+            fullHouseText.WobbleText();
         }
         else
         {
             fullHouse = false;
+            fullHouseText.ResetTextWaveMent();
         }
     }
 
-    // Four of a Kind 패턴 확인
+    // 4 of a Kind
     private void CheckFourOfAKind(int[] sides)
     {
-        if ((sides[0] == sides[1] && sides[1] == sides[2] && sides[2] == sides[3]) ||
-            (sides[1] == sides[2] && sides[2] == sides[3] && sides[3] == sides[4]))
+        if ((sides[0] == sides[3] && sides[0] != sides[4]) ||
+        (sides[1] == sides[4] && sides[0] != sides[1]))
         {
-            fourOfAKind = true;
+            fourOfKind = true;
+            fourOfKingText.WobbleText();
         }
         else
         {
-            fourOfAKind = false;
+            fourOfKind = false;
+            fourOfKingText.ResetTextWaveMent();
         }
     }
 
-    // Straight 패턴 확인
+    // Straight
     private void CheckStraight(int[] sides)
     {
         bool isStraight = true;
+        straightText.WobbleText();
         for (int i = 1; i < sides.Length; i++)
         {
             if (sides[i] != sides[i - 1] + 1)
             {
                 isStraight = false;
+                straightText.ResetTextWaveMent();
                 break;
             }
         }
         straight = isStraight;
     }
 
-    // Yacht 패턴 확인
+    // Yacht
     private void CheckYacht(int[] sides)
     {
         if (sides[0] == sides[4])
         {
             yacht = true;
+            yachtText.WobbleText();
         }
         else
         {
             yacht = false;
+            yachtText.ResetTextWaveMent();
         }
     }
 }

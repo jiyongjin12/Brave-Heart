@@ -88,12 +88,14 @@ public class DiceManager : MonoBehaviour
                     //rerollNum -= 1;
                 }
             }
+
+            if (rerollNum <= 0 && diceEventCheckList[0].endLoring) // 여기 dice.endLoring으로 추가 해주면 될듯? R말고 다시 시작이 있다면
+            {
+                StartCoroutine(DiceEndMove());
+            }
         }
         
-        if (rerollNum <= 0 && diceEventCheckList[0].endLoring) // 여기 dice.endLoring으로 추가 해주면 될듯? R말고 다시 시작이 있다면
-        {
-            StartCoroutine(DiceEndMove());
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.L)) // 초기화 버튼 (없앨예정)
         {
