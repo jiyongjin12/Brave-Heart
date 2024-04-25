@@ -49,15 +49,14 @@ public class TextEffect : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Z))
-        {
-            WobbleText();
-        }
-        else
-        {
-            ResetTextWaveMent();
-        }
-
+        //if (Input.GetKey(KeyCode.Z))
+        //{
+        //    WobbleText();
+        //}
+        //else
+        //{
+        //    ResetTextWaveMent();
+        //}
     }
 
     public void WobbleText()
