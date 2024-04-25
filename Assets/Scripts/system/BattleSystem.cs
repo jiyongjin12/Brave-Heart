@@ -5,6 +5,21 @@ using UnityEngine.UI;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
+[System.Serializable]
+public class EnemyPer
+{
+    [SerializeField]
+    private GameObject prefab;
+    [SerializeField]
+    [Range(0, 100)]
+    private float chance = 0;
+
+    public float Weight { set; get; }
+
+    public GameObject Prefab => prefab;
+    public float Chance => chance;
+}
+
 public class BattleSystem : MonoBehaviour
 {
     public GameObject PlayerPrefab;
