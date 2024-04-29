@@ -1354,6 +1354,7 @@ MonoBehaviour:
   SelectedDice: 0
   BounceTime: 0
   endLoring: 1
+  StartSetUpBool: 0
 --- !u!1 &243094978
 GameObject:
   m_ObjectHideFlags: 0
@@ -3493,6 +3494,7 @@ MonoBehaviour:
   SelectedDice: 0
   BounceTime: 0
   endLoring: 1
+  StartSetUpBool: 0
 --- !u!1 &880660297
 GameObject:
   m_ObjectHideFlags: 0
@@ -4123,6 +4125,7 @@ MonoBehaviour:
   SelectedDice: 0
   BounceTime: 0
   endLoring: 1
+  StartSetUpBool: 0
 --- !u!1 &1008442007
 GameObject:
   m_ObjectHideFlags: 0
@@ -5120,6 +5123,7 @@ MonoBehaviour:
   SelectedDice: 0
   BounceTime: 0
   endLoring: 1
+  StartSetUpBool: 0
 --- !u!1 &1314833660
 GameObject:
   m_ObjectHideFlags: 0
@@ -6594,6 +6598,7 @@ MonoBehaviour:
   SelectedDice: 0
   BounceTime: 0
   endLoring: 1
+  StartSetUpBool: 0
 --- !u!1 &1767537279
 GameObject:
   m_ObjectHideFlags: 0
