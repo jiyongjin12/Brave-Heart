@@ -23,11 +23,11 @@ public class EnemyPer
 public class BattleSystem : MonoBehaviour
 {
     public GameObject PlayerPrefab;
-    public GameObject[] enemyPrefab;
+    public EnemyPer[] enemyPrefab;
     [SerializeField]
     private GameObject[] button;
-    [SerializeField]
-    private GameObject shieldIcon;
+
+    public GameObject shieldIcon;
 
     public static BattleSystem instance { get; private set; }
     public Transform playerBattleTrans; //플레이어의 좌표
@@ -39,11 +39,11 @@ public class BattleSystem : MonoBehaviour
     public GameObject enemy;
 
     public int number = 0;
-    private Vector3 attackLine = new Vector3(-4, 3);
-    private Vector3 newEnemyPos = new Vector3(10, 3);
+    private Vector3 attackLine = new Vector3(-4, 5);
+    private Vector3 newEnemyPos = new Vector3(12, 5);
 
-    private float battleMotion = 0;
-    private bool click = false;
+    public float battleMotion = 0;
+    private float acc;
 
     public enum State
     {
@@ -58,12 +58,22 @@ public class BattleSystem : MonoBehaviour
         instance = this;
         state = State.start;
         shieldIcon.SetActive(false);
+        EnemyPercent();
+    }
+
+    private void Start()
+    {
         BattleStart();
     }
 
     private void FixedUpdate()
     {
-        if (enemyCount == 0)
+        battle();
+    }
+
+    void battle()
+    {
+        if (enemyCount <= 0)
         {
             state = State.win;
             BatleEnd();
@@ -75,55 +85,52 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    private void EnemyPercent()
+    {
+        acc = 0;
+        foreach(var item in enemyPrefab)
+        {
+            acc += item.Chance;
+            item.Weight = acc;
+        }
+    }
+
+    private void SpawnEnemy(Vector2 pos)
+    {
+        var clone = enemyPrefab[GetRandom()];
+        
+        enemy = Instantiate(clone.Prefab, pos, Quaternion.identity);
+        enemySlot[number] = enemy.GetComponent<Enemy>();
+    }
+
+    private int GetRandom()
+    {
+        float random = Random.value * acc;
+
+        for(int i = 0; i < enemyPrefab.Length; ++i)
+        {
+            if(enemyPrefab[i].Weight >= random)
+            {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
     private void BattleStart()
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
-            enemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], new Vector3(4 + i * 2, 3), Quaternion.identity);
-            enemySlot[number] = enemy.GetComponent<Enemy>();
+            SpawnEnemy(new Vector2(4 + i * 2, 5));
             number++;
             curEnemy--;
         }
         state = State.playerTurn;
     }
 
-    public void PlayerAttackButton()
+    public IEnumerator PlayerTurn()
     {
-        if (state != State.playerTurn || click)
-            return;
-
-        click = true;
-        battleMotion = 1;
-            
-        StartCoroutine(PlayerTurn());
-    }
-
-    public void PlayerDefenseButton()
-    {
-        if (state != State.playerTurn || click)
-            return;
-
-        click = true;
-        battleMotion = 2;
-        StartCoroutine(PlayerTurn());
-    }
-
-    public void PlayerCounterButton()
-    {
-        if (state != State.playerTurn || click)
-            return;
-
-        click = true;
-        battleMotion = 3;
-        StartCoroutine(PlayerTurn());
-    }
-
-    IEnumerator PlayerTurn()
-    {
-        for (int i = 0; i < button.Length; i++)
-        {
-            button[i].SetActive(false);
-        }
         yield return YieldCache.WaitForSeconds(1f);
 
         if (battleMotion == 1)
@@ -135,17 +142,18 @@ public class BattleSystem : MonoBehaviour
         {
             Debug.Log("쉴드 생성");
             shieldIcon.SetActive(true);
-            GameManager.instance.shield = 15;
+            GameManager.instance.shield = GameManager.instance.playerDamage;
         }
         else
         {
             Debug.Log("카운터");
-            GameManager.instance.counter = 4;
+            GameManager.instance.counter = GameManager.instance.playerDamage;
             GameManager.instance.counterAttack = true;
         }
 
         Debug.Log("적 턴");
         yield return YieldCache.WaitForSeconds(2);
+        battle();
         state = State.enemyTurn;
         StartCoroutine(EnemyTurn());
     }
@@ -155,6 +163,7 @@ public class BattleSystem : MonoBehaviour
         yield return YieldCache.WaitForSeconds(1);
 
         NewEnemy();
+        yield return YieldCache.WaitForSeconds(0.5f);
         StartCoroutine(Turn());
     }
 
@@ -163,8 +172,7 @@ public class BattleSystem : MonoBehaviour
         if (curEnemy == 0 || enemySlot[6] != null)
             return;
 
-        enemy = Instantiate(enemyPrefab[Random.Range(0, enemyPrefab.Length)], newEnemyPos, Quaternion.identity);
-        enemySlot[number] = enemy.GetComponent<Enemy>();
+        SpawnEnemy(newEnemyPos);
         number++;
         curEnemy--;
     }
@@ -174,8 +182,8 @@ public class BattleSystem : MonoBehaviour
         if (enemySlot[0].transform.position == attackLine && Enemy.instance.enemyType != Enemy.EnemyType.Archer ||
             Enemy.instance.enemyType != Enemy.EnemyType.Wizard && enemySlot[0].transform.position == attackLine)
         {
-            EnemyAttack(0);
-            StartCoroutine(Attack());
+            GameManager.instance.EnemyAttack(0);
+            StartCoroutine(GameManager.instance.Attack());
         }
         else
         {
@@ -198,11 +206,7 @@ public class BattleSystem : MonoBehaviour
 
         Debug.Log("플레이어 턴");
         GameManager.instance.counterAttack = false;
-        click = false;
-        for (int i = 0; i < button.Length; i++)
-        {
-            button[i].SetActive(true);
-        }
+        battle();
         int num = 0;
         for (int j = 0; j < 10; j++)
         {
@@ -217,78 +221,6 @@ public class BattleSystem : MonoBehaviour
             }
         }
         state = State.playerTurn;
-    }
-
-    public IEnumerator Attack()
-    {
-        for(int i = 0; i < enemySlot.Length; i++)
-        {
-            yield return YieldCache.WaitForSeconds(0.5f);
-            if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
-                Enemy.instance.AttackArcher(i);
-            else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
-                Enemy.instance.AttackWizard(i);
-            else
-                break;
-            yield return YieldCache.WaitForSeconds(0.5f);
-        }
-        
-    }
-
-    public void EnemyAttack(int num)
-    {
-
-        if (GameManager.instance.counterAttack == true) Counter(num);
-        else if(GameManager.instance.shield > 0)
-        {
-            GameManager.instance.shield -= enemySlot[num].damage;
-            ShieldBreak();
-        }
-        else GameManager.instance.hp -= enemySlot[num].damage;
-    }
-
-    void Counter(int num)
-    {
-        if(GameManager.instance.shield > 0)
-        {
-            if (enemySlot[num].damage > GameManager.instance.counter)
-            {
-                GameManager.instance.shield -= enemySlot[num].damage * 2;
-                ShieldBreak();
-            }
-            else if (enemySlot[num].damage == GameManager.instance.counter)
-            {
-                enemySlot[num].hp -= enemySlot[num].damage * 2;
-            }
-            else
-            {
-                GameManager.instance.shield -= enemySlot[num].damage / 2;
-                ShieldBreak();
-                enemySlot[num].hp -= enemySlot[num].damage;
-            }
-        }
-        else
-        {
-            if (enemySlot[num].damage > GameManager.instance.counter)
-            {
-                GameManager.instance.hp -= enemySlot[num].damage * 2;
-            }
-            else if (enemySlot[num].damage == GameManager.instance.counter) enemySlot[num].hp -= enemySlot[num].damage * 2;
-            else
-            {
-                GameManager.instance.hp -= enemySlot[num].damage / 2;
-                enemySlot[num].hp -= enemySlot[num].damage;
-            }
-        }
-    }
-
-    void ShieldBreak()
-    {
-        if (GameManager.instance.shield <= 0)
-        {
-            shieldIcon.SetActive(false);
-            GameManager.instance.hp += GameManager.instance.shield;
-        }
     }
 
     void BatleEnd()
