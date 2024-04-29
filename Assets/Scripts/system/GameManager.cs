@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image _hpBar;
     [SerializeField] private Text TextDefense;
 
+    public GameObject adc;
+
     public float shield;
     public float counter;
 
@@ -39,6 +41,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ADCTrue()
+    {
+        adc.SetActive(true);
+    }
+
+    public void playerTurn()
+    {
+        StartCoroutine(BattleSystem.instance.PlayerTurn());
+    }
+
     public void DeadEnmey()
     {
         for (int i = 1; i < BattleSystem.instance.enemySlot.Length; i++)
@@ -58,5 +70,75 @@ public class GameManager : MonoBehaviour
             }
         }
         emptyEnemy = 1;
+    }
+
+    public IEnumerator Attack()
+    {
+        for (int i = 0; i < BattleSystem.instance.enemySlot.Length; i++)
+        {
+            yield return YieldCache.WaitForSeconds(0.5f);
+            if (BattleSystem.instance.enemySlot[i].enemyType == Enemy.EnemyType.Archer)
+                Enemy.instance.AttackArcher(i);
+            else if (BattleSystem.instance.enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
+                Enemy.instance.AttackWizard(i);
+            else
+                break;
+            yield return YieldCache.WaitForSeconds(0.5f);
+        }
+
+    }
+
+    public void EnemyAttack(int num)
+    {
+
+        if (counterAttack == true) Counter(num);
+        else if (shield > 0)
+        {
+            shield -= BattleSystem.instance.enemySlot[num].damage;
+            ShieldBreak();
+        }
+        else hp -= BattleSystem.instance.enemySlot[num].damage;
+    }
+
+    public void Counter(int num)
+    {
+        if (shield > 0)
+        {
+            if (BattleSystem.instance.enemySlot[num].damage > counter)
+            {
+                shield -= BattleSystem.instance.enemySlot[num].damage * 2;
+                ShieldBreak();
+            }
+            else if (BattleSystem.instance.enemySlot[num].damage == counter)
+            {
+                BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+            }
+            else
+            {
+                BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
+            }
+        }
+        else
+        {
+            if (BattleSystem.instance.enemySlot[num].damage > counter)
+            {
+                hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+            }
+            else if (BattleSystem.instance.enemySlot[num].damage == counter) BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+            else
+            {
+                hp -= BattleSystem.instance.enemySlot[num].damage / 2;
+                BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
+            }
+        }
+    }
+
+    public void ShieldBreak()
+    {
+        if (shield <= 0)
+        {
+            BattleSystem.instance.shieldIcon.SetActive(false);
+            hp += shield;
+        }
     }
 }

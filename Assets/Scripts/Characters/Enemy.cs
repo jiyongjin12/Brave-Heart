@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     public void AttackArcher(int i)
     {
 
-        BattleSystem.instance.EnemyAttack(i);
+        GameManager.instance.EnemyAttack(i);
     }
 
     public void AttackWizard(int i)
@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour
         BattleSystem.instance.enemySlot[i].Charge++;
         if(BattleSystem.instance.enemySlot[i].Charge >= 3)
         {
-            BattleSystem.instance.EnemyAttack(i);
+            GameManager.instance.EnemyAttack(i);
             BattleSystem.instance.enemySlot[i].Charge = 0;
         }
         

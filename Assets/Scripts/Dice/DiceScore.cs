@@ -33,6 +33,7 @@ public class DiceScore : MonoBehaviour
         }
         DamageScore = sum;
 
+        GameManager.instance.playerDamage = DamageScore;
         DamageText.text = DamageScore.ToString("0.0");
 
         // DiceManager에 있는 diceList.finalSide 값을 가져와서 배열에 저장
@@ -48,6 +49,33 @@ public class DiceScore : MonoBehaviour
         CheckFourOfAKind(sides);
         CheckStraight(sides);
         CheckYacht(sides);
+    }
+
+    public void PlayerAttackButton()
+    {
+        if (BattleSystem.instance.state != BattleSystem.State.playerTurn)
+            return;
+
+        BattleSystem.instance.battleMotion = 1;
+        GameManager.instance.adc.SetActive(false);
+    }
+
+    public void PlayerDefenseButton()
+    {
+        if (BattleSystem.instance.state != BattleSystem.State.playerTurn)
+            return;
+
+        BattleSystem.instance.battleMotion = 2;
+        GameManager.instance.adc.SetActive(false);
+    }
+
+    public void PlayerCounterButton()
+    {
+        if (BattleSystem.instance.state != BattleSystem.State.playerTurn)
+            return;
+
+        BattleSystem.instance.battleMotion = 3;
+        GameManager.instance.adc.SetActive(false);
     }
 
     // Full House
