@@ -96,10 +96,10 @@ public class DiceManager : MonoBehaviour
         
         
 
-        if (Input.GetKeyDown(KeyCode.L)) // 초기화 버튼 (없앨예정)
-        {
-            IsMyTurn();
-        }
+        //if (Input.GetKeyDown(KeyCode.L)) // 초기화 버튼 (없앨예정)
+        //{
+        //    IsMyTurn();
+        //}
     }
 
     private void RollingDice()
@@ -113,7 +113,7 @@ public class DiceManager : MonoBehaviour
     }
 
 
-    private void IsMyTurn()
+    public void IsMyTurn()
     {
         diceRollingList.Clear(); // L 연타시 늘어나는거 방지 , 나중에 없에야 할것
         diceEventCheckList.Clear(); // L 연타시 늘어나는거 방지 , 나중에 없에야 할것

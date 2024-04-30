@@ -218,6 +218,8 @@ public class BattleSystem : MonoBehaviour
                 enemySlot[j + 1] = null;
             }
         }
+        GameManager.instance.isClick = false;
+        DiceManager.instance.IsMyTurn();
         state = State.playerTurn;
     }
 

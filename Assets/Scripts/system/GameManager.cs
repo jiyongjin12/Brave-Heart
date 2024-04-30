@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public bool counterAttack = false;
 
     private int emptyEnemy;
+    public bool isClick;
 
     private void Awake()
     {
@@ -30,15 +31,15 @@ public class GameManager : MonoBehaviour
         instance = this;
         hp = Maxhp;
         counterAttack = false;
+        isClick = false;
     }
 
     private void Update()
     {
         _hpBar.fillAmount =  hp / Maxhp;
-        if(shield > 0)
-        {
-            TextDefense.text = shield.ToString();
-        }
+        TextDefense.text = shield.ToString();
+        if (isClick == true && adc.activeInHierarchy == true)
+            adc.SetActive(false);
     }
 
     public void ADCTrue()
@@ -48,9 +49,10 @@ public class GameManager : MonoBehaviour
 
     public void playerTurn()
     {
-        if (BattleSystem.instance.battleMotion == 0)
+        if (BattleSystem.instance.battleMotion == 0 || isClick != false || DiceManager.instance.diceRollingList.Count != 0)
             return;
 
+        isClick = true;
         StartCoroutine(BattleSystem.instance.PlayerTurn());
     }
 

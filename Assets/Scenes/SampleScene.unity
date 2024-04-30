@@ -1920,8 +1920,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  enemyCount: 4
-  curEnemy: 4
+  enemyCount: 10
+  curEnemy: 10
   enemy: {fileID: 0}
   number: 0
   battleMotion: 0
@@ -4031,10 +4031,12 @@ MonoBehaviour:
   Maxhp: 100
   _hpBar: {fileID: 2086752706}
   TextDefense: {fileID: 481866379}
+  ADCImg: {fileID: 1684888106}
   adc: {fileID: 1684888106}
   shield: 0
   counter: 0
   counterAttack: 0
+  isClick: 0
 --- !u!4 &841290107
 Transform:
   m_ObjectHideFlags: 0
