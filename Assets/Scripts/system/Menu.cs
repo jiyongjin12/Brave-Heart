@@ -20,6 +20,11 @@ public class Menu : MonoBehaviour
 #endif
     }
 
+    public void NewGame()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
     public void AudioControl()
     {
         float sound = audio.value;

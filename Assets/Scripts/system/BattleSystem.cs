@@ -153,7 +153,6 @@ public class BattleSystem : MonoBehaviour
 
         Debug.Log("적 턴");
         yield return YieldCache.WaitForSeconds(2);
-        battle();
         state = State.enemyTurn;
         StartCoroutine(EnemyTurn());
     }
@@ -169,7 +168,7 @@ public class BattleSystem : MonoBehaviour
 
     void NewEnemy()
     {
-        if (curEnemy == 0 || enemySlot[6] != null)
+        if (curEnemy <= 0 || enemySlot[8] != null)
             return;
 
         SpawnEnemy(newEnemyPos);
@@ -206,7 +205,6 @@ public class BattleSystem : MonoBehaviour
 
         Debug.Log("플레이어 턴");
         GameManager.instance.counterAttack = false;
-        battle();
         int num = 0;
         for (int j = 0; j < 10; j++)
         {
@@ -225,6 +223,7 @@ public class BattleSystem : MonoBehaviour
 
     void BatleEnd()
     {
+        Time.timeScale = 0;
         if (GameManager.instance.hp > 0)  Debug.Log("게임 승리");
         if (GameManager.instance.hp <= 0) Debug.Log("게임 패배");
     }

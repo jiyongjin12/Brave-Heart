@@ -16,6 +16,7 @@ public class DiceScore : MonoBehaviour
     public TextEffect yachtText;
 
     public TMP_Text DamageText;
+    public TMP_Text ADCText;
 
     private void Update()
     {
@@ -57,6 +58,7 @@ public class DiceScore : MonoBehaviour
             return;
 
         BattleSystem.instance.battleMotion = 1;
+        ADCText.text = "Attack";
         GameManager.instance.adc.SetActive(false);
     }
 
@@ -66,6 +68,7 @@ public class DiceScore : MonoBehaviour
             return;
 
         BattleSystem.instance.battleMotion = 2;
+        ADCText.text = "Defense";
         GameManager.instance.adc.SetActive(false);
     }
 
@@ -75,6 +78,7 @@ public class DiceScore : MonoBehaviour
             return;
 
         BattleSystem.instance.battleMotion = 3;
+        ADCText.text = "Counter";
         GameManager.instance.adc.SetActive(false);
     }
 
