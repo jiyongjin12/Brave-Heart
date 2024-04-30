@@ -48,6 +48,9 @@ public class GameManager : MonoBehaviour
 
     public void playerTurn()
     {
+        if (BattleSystem.instance.battleMotion == 0)
+            return;
+
         StartCoroutine(BattleSystem.instance.PlayerTurn());
     }
 
