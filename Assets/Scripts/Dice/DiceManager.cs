@@ -46,7 +46,6 @@ public class DiceManager : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 isDragging = true;
-                
             }
 
             if (Input.GetMouseButtonUp(0))

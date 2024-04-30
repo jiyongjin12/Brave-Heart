@@ -29,6 +29,8 @@ public class Dice : MonoBehaviour
     public bool endLoring = true;
     //public bool reRollCheck = false;
 
+    public bool StartSetUpBool = false;
+
     private void Start()
     {
         rend = dice.GetComponent<SpriteRenderer>();

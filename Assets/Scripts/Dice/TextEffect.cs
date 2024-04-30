@@ -47,18 +47,6 @@ public class TextEffect : MonoBehaviour
         textMesh = GetComponent<TMP_Text>();
     }
 
-    private void Update()
-    {
-        //if (Input.GetKey(KeyCode.Z))
-        //{
-        //    WobbleText();
-        //}
-        //else
-        //{
-        //    ResetTextWaveMent();
-        //}
-    }
-
     public void WobbleText()
     {
         textMesh.ForceMeshUpdate();
