@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DiceManager : MonoBehaviour
@@ -19,6 +20,8 @@ public class DiceManager : MonoBehaviour
     private float deceleration = 1.7f; // °¨¼Óµµ
 
     public bool isRollingDice = true;
+
+    public bool isBool = true;
 
     public static DiceManager instance { get; private set; }
 
@@ -42,18 +45,18 @@ public class DiceManager : MonoBehaviour
 
         if (isRollingDice)
         {
-
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && isBool)
             {
                 isDragging = true;
             }
 
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) && isDragging)
             {
                 isDragging = false;
                 RollingDice();
                 isRollingDice = false;
                 rerollNum -= 1;
+                isBool = false;
             }
         }
 
