@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour
 
     private bool deadEnemy = false;
 
+
+    private float shakeTime = 1;
+
     [SerializeField]
     private int Charge;
 
@@ -46,6 +49,17 @@ public class Enemy : MonoBehaviour
         if(BattleSystem.instance.state == BattleSystem.State.enemyTurn) BattleSystem.instance.number--;
         BattleSystem.instance.enemyCount--;
     }
+
+    //public void ShakeMonster(int i)
+    //{
+    //    if (shakeTime >= 0)
+    //    {
+
+    //        transform.position = transform.position + new Vector3(ShakePos.x, ShakePos.y, 0);
+
+    //        shakeTime -= Time.deltaTime;
+    //    }
+    //}
 
     public void AttackArcher(int i)
     {

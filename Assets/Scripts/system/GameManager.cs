@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
                 Enemy.instance.AttackWizard(i);
             else
                 break;
-            yield return YieldCache.WaitForSeconds(0.5f);
+            yield return YieldCache.WaitForSeconds(1f);
         }
 
     }

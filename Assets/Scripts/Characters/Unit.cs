@@ -4,36 +4,25 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public string unitName;
-    public int unitLevel;
+    public static Unit instance { get; private set; }
 
-    public float damage;
-
-    public float maxHp;
-    public float curHp;
-
-    public static float enmeyNum;
-
-    public bool TakeDamage(float dmg)
+    private void Awake()
     {
-        curHp -= dmg;
-
-        if (curHp <= 0)
-            return true;
-        else
-            return false;
+        instance = this;
     }
 
-    public bool EnemyHit(float dmg)
+    public void AttackMotion()
     {
-        if(enmeyNum == 1)
-        {
-            curHp -= dmg;
-        }
+        
+    }
 
-        if (curHp <= 0)
-            return true;
-        else
-            return false;
+    public void DefenseMotion()
+    {
+
+    }
+
+    public void CounterMotion()
+    {
+
     }
 }

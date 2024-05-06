@@ -136,6 +136,7 @@ public class BattleSystem : MonoBehaviour
         if (battleMotion == 1)
         {
             Debug.Log("АјАн");
+            Unit.instance.AttackMotion();
             enemySlot[0].hp -= GameManager.instance.playerDamage;
         }    
         else if (battleMotion == 2)
@@ -192,12 +193,14 @@ public class BattleSystem : MonoBehaviour
                     break;
 
                 Vector3 trans = enemySlot[i].transform.position;
-                enemySlot[i].transform.position = new Vector3(trans.x - 2, trans.y);
+                StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x - 2, trans.y)));
                 yield return YieldCache.WaitForSeconds(0.5f);
                 if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
                     Enemy.instance.AttackArcher(i);
-                if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
+                else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
                     Enemy.instance.AttackWizard(i);
+                else if(enemySlot[0].enemyType == Enemy.EnemyType.Warrior && enemySlot[0].transform.position == attackLine)
+                    GameManager.instance.EnemyAttack(0);
                 yield return YieldCache.WaitForSeconds(1);
                 if (enemySlot[i] == null) i--;
             }
@@ -221,6 +224,25 @@ public class BattleSystem : MonoBehaviour
         GameManager.instance.isClick = false;
         DiceManager.instance.IsMyTurn();
         state = State.playerTurn;
+    }
+
+    IEnumerator MoveTo(Enemy a, Vector3 toPos)
+    {
+        float count = 0;
+        Vector3 wasPos = a.transform.position;
+
+        while (true)
+        {
+            count += Time.deltaTime * 2;
+            a.transform.position = Vector3.Lerp(wasPos, toPos, count);
+
+            if (count >= 1)
+            {
+                a.transform.position = toPos;
+                break;
+            }
+            yield return null;
+        }
     }
 
     void BatleEnd()
