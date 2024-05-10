@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9076197679635151398}
   - component: {fileID: 9076197679635151397}
   - component: {fileID: 5335420522683115055}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: goblinArcher
   m_TagString: Untagged
   m_Icon: {fileID: 0}

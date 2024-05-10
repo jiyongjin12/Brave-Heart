@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         isClick = true;
         StartCoroutine(BattleSystem.instance.PlayerTurn());
     }
-
+    //적이 죽었을 때 배열 변경
     public void DeadEnmey()
     {
         for (int i = 1; i < BattleSystem.instance.enemySlot.Length; i++)
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator Attack()
     {
-        for (int i = 0; i < BattleSystem.instance.enemySlot.Length; i++)
+        for (int i = 1; i < BattleSystem.instance.enemySlot.Length; i++)
         {
             yield return YieldCache.WaitForSeconds(0.5f);
             if (BattleSystem.instance.enemySlot[i].enemyType == Enemy.EnemyType.Archer)
@@ -117,10 +117,12 @@ public class GameManager : MonoBehaviour
             else if (BattleSystem.instance.enemySlot[num].damage == counter)
             {
                 BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+                StartCoroutine(Enemy.instance.ShakeMonster(num));
             }
             else
             {
                 BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
+                StartCoroutine(Enemy.instance.ShakeMonster(num));
             }
         }
         else
@@ -129,11 +131,15 @@ public class GameManager : MonoBehaviour
             {
                 hp -= BattleSystem.instance.enemySlot[num].damage * 2;
             }
-            else if (BattleSystem.instance.enemySlot[num].damage == counter) BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+            else if (BattleSystem.instance.enemySlot[num].damage == counter)
+            {
+                BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+                StartCoroutine(Enemy.instance.ShakeMonster(num));
+            }
             else
             {
-                hp -= BattleSystem.instance.enemySlot[num].damage / 2;
                 BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
+                StartCoroutine(Enemy.instance.ShakeMonster(num));
             }
         }
     }

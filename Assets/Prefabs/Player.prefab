@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1054607304419080499}
   - component: {fileID: 1054607304419080498}
   - component: {fileID: 1054607304419080497}
-  - component: {fileID: 3389721259387976878}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -98,23 +97,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86ef1d9347e921047ad5dff25bc8d6a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: player
-  unitLevel: 1
-  damage: 1
-  maxHp: 10
-  curHp: 10
---- !u!114 &3389721259387976878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054607304419080496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc9ec9b39ea91b24ab76ee2e45624cb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameText: {fileID: 0}
-  levelText: {fileID: 0}
-  hpSlider: {fileID: 0}
+  playerPos: {x: -8, y: 5, z: 0}
