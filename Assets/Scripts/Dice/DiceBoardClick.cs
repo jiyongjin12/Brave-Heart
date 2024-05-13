@@ -6,6 +6,9 @@ public class DiceBoardClick : MonoBehaviour
 {
     public void BoardClickEvent()
     {
-        DiceManager.instance.isBool = true;
+        if(Input.GetMouseButtonDown(0))
+        {
+            DiceManager.instance.isBool = true;
+        }
     }
 }
