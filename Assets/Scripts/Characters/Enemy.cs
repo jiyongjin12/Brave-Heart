@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private int Charge;
 
-    private float shakeTime = 2f;
+    private float shakeTime = 5f;
 
     public static Enemy instance { get; private set; }
 
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if(hp <= 0) StartCoroutine(Dead());
+        if(hp <= 0 && !Unit.instance.isAttacking) StartCoroutine(Dead());
         if (deadEnemy == true)
             deadEnemy = false;
         //if()
@@ -52,12 +52,24 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator ShakeMonster(int i)
     {
-        float shakePower = 0.3f;
+        float shakePower;
+        if (BattleSystem.instance.state == BattleSystem.State.playerTurn)
+        {
+            shakeTime = 4f;
+            shakePower = 0.01f;
+        }
+        else
+        {
+            shakeTime = 2f;
+            shakePower = 0.05f;
+        }
+
         Vector3 origin = BattleSystem.instance.enemySlot[i].transform.position;
 
         while (shakeTime >= 0f)
         {
-            shakeTime -= 0.05f;
+            if (BattleSystem.instance.state == BattleSystem.State.playerTurn) shakeTime -= 0.004f;
+            else shakeTime -= 0.05f;
             BattleSystem.instance.enemySlot[i].transform.position = origin + (Vector3)Random.insideUnitCircle * shakePower * shakeTime;
             yield return null;
         }

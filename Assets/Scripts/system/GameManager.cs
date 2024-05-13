@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image _hpBar;
     [SerializeField] private Text TextDefense;
 
+    public GameObject Damage;
+
     public GameObject adc;
 
     public float shield;
@@ -123,13 +125,13 @@ public class GameManager : MonoBehaviour
         }
         else if (BattleSystem.instance.enemySlot[num].damage == counter)
         {
-            BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
             StartCoroutine(Enemy.instance.ShakeMonster(num));
+            BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
         }
         else
         {
-            BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
             StartCoroutine(Enemy.instance.ShakeMonster(num));
+            BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
         }
     }
 

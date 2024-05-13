@@ -137,9 +137,8 @@ public class BattleSystem : MonoBehaviour
         {
             Debug.Log("공격");
             Unit.instance.AttackMotion();
-            yield return new WaitForSeconds(1f);
-            enemySlot[0].hp -= GameManager.instance.playerDamage;
-            StartCoroutine(Enemy.instance.ShakeMonster(0));
+            yield return new WaitForSeconds(5f);
+            //enemySlot[0].hp -= GameManager.instance.playerDamage;
         }    
         else if (battleMotion == 2)
         {
@@ -154,8 +153,8 @@ public class BattleSystem : MonoBehaviour
             GameManager.instance.counterAttack = true;
         }
 
-        Debug.Log("적 턴");
         yield return YieldCache.WaitForSeconds(2f);
+        Debug.Log("적 턴");
         state = State.enemyTurn;
         StartCoroutine(EnemyTurn());
     }
@@ -203,13 +202,12 @@ public class BattleSystem : MonoBehaviour
                     Enemy.instance.AttackWizard(i);
                 else if(enemySlot[0].enemyType == Enemy.EnemyType.Warrior && enemySlot[0].transform.position == attackLine)
                     GameManager.instance.EnemyAttack(0);
-                yield return YieldCache.WaitForSeconds(1);
+                yield return YieldCache.WaitForSeconds(2);
                 if (enemySlot[i] == null) i--;
             }
         }
 
         Debug.Log("플레이어 턴");
-        GameManager.instance.counterAttack = false;
         int num = 0;
         for (int j = 0; j < 10; j++)
         {
@@ -223,6 +221,7 @@ public class BattleSystem : MonoBehaviour
                 enemySlot[j + 1] = null;
             }
         }
+        GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
         DiceManager.instance.IsMyTurn();
         state = State.playerTurn;

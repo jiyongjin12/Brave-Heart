@@ -1875,13 +1875,13 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 1054607304419080496, guid: 5a2af9a53c764524d92adcd55ef539a9, type: 3}
   enemyPrefab:
   - prefab: {fileID: 9076197679635151396, guid: a9eb052b594d8f24db7c37d7bcabbed3, type: 3}
-    chance: 50
-  - prefab: {fileID: 9076197679635151396, guid: 7676e2b55acdfad499bd2df230cbdf96, type: 3}
     chance: 100
+  - prefab: {fileID: 9076197679635151396, guid: 7676e2b55acdfad499bd2df230cbdf96, type: 3}
+    chance: 49.4
   - prefab: {fileID: 9076197679635151396, guid: 6ca6a2306835db54d99c5e280f8a6a34, type: 3}
     chance: 50
   - prefab: {fileID: 9076197679635151396, guid: 1d165ef55af302648a6f6cd60db07e28, type: 3}
-    chance: 25
+    chance: 26.9
   - prefab: {fileID: 9076197679635151396, guid: b2bbfbca6380a4540a2d734890e212d6, type: 3}
     chance: 50
   - prefab: {fileID: 9076197679635151396, guid: a6753c4446e79cd4aaca5643d2f7bfa0, type: 3}
@@ -1964,7 +1964,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353086411}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: 5, z: 0}
+  m_LocalPosition: {x: -8, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4074,6 +4074,7 @@ MonoBehaviour:
   Maxhp: 100
   _hpBar: {fileID: 1470669745}
   TextDefense: {fileID: 481866379}
+  Damage: {fileID: 0}
   adc: {fileID: 1684888106}
   shield: 0
   counter: 0

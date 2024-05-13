@@ -5,12 +5,18 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     public static Unit instance { get; private set; }
-    Vector3 playerPos = new Vector3(-8, 5);
+    Vector3 playerPos = new Vector3(-8, 4);
+
+    private Animator animator;
+
+    public bool isAttacking;
 
 
     private void Awake()
     {
         instance = this;
+        isAttacking = false;
+        animator = GetComponent<Animator>();
     }
 
     public void AttackMotion()
@@ -20,9 +26,26 @@ public class Unit : MonoBehaviour
 
     IEnumerator playerAttack()
     {
-        StartCoroutine(PlayerMoveTo(new Vector3(BattleSystem.instance.enemySlot[0].transform.position.x - 2, 5)));
-        yield return YieldCache.WaitForSeconds(1f);
+        isAttacking = true;
+        StartCoroutine(PlayerMoveTo(new Vector3(BattleSystem.instance.enemySlot[0].transform.position.x - 2, 4)));
+        animator.SetInteger("Attack", 1);
+        yield return YieldCache.WaitForSeconds(5f);
         transform.position = playerPos;
+    }
+
+    //스킬 베기 데미지
+    public void SleshDamage()
+    {
+        BattleSystem.instance.enemySlot[0].hp -= GameManager.instance.playerDamage / 6;
+        StopCoroutine(Enemy.instance.ShakeMonster(0));
+        StartCoroutine(Enemy.instance.ShakeMonster(0));
+    }
+    //스킬 찍기 데미지
+    public void EndDamage()
+    {
+        BattleSystem.instance.enemySlot[0].hp -= GameManager.instance.playerDamage / 2;
+        isAttacking = false;
+        animator.SetInteger("Attack", 0);
     }
 
     public IEnumerator ShakePlayer()
