@@ -17,11 +17,10 @@ public class Enemy : MonoBehaviour
 
     private bool deadEnemy = false;
 
-
-    private float shakeTime = 1;
-
     [SerializeField]
     private int Charge;
+
+    private float shakeTime = 2f;
 
     public static Enemy instance { get; private set; }
 
@@ -38,28 +37,33 @@ public class Enemy : MonoBehaviour
         if(hp <= 0) StartCoroutine(Dead());
         if (deadEnemy == true)
             deadEnemy = false;
+        //if()
     }
 
     IEnumerator Dead()
     {
         deadEnemy = true;
-        yield return new WaitForSeconds(1f);
+        yield return YieldCache.WaitForSeconds(1f);
         Destroy(gameObject);
         if(BattleSystem.instance.state == BattleSystem.State.playerTurn) GameManager.instance.DeadEnmey();
         if(BattleSystem.instance.state == BattleSystem.State.enemyTurn) BattleSystem.instance.number--;
         BattleSystem.instance.enemyCount--;
     }
 
-    //public void ShakeMonster(int i)
-    //{
-    //    if (shakeTime >= 0)
-    //    {
+    public IEnumerator ShakeMonster(int i)
+    {
+        float shakePower = 0.3f;
+        Vector3 origin = BattleSystem.instance.enemySlot[i].transform.position;
 
-    //        transform.position = transform.position + new Vector3(ShakePos.x, ShakePos.y, 0);
+        while (shakeTime >= 0f)
+        {
+            shakeTime -= 0.05f;
+            BattleSystem.instance.enemySlot[i].transform.position = origin + (Vector3)Random.insideUnitCircle * shakePower * shakeTime;
+            yield return null;
+        }
 
-    //        shakeTime -= Time.deltaTime;
-    //    }
-    //}
+        BattleSystem.instance.enemySlot[i].transform.position = origin;
+    }
 
     public void AttackArcher(int i)
     {

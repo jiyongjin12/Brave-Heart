@@ -137,7 +137,9 @@ public class BattleSystem : MonoBehaviour
         {
             Debug.Log("공격");
             Unit.instance.AttackMotion();
+            yield return new WaitForSeconds(1f);
             enemySlot[0].hp -= GameManager.instance.playerDamage;
+            StartCoroutine(Enemy.instance.ShakeMonster(0));
         }    
         else if (battleMotion == 2)
         {
@@ -153,7 +155,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         Debug.Log("적 턴");
-        yield return YieldCache.WaitForSeconds(2);
+        yield return YieldCache.WaitForSeconds(2f);
         state = State.enemyTurn;
         StartCoroutine(EnemyTurn());
     }
@@ -226,6 +228,7 @@ public class BattleSystem : MonoBehaviour
         state = State.playerTurn;
     }
 
+    //적 움직임
     IEnumerator MoveTo(Enemy a, Vector3 toPos)
     {
         float count = 0;
@@ -253,6 +256,7 @@ public class BattleSystem : MonoBehaviour
     }
 }
 
+//코루틴 최적화
 static class YieldCache
 {
     public static readonly WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
