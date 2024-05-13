@@ -102,45 +102,34 @@ public class GameManager : MonoBehaviour
             shield -= BattleSystem.instance.enemySlot[num].damage;
             ShieldBreak();
         }
-        else hp -= BattleSystem.instance.enemySlot[num].damage;
+        else
+        {
+            hp -= BattleSystem.instance.enemySlot[num].damage;
+            StartCoroutine(Unit.instance.ShakePlayer());
+        }
     }
 
     public void Counter(int num)
     {
-        if (shield > 0)
+        if (BattleSystem.instance.enemySlot[num].damage > counter && shield > 0)
         {
-            if (BattleSystem.instance.enemySlot[num].damage > counter)
-            {
-                shield -= BattleSystem.instance.enemySlot[num].damage * 2;
-                ShieldBreak();
-            }
-            else if (BattleSystem.instance.enemySlot[num].damage == counter)
-            {
-                BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
-                StartCoroutine(Enemy.instance.ShakeMonster(num));
-            }
-            else
-            {
-                BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
-                StartCoroutine(Enemy.instance.ShakeMonster(num));
-            }
+            shield -= BattleSystem.instance.enemySlot[num].damage * 2;
+            ShieldBreak();
+        }
+        else if (BattleSystem.instance.enemySlot[num].damage > counter)
+        {
+            hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+            StartCoroutine(Unit.instance.ShakePlayer());
+        }
+        else if (BattleSystem.instance.enemySlot[num].damage == counter)
+        {
+            BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+            StartCoroutine(Enemy.instance.ShakeMonster(num));
         }
         else
         {
-            if (BattleSystem.instance.enemySlot[num].damage > counter)
-            {
-                hp -= BattleSystem.instance.enemySlot[num].damage * 2;
-            }
-            else if (BattleSystem.instance.enemySlot[num].damage == counter)
-            {
-                BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
-                StartCoroutine(Enemy.instance.ShakeMonster(num));
-            }
-            else
-            {
-                BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
-                StartCoroutine(Enemy.instance.ShakeMonster(num));
-            }
+            BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
+            StartCoroutine(Enemy.instance.ShakeMonster(num));
         }
     }
 
@@ -149,6 +138,7 @@ public class GameManager : MonoBehaviour
         if (shield <= 0)
         {
             BattleSystem.instance.shieldIcon.SetActive(false);
+            StartCoroutine(Unit.instance.ShakePlayer());
             hp += shield;
         }
     }

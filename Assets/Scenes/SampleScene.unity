@@ -4073,7 +4073,7 @@ MonoBehaviour:
   playerDamage: 15
   hp: 20
   Maxhp: 100
-  _hpBar: {fileID: 2086752706}
+  _hpBar: {fileID: 1470669745}
   TextDefense: {fileID: 481866379}
   adc: {fileID: 1684888106}
   shield: 0
@@ -5929,8 +5929,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19.399996, y: 0}
-  m_SizeDelta: {x: 87.3, y: 31.1}
+  m_AnchoredPosition: {x: 16.4, y: 0.00000096861}
+  m_SizeDelta: {x: 100, y: 31.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1410306776
 MonoBehaviour:

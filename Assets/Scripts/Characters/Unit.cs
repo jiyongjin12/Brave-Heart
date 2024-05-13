@@ -25,6 +25,22 @@ public class Unit : MonoBehaviour
         transform.position = playerPos;
     }
 
+    public IEnumerator ShakePlayer()
+    {
+        float shakeTime = 2f;
+        float shakePower = 0.3f;
+        Vector3 origin = playerPos;
+
+        while (shakeTime >= 0f)
+        {
+            shakeTime -= 0.05f;
+            transform.position = origin + (Vector3)Random.insideUnitCircle * shakePower * shakeTime;
+            yield return null;
+        }
+
+        transform.position = origin;
+    }
+
     public void DefenseMotion()
     {
 
