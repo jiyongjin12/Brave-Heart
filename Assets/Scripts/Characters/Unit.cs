@@ -38,17 +38,12 @@ public class Unit : MonoBehaviour
     public void SleshDamage()
     {
         BattleSystem.instance.enemySlot[0].hp -= GameManager.instance.playerDamage / 6;
-        //GameManager.instance.Damage.GetComponent<TMP_Text>().text = (GameManager.instance.playerDamage / 6).ToString();
-        //Vector3 trans = BattleSystem.instance.enemySlot[0].transform.position;
-        //Instantiate(GameManager.instance.Damage, new Vector3(trans.x, trans.y), Quaternion.identity);
+
     }
     //스킬 찍기 데미지
     public void EndDamage()
     {
         BattleSystem.instance.enemySlot[0].hp -= GameManager.instance.playerDamage / 2;
-        //GameManager.instance.Damage.GetComponent<TMP_Text>().text = (GameManager.instance.playerDamage / 2).ToString();
-        //Vector3 trans = BattleSystem.instance.enemySlot[0].transform.position;
-        //Instantiate(GameManager.instance.Damage, new Vector3(trans.x, trans.y), Quaternion.identity);
         animator.SetInteger("Attack", 0);
         isAttacking = false;
     }

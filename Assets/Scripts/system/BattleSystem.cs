@@ -181,8 +181,8 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator Turn()
     {
-        if (enemySlot[0].transform.position.x == -4 && Enemy.instance.enemyType != Enemy.EnemyType.Archer ||
-            Enemy.instance.enemyType != Enemy.EnemyType.Wizard && enemySlot[0].transform.position.x == -4)
+        if (enemySlot[0].transform.position.x == -6 && Enemy.instance.enemyType != Enemy.EnemyType.Archer ||
+            Enemy.instance.enemyType != Enemy.EnemyType.Wizard && enemySlot[0].transform.position.x == -6)
         {
             GameManager.instance.EnemyAttack(0);
             StartCoroutine(GameManager.instance.Attack());
@@ -191,8 +191,8 @@ public class BattleSystem : MonoBehaviour
         {
             for (int i = 0; i < enemySlot.Length; i++)
             {
-                if (enemySlot[i] == null || enemySlot[i].isMovement)
-                    break;
+                if (enemySlot[i] == null)
+                    continue;
 
                 Vector3 trans = enemySlot[i].transform.position;
                 StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x - 2, trans.y)));
@@ -201,7 +201,7 @@ public class BattleSystem : MonoBehaviour
                     Enemy.instance.AttackArcher(i);
                 else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
                     Enemy.instance.AttackWizard(i);
-                else if(enemySlot[0].enemyType == Enemy.EnemyType.Warrior && enemySlot[0].transform.position.x == -4)
+                else if(enemySlot[i].enemyType == Enemy.EnemyType.Warrior && enemySlot[i].transform.position.x == -6)
                     GameManager.instance.EnemyAttack(0);
                 yield return YieldCache.WaitForSeconds(2);
                 if (enemySlot[i] == null) i--;
