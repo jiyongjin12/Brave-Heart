@@ -39,7 +39,6 @@ public class BattleSystem : MonoBehaviour
     public GameObject enemy;
 
     public int number = 0;
-    private Vector3 attackLine = new Vector3(-4, 5);
     private Vector3 newEnemyPos = new Vector3(12, 5);
 
     public float battleMotion = 0;
@@ -100,6 +99,8 @@ public class BattleSystem : MonoBehaviour
         var clone = enemyPrefab[GetRandom()];
         
         enemy = Instantiate(clone.Prefab, pos, Quaternion.identity);
+        Enemy.instance.EnemyPos(clone.Prefab.GetComponent<Enemy>());
+        enemy.transform.position = new Vector3(pos.x, Enemy.instance.yPos);
         enemySlot[number] = enemy.GetComponent<Enemy>();
     }
 
@@ -180,8 +181,8 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator Turn()
     {
-        if (enemySlot[0].transform.position == attackLine && Enemy.instance.enemyType != Enemy.EnemyType.Archer ||
-            Enemy.instance.enemyType != Enemy.EnemyType.Wizard && enemySlot[0].transform.position == attackLine)
+        if (enemySlot[0].transform.position.x == -4 && Enemy.instance.enemyType != Enemy.EnemyType.Archer ||
+            Enemy.instance.enemyType != Enemy.EnemyType.Wizard && enemySlot[0].transform.position.x == -4)
         {
             GameManager.instance.EnemyAttack(0);
             StartCoroutine(GameManager.instance.Attack());
@@ -200,7 +201,7 @@ public class BattleSystem : MonoBehaviour
                     Enemy.instance.AttackArcher(i);
                 else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
                     Enemy.instance.AttackWizard(i);
-                else if(enemySlot[0].enemyType == Enemy.EnemyType.Warrior && enemySlot[0].transform.position == attackLine)
+                else if(enemySlot[0].enemyType == Enemy.EnemyType.Warrior && enemySlot[0].transform.position.x == -4)
                     GameManager.instance.EnemyAttack(0);
                 yield return YieldCache.WaitForSeconds(2);
                 if (enemySlot[i] == null) i--;
