@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37585db45f9c8f4ca37a15835a05cbd, type: 3}
+  m_Name: Map
+  m_EditorClassIdentifier: 
+  nodeBlueprints:
+  - {fileID: 11400000, guid: 0e3f732685529264dac484012f2d3e26, type: 2}
+  - {fileID: 11400000, guid: 044a7d94ce95de64a881f3210b3623ed, type: 2}
+  - {fileID: 11400000, guid: b35ac2b0580e7d448a327e3b84e57f54, type: 2}
+  - {fileID: 11400000, guid: 10b86b859cc71c849b41acc5c2652b24, type: 2}
+  - {fileID: 11400000, guid: d6fa5cbb2021ff6479b6a06b393cf0fe, type: 2}
+  - {fileID: 11400000, guid: fa3fe5caef502a44da4f41a00c342c4c, type: 2}
+  - {fileID: 11400000, guid: d2acb08d33f7e4b4a8a80224b6dfc543, type: 2}
+  numOfPreBossNodes:
+    min: 4
+    max: 5
+  numOfStartingNodes:
+    min: 3
+    max: 4
+  extraPaths: 0
+  layers:
+    array:
+    - nodeType: 0
+      distanceFromPreviousLayer:
+        min: 0
+        max: 0
+      nodesApartDistance: 4.5
+      randomizePosition: 0
+      randomizeNodes: 0
+    - nodeType: 0
+      distanceFromPreviousLayer:
+        min: 4
+        max: 5
+      nodesApartDistance: 4.5
+      randomizePosition: 0.457
+      randomizeNodes: 0.575
+    - nodeType: 0
+      distanceFromPreviousLayer:
+        min: 4
+        max: 5
+      nodesApartDistance: 4.5
+      randomizePosition: 0.5
+      randomizeNodes: 0
+    - nodeType: 3
+      distanceFromPreviousLayer:
+        min: 4
+        max: 5
+      nodesApartDistance: 4.5
+      randomizePosition: 0.5
+      randomizeNodes: 0.348
+    - nodeType: 0
+      distanceFromPreviousLayer:
+        min: 4
+        max: 5
+      nodesApartDistance: 4.5
+      randomizePosition: 0.17
+      randomizeNodes: 0.72
+    - nodeType: 0
+      distanceFromPreviousLayer:
+        min: 4
+        max: 5
+      nodesApartDistance: 4.5
+      randomizePosition: 0.65
+      randomizeNodes: 0.738
+    - nodeType: 1
+      distanceFromPreviousLayer:
+        min: 4
+        max: 5
+      nodesApartDistance: 4.5
+      randomizePosition: 0.208
+      randomizeNodes: 0.756
+    - nodeType: 1
+      distanceFromPreviousLayer:
+        min: 4
+        max: 5
+      nodesApartDistance: 4.5
+      randomizePosition: 0.828
+      randomizeNodes: 0.706
+    - nodeType: 1
+      distanceFromPreviousLayer:
+        min: 4
+        max: 5
+      nodesApartDistance: 4.5
+      randomizePosition: 0.127
+      randomizeNodes: 0.425
+    - nodeType: 1
+      distanceFromPreviousLayer:
+        min: 4
+        max: 5
+      nodesApartDistance: 4.5
+      randomizePosition: 0.095
+      randomizeNodes: 0.575
+    - nodeType: 2
+      distanceFromPreviousLayer:
+        min: 4
+        max: 5
+      nodesApartDistance: 4.5
+      randomizePosition: 0.172
+      randomizeNodes: 0
+    - nodeType: 5
+      distanceFromPreviousLayer:
+        min: 6
+        max: 7
+      nodesApartDistance: 4
+      randomizePosition: 0
+      randomizeNodes: 0
