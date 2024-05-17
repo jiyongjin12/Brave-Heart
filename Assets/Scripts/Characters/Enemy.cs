@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     public float hp;
     public float damage;
-    public bool isMovement = false;
+    //public bool isMovement = false;
 
     private bool deadEnemy = false;
 

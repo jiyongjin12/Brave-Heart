@@ -154,7 +154,7 @@ public class BattleSystem : MonoBehaviour
             GameManager.instance.counterAttack = true;
         }
 
-        yield return YieldCache.WaitForSeconds(2f);
+        yield return YieldCache.WaitForSeconds(1f);
         Debug.Log("Àû ÅÏ");
         state = State.enemyTurn;
         StartCoroutine(EnemyTurn());
@@ -162,8 +162,6 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator EnemyTurn()
     {
-        yield return YieldCache.WaitForSeconds(1);
-
         NewEnemy();
         yield return YieldCache.WaitForSeconds(0.5f);
         StartCoroutine(Turn());
@@ -203,7 +201,7 @@ public class BattleSystem : MonoBehaviour
                     Enemy.instance.AttackWizard(i);
                 else if(enemySlot[i].enemyType == Enemy.EnemyType.Warrior && enemySlot[i].transform.position.x == -6)
                     GameManager.instance.EnemyAttack(0);
-                yield return YieldCache.WaitForSeconds(2);
+                yield return YieldCache.WaitForSeconds(1f);
                 if (enemySlot[i] == null) i--;
             }
         }
@@ -236,7 +234,7 @@ public class BattleSystem : MonoBehaviour
 
         while (true)
         {
-            count += Time.deltaTime * 2;
+            count += Time.deltaTime * 3;
             a.transform.position = Vector3.Lerp(wasPos, toPos, count);
 
             if (count >= 1)
