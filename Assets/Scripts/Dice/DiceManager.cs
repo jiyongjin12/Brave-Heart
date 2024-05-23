@@ -6,7 +6,7 @@ using TMPro;
 
 public class DiceManager : MonoBehaviour
 {
-    public List<Dice> diceList = new List<Dice>();   // 턴 엔드나 다시 돌릴거 없을때 여기꺼 받아오면 되쟈나? 나 ㅄ인가?
+    public List<Dice> diceList = new List<Dice>();   
     public List<Rigidbody2D> diceRollingList = new List<Rigidbody2D>();   //
     public List<Dice> selectedDice = new List<Dice>();                    // 우클릭시 이 두 리스트의 관계는 Dice.cs에 있음
     public List<Dice> diceEventCheckList = new List<Dice>(); // 코드 재사용성 안좋음(아마)
@@ -22,6 +22,8 @@ public class DiceManager : MonoBehaviour
     public bool isRollingDice = true;
 
     public bool isBool = true;
+
+    public bool StartSetUpBool = false; 
 
     public static DiceManager instance { get; private set; }
 
@@ -57,6 +59,7 @@ public class DiceManager : MonoBehaviour
                 isRollingDice = false;
                 rerollNum -= 1;
                 isBool = false;
+                StartSetUpBool = true;
             }
         }
 
@@ -116,12 +119,13 @@ public class DiceManager : MonoBehaviour
     }
 
 
-    public void IsMyTurn()
+    public void IsMyTurn() // 턴 초기화
     {
         diceRollingList.Clear(); // L 연타시 늘어나는거 방지 , 나중에 없에야 할것
         diceEventCheckList.Clear(); // L 연타시 늘어나는거 방지 , 나중에 없에야 할것
         selectedDice.Clear();
         rerollNum = 4;
+        StartSetUpBool = false;
 
         for (int n = 0; n < diceList.Count; n++)
         {

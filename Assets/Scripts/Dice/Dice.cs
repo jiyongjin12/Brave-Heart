@@ -29,7 +29,9 @@ public class Dice : MonoBehaviour
     public bool endLoring = true;
     //public bool reRollCheck = false;
 
-    public bool StartSetUpBool = false;
+    [SerializeField]
+    private bool DiceRotationTime = false;
+    public Sprite[] diceRoll;
 
     private void Start()
     {
@@ -41,13 +43,17 @@ public class Dice : MonoBehaviour
     {
         if (SelectedDice) return;
 
-        if (Input.GetMouseButtonDown(1) && endLoring) // 우클릭 검사
+        if (DiceManager.instance.StartSetUpBool == true)
         {
-            // 여기서 DiceManager의 diceRollingList에서 해당 오브젝트를 제거하는 코드
-            DiceManager.instance.diceRollingList.Remove(GetComponent<Rigidbody2D>());
-            DiceManager.instance.diceEventCheckList.Remove(GetComponent<Dice>());
-            DiceManager.instance.selectedDice.Add(GetComponent<Dice>());
-            SelectedDice = true;
+            if (Input.GetMouseButtonDown(1) && endLoring) // 우클릭 검사
+            {
+                // 여기서 DiceManager의 diceRollingList에서 해당 오브젝트를 제거하는 코드
+                DiceManager.instance.diceRollingList.Remove(GetComponent<Rigidbody2D>());
+                DiceManager.instance.diceEventCheckList.Remove(GetComponent<Dice>());
+                DiceManager.instance.selectedDice.Add(GetComponent<Dice>());
+                SelectedDice = true;
+                Debug.Log("안녕하세요");
+            }
         }
     }
 
@@ -68,7 +74,6 @@ public class Dice : MonoBehaviour
     private IEnumerator RollingDice()
     {
         yield return new WaitUntil(() => isHolding);
-
         endLoring = false;
         if (Input.GetMouseButton(0) && !BounceTime) // 마우스를 클릭하고있을때 && 주사위가 튕기던 도중 다시 잡을수없도록함
         {
@@ -86,7 +91,7 @@ public class Dice : MonoBehaviour
             if (height <= .6) // 튕기는 이벤트
             {
                 // 가속도값에 -곱하여 +로 만듬
-                acceleration = (acceleration / 1.12f) * -1;
+                acceleration = (acceleration / 1.1f) * -1;
                 height = .6f;
                 bouncingCount += 1;
 
@@ -95,9 +100,18 @@ public class Dice : MonoBehaviour
                 rend.sprite = diceSides[randomDiceSides];
             }
 
+            
+            if (acceleration <= 0.0001 && endLoring == false && endLoring == false) // 주사위 최고점에서 최하점까지
+            {
+                DiceRotationTime = true;
+                Debug.Log("확");
+            }
+            else
+            {
+                DiceRotationTime = false;
+            }
 
-
-            if (Mathf.Abs(acceleration) <= 0.013f && Mathf.Abs(height) <= .7f || bouncingCount >= 5)  // 가속도값이 0에 가까움 && 높이가 0.7보다 작거나 같음 || 튕긴 횟수가 5보다 크거나 같을경우
+            if (Mathf.Abs(acceleration) <= 0.013f && Mathf.Abs(height) <= .7f || bouncingCount >= 6)  // 가속도값이 0에 가까움 && 높이가 0.7보다 작거나 같음 || 튕긴 횟수가 5보다 크거나 같을경우
             {
                 acceleration = 0f;
                 height = .7f;
@@ -116,5 +130,4 @@ public class Dice : MonoBehaviour
             HeightChanged?.Invoke(height);
         }
     }
-
 }
