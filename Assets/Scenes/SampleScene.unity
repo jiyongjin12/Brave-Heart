@@ -1499,9 +1499,9 @@ MonoBehaviour:
   SelectedDice: 0
   BounceTime: 0
   endLoring: 1
-  StartSetUpBool: 0
   DiceRotationTime: 0
-  diceRoll: []
+  diceRoll:
+  - {fileID: 21300000, guid: 3463ea8d7634c524a98719b45a607fc9, type: 3}
 --- !u!1 &243094978
 GameObject:
   m_ObjectHideFlags: 0
@@ -2924,7 +2924,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9433272, b: 0.8632076, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2993,6 +2993,7 @@ MonoBehaviour:
   isDragging: 0
   isRollingDice: 0
   isBool: 0
+  StartSetUpBool: 0
 --- !u!4 &657893758
 Transform:
   m_ObjectHideFlags: 0
@@ -4178,9 +4179,9 @@ MonoBehaviour:
   SelectedDice: 0
   BounceTime: 0
   endLoring: 1
-  StartSetUpBool: 0
   DiceRotationTime: 0
-  diceRoll: []
+  diceRoll:
+  - {fileID: 21300000, guid: 3463ea8d7634c524a98719b45a607fc9, type: 3}
 --- !u!1 &880660297
 GameObject:
   m_ObjectHideFlags: 0
@@ -4676,9 +4677,9 @@ MonoBehaviour:
   SelectedDice: 0
   BounceTime: 0
   endLoring: 1
-  StartSetUpBool: 0
   DiceRotationTime: 0
-  diceRoll: []
+  diceRoll:
+  - {fileID: 21300000, guid: 3463ea8d7634c524a98719b45a607fc9, type: 3}
 --- !u!1 &1008442007
 GameObject:
   m_ObjectHideFlags: 0
@@ -5373,9 +5374,9 @@ MonoBehaviour:
   SelectedDice: 0
   BounceTime: 0
   endLoring: 1
-  StartSetUpBool: 0
   DiceRotationTime: 0
-  diceRoll: []
+  diceRoll:
+  - {fileID: 21300000, guid: 3463ea8d7634c524a98719b45a607fc9, type: 3}
 --- !u!1 &1334845487
 GameObject:
   m_ObjectHideFlags: 0
@@ -7067,9 +7068,9 @@ MonoBehaviour:
   SelectedDice: 0
   BounceTime: 0
   endLoring: 1
-  StartSetUpBool: 0
   DiceRotationTime: 0
-  diceRoll: []
+  diceRoll:
+  - {fileID: 21300000, guid: 3463ea8d7634c524a98719b45a607fc9, type: 3}
 --- !u!1 &1767537279
 GameObject:
   m_ObjectHideFlags: 0

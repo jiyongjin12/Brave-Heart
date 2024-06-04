@@ -69,6 +69,16 @@ public class Dice : MonoBehaviour
 
         StartCoroutine(RollingDice());
 
+        if (endLoring == true)
+        {
+            DiceRotationTime = false;
+        }
+
+        if (DiceRotationTime)
+        {
+            int randomRollIndex = UnityEngine.Random.Range(0, diceRoll.Length);
+            rend.sprite = diceRoll[randomRollIndex];
+        }
     }
 
     private IEnumerator RollingDice()
@@ -101,7 +111,7 @@ public class Dice : MonoBehaviour
             }
 
             
-            if (acceleration <= 0.0001 && endLoring == false && endLoring == false) // 주사위 최고점에서 최하점까지
+            if (acceleration <= 0.0001 &&endLoring == false) // 주사위 옆모습 나타내기
             {
                 DiceRotationTime = true;
                 Debug.Log("확");
@@ -128,6 +138,8 @@ public class Dice : MonoBehaviour
             dice.localScale = Vector3.one * height;
 
             HeightChanged?.Invoke(height);
+
+            Debug.Log(acceleration);
         }
     }
 }
