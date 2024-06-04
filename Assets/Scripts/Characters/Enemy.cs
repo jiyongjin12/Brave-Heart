@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Enemy : MonoBehaviour
 
     public float hp;
     public float damage;
+
+    public float Maxhp;
     //public bool isMovement = false;
 
     private bool deadEnemy = false;
@@ -31,6 +34,7 @@ public class Enemy : MonoBehaviour
     {
         Charge = 0;
         hp = enemyData.baseHp + enemyData.maxHp[Level];
+        Maxhp = enemyData.baseHp + enemyData.maxHp[Level];
         damage = enemyData.baseDamage + enemyData.damages[Level];
         //this.BeforeHp = this.hp;
         instance = this;
