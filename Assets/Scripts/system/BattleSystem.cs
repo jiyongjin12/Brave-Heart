@@ -102,6 +102,7 @@ public class BattleSystem : MonoBehaviour
         Enemy.instance.EnemyPos(clone.Prefab.GetComponent<Enemy>());
         enemy.transform.position = new Vector3(pos.x, Enemy.instance.yPos);
         enemySlot[number] = enemy.GetComponent<Enemy>();
+        GameManager.instance.SpawnEnemyHPSlider(enemySlot[number]);
     }
 
     private int GetRandom()

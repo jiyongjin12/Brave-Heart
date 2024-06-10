@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Image _hpBar;
     [SerializeField] private Text TextDefense;
 
+    [SerializeField] private GameObject enemyHPSliderPrefab;
+    [SerializeField] private Transform canvasTransform;
+
     public GameObject Damage;
 
     public GameObject adc;
@@ -48,6 +51,16 @@ public class GameManager : MonoBehaviour
     public void ADCTrue()
     {
         adc.SetActive(true);
+    }
+
+    public void SpawnEnemyHPSlider(Enemy enemy)
+    {
+        GameObject sliderClone = Instantiate(enemyHPSliderPrefab);
+
+        sliderClone.transform.SetParent(canvasTransform);
+        sliderClone.transform.localPosition = Vector3.one;
+
+        sliderClone.GetComponent<HpPos>().SetUp(enemy.transform);
     }
 
     public void playerTurn()

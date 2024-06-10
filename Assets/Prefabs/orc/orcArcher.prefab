@@ -267,11 +267,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8d461470d9416448a3e8861a41a337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpView: {fileID: -7706670487225686620, guid: 2e66f9a59540998459e04d73e5774c2f, type: 3}
   enemyData: {fileID: 11400000, guid: b7728171236ddf04cb120bbdd6a6a612, type: 2}
   enemyType: 1
   Enemykind: 1
   Level: 0
   hp: 0
   damage: 0
-  isMovement: 0
+  Maxhp: 0
+  yPos: 0
   Charge: 0
