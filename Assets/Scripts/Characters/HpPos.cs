@@ -9,6 +9,11 @@ public class HpPos : MonoBehaviour
     private Transform targetTransform;
     private RectTransform rectTransform;
 
+    private void Start()
+    {
+        transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+    }
+
     public void SetUp(Transform target)
     {
         targetTransform = target;

@@ -28,10 +28,13 @@ public class Enemy : MonoBehaviour
     private float shakeTime = 4f;
     private float BeforeHp;
 
+    public int enemyNum;
+
     public static Enemy instance { get; private set; }
 
     private void Awake()
     {
+        this.enemyNum = BattleSystem.instance.number;
         Charge = 0;
         hp = enemyData.baseHp + enemyData.maxHp[Level];
         Maxhp = enemyData.baseHp + enemyData.maxHp[Level];
