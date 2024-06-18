@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text TextDefense;
 
     [SerializeField] private GameObject enemyHPSliderPrefab;
+    [SerializeField] private GameObject enemyDamagePrefab;
     [SerializeField] private Transform canvasTransform;
 
     public GameObject Damage;
@@ -61,6 +62,26 @@ public class GameManager : MonoBehaviour
         sliderClone.transform.localPosition = Vector3.one;
 
         sliderClone.GetComponent<HpPos>().SetUp(enemy.transform);
+    }
+
+    public void SpawnDamageText(Enemy enemy)
+    {
+        GameObject TextClone = Instantiate(enemyDamagePrefab);
+
+        TextClone.transform.SetParent(canvasTransform);
+        TextClone.transform.localPosition = Vector3.one;
+
+        TextClone.GetComponent<Damage>().SetUp(enemy.transform);
+    }
+
+    public void TextDamage(Transform unit)
+    {
+        GameObject TextClone = Instantiate(Damage);
+
+        TextClone.transform.SetParent(canvasTransform);
+        TextClone.transform.localPosition = Vector3.one;
+
+        TextClone.GetComponent<Damage>().SetUp(unit.transform);
     }
 
     public void playerTurn()
@@ -116,12 +137,16 @@ public class GameManager : MonoBehaviour
         else if (shield > 0)
         {
             shield -= BattleSystem.instance.enemySlot[num].damage;
+            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage);
+            TextDamage(BattleSystem.instance.playerBattleTrans);
             ShieldBreak();
         }
         else
         {
             hp -= BattleSystem.instance.enemySlot[num].damage;
             StartCoroutine(Unit.instance.ShakePlayer());
+            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage);
+            TextDamage(BattleSystem.instance.playerBattleTrans);
         }
     }
 
@@ -130,22 +155,30 @@ public class GameManager : MonoBehaviour
         if (BattleSystem.instance.enemySlot[num].damage > counter && shield > 0)
         {
             shield -= BattleSystem.instance.enemySlot[num].damage * 2;
+            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage * 2);
+            TextDamage(BattleSystem.instance.playerBattleTrans);
             ShieldBreak();
         }
         else if (BattleSystem.instance.enemySlot[num].damage > counter)
         {
             hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage * 2);
             StartCoroutine(Unit.instance.ShakePlayer());
+            TextDamage(BattleSystem.instance.playerBattleTrans);
         }
         else if (BattleSystem.instance.enemySlot[num].damage == counter)
         {
             StartCoroutine(Enemy.instance.ShakeMonster(num));
             BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage * 2);
+            SpawnDamageText(BattleSystem.instance.enemySlot[num]);
         }
         else
         {
             StartCoroutine(Enemy.instance.ShakeMonster(num));
             BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
+            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage);
+            SpawnDamageText(BattleSystem.instance.enemySlot[num]);
         }
     }
 

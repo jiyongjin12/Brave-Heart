@@ -137,26 +137,26 @@ public class BattleSystem : MonoBehaviour
 
         if (battleMotion == 1)
         {
-            Debug.Log("공격");
+            //Debug.Log("공격");
             Unit.instance.AttackMotion();
             yield return new WaitForSeconds(5f);
             //enemySlot[0].hp -= GameManager.instance.playerDamage;
         }    
         else if (battleMotion == 2)
         {
-            Debug.Log("쉴드 생성");
+            //Debug.Log("쉴드 생성");
             shieldIcon.SetActive(true);
             GameManager.instance.shield = GameManager.instance.playerDamage;
         }
         else
         {
-            Debug.Log("카운터");
+            //Debug.Log("카운터");
             GameManager.instance.counter = GameManager.instance.playerDamage;
             GameManager.instance.counterAttack = true;
         }
 
         yield return YieldCache.WaitForSeconds(1f);
-        Debug.Log("적 턴");
+        //Debug.Log("적 턴");
         state = State.enemyTurn;
         StartCoroutine(EnemyTurn());
     }
@@ -207,7 +207,7 @@ public class BattleSystem : MonoBehaviour
             }
         }
 
-        Debug.Log("플레이어 턴");
+        //Debug.Log("플레이어 턴");
         int num = 0;
         for (int j = 0; j < 10; j++)
         {

@@ -4074,8 +4074,9 @@ MonoBehaviour:
   _hpBar: {fileID: 1470669745}
   TextDefense: {fileID: 481866379}
   enemyHPSliderPrefab: {fileID: 9104149854337968770, guid: 2e66f9a59540998459e04d73e5774c2f, type: 3}
+  enemyDamagePrefab: {fileID: 3047497941406286605, guid: 15d21ad32202e484dbc080b9c57fcd39, type: 3}
   canvasTransform: {fileID: 754033965}
-  Damage: {fileID: 0}
+  Damage: {fileID: 3047497941406286605, guid: 15d21ad32202e484dbc080b9c57fcd39, type: 3}
   adc: {fileID: 1684888106}
   shield: 0
   counter: 0
