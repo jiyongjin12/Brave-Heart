@@ -7,6 +7,7 @@ public class Hpfill : MonoBehaviour
 {
     public Enemy enemy;
     private Slider _hp;
+    public Text hpText;
     // Start is called before the first frame update
     void Awake()
     {
@@ -17,6 +18,16 @@ public class Hpfill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this._hp.value = this.enemy.hp / this.enemy.Maxhp;
+        HP();
+        
+    }
+
+    private void HP()
+    {
+        float curHP;
+        curHP = float.Parse(enemy.hp.ToString("N2"));
+        _hp.value = curHP / enemy.Maxhp;
+        if (enemy.hp <= 0) hpText.text = "0/" + enemy.Maxhp;
+        else hpText.text = curHP + "/" + enemy.Maxhp;
     }
 }

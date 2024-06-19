@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Unit : MonoBehaviour
@@ -12,6 +13,8 @@ public class Unit : MonoBehaviour
 
     public bool isAttacking;
 
+    public GameObject Damage;
+    public float CurDamage;
 
     private void Awake()
     {
@@ -38,14 +41,23 @@ public class Unit : MonoBehaviour
     public void SleshDamage()
     {
         BattleSystem.instance.enemySlot[0].hp -= GameManager.instance.playerDamage / 6;
+        GameManager.instance.SpawnDamageText(BattleSystem.instance.enemySlot[0]);
+        CurDamage = (GameManager.instance.playerDamage / 6);
 
     }
     //스킬 찍기 데미지
     public void EndDamage()
     {
         BattleSystem.instance.enemySlot[0].hp -= GameManager.instance.playerDamage / 2;
+        GameManager.instance.SpawnDamageText(BattleSystem.instance.enemySlot[0]);
+        CurDamage = (GameManager.instance.playerDamage / 2);
         animator.SetInteger("Attack", 0);
         isAttacking = false;
+    }
+
+    public void TextEnemyDamage(float damages)
+    {
+        CurDamage = damages;
     }
 
     //motion

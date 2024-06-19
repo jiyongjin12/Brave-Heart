@@ -99,7 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
-  DmgText: {fileID: 2807332916427191094, guid: 73f7e8c8e42ace74c9ec04b1b23d27e9, type: 3}
+  Damage: {fileID: 3047497941406286605, guid: 15d21ad32202e484dbc080b9c57fcd39, type: 3}
+  CurDamage: {fileID: 3047497941406286595, guid: 15d21ad32202e484dbc080b9c57fcd39, type: 3}
+  canvasTransform: {fileID: 0}
 --- !u!95 &-7124108236936226394
 Animator:
   serializedVersion: 5
