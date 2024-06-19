@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1472955745953250696}
   - component: {fileID: 9037504550964365079}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NodeGraphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 41993020361878916}
   - component: {fileID: 3501465580205319850}
   - component: {fileID: 7807676271043656497}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 99
   m_TargetDisplay: 0
 --- !u!114 &3501465580205319850
 MonoBehaviour:
@@ -196,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4577646676140739585}
   - component: {fileID: 2263283713793921596}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: empty-circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 50
+  m_SortingOrder: 99
   m_Sprite: {fileID: 21300000, guid: 71cc6a123601cfb4a900b8fbc771374f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 6746199761131337691}
   - component: {fileID: 6142034472940283601}
   - component: {fileID: 8924860889658227302}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Node
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,8 +298,8 @@ Transform:
   m_GameObject: {fileID: 6746199761131337685}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1472955745953250696}
   m_Father: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 8950698615625498439}
   - component: {fileID: 4145413595639814452}
   - component: {fileID: 7600212338723090613}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Swirl
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -37,6 +37,8 @@ namespace Map
         public Color32 lineVisitedColor = Color.white;
         public Color32 lineLockedColor = Color.gray;
 
+        public bool isMainMapScene = false;  
+
         protected GameObject firstParent;
         protected GameObject mapParent;
         private List<List<Point>> paths;
@@ -111,6 +113,8 @@ namespace Map
             sr.drawMode = SpriteDrawMode.Sliced;
             sr.sprite = background;
             sr.size = new Vector2(xSize, span + yOffset * 2f);
+
+            sr.sortingOrder = 99;
         }
 
         protected virtual void CreateMapParent()
@@ -123,6 +127,11 @@ namespace Map
             scrollNonUi.freezeY = orientation == MapOrientation.Left || orientation == MapOrientation.Right;
             var boxCollider = mapParent.AddComponent<BoxCollider>();
             boxCollider.size = new Vector3(45, 150, 1);
+
+            if (isMainMapScene == false)
+            {
+                var MapOnOffCode = mapParent.AddComponent<MapOnOff>();
+            }
         }
 
         protected void CreateNodes(IEnumerable<Node> nodes)
@@ -140,6 +149,7 @@ namespace Map
             var mapNode = mapNodeObject.GetComponent<MapNode>();
             var blueprint = GetBlueprint(node.blueprintName);
             mapNode.SetUp(node, blueprint);
+
             mapNode.transform.localPosition = node.position;
             return mapNode;
         }
@@ -257,7 +267,7 @@ namespace Map
                 case MapOrientation.Left:
                     offset *= cam.aspect;
                     mapParent.transform.eulerAngles = new Vector3(0, 0, -90);
-                    firstParent.transform.localPosition += new Vector3(offset, -bossNode.transform.position.y, 0);
+                    firstParent.transform.localPosition += new Vector3(offset - 1f, -bossNode.transform.position.y + 1.3f, 0);
                     if (scrollNonUi != null)
                     {
                         scrollNonUi.xConstraints.max = 0;

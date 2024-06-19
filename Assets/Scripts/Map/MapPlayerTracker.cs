@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using DG.Tweening;
+using UnityEditor.SceneManagement;
 
 namespace Map
 {
@@ -61,17 +62,19 @@ namespace Map
             DOTween.Sequence().AppendInterval(enterNodeDelay).OnComplete(() => EnterNode(mapNode));
         }
 
+        private static void Test()
+        {
+            Debug.Log("促澜 纠");
+            EditorSceneManager.LoadScene("SampleScene");
+        }
+
         private static void EnterNode(MapNode mapNode)
         {
-            // we have access to blueprint name here as well
-            //Debug.Log("Entering node: " + mapNode.Node.blueprintName + " of type: " + mapNode.Node.nodeType);
-            // load appropriate scene with context based on nodeType:
-            // or show appropriate GUI over the map: 
-            // if you choose to show GUI in some of these cases, do not forget to set "Locked" in MapPlayerTracker back to false
             switch (mapNode.Node.nodeType)
             {
                 case NodeType.MinorEnemy:
                     Debug.Log("老馆各");
+                    //Test();
                     break;
                 case NodeType.EliteEnemy:
                     Debug.Log("郡府飘各");
