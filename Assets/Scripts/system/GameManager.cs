@@ -114,22 +114,6 @@ public class GameManager : MonoBehaviour
         emptyEnemy = 1;
     }
 
-    public IEnumerator Attack()
-    {
-        for (int i = 1; i < BattleSystem.instance.enemySlot.Length; i++)
-        {
-            yield return YieldCache.WaitForSeconds(0.5f);
-            if (BattleSystem.instance.enemySlot[i].enemyType == Enemy.EnemyType.Archer)
-                Enemy.instance.AttackArcher(i);
-            else if (BattleSystem.instance.enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
-                Enemy.instance.AttackWizard(i);
-            else
-                break;
-            yield return YieldCache.WaitForSeconds(1f);
-        }
-
-    }
-
     public void EnemyAttack(int num)
     {
 

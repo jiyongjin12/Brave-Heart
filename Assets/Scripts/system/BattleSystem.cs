@@ -180,15 +180,29 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator Turn()
     {
-        if (enemySlot[0].transform.position.x == -6 && Enemy.instance.enemyType != Enemy.EnemyType.Archer ||
-            Enemy.instance.enemyType != Enemy.EnemyType.Wizard && enemySlot[0].transform.position.x == -6)
+        int i = 0;
+        if (enemySlot[0].transform.position.x == -6)
         {
             GameManager.instance.EnemyAttack(0);
-            StartCoroutine(GameManager.instance.Attack());
+            for (i = 1; i < BattleSystem.instance.enemySlot.Length; i++)
+            {
+                if (enemySlot[i] == null)
+                    continue;
+
+                Vector3 trans = enemySlot[i].transform.position;
+                if (trans.x - 2 != enemySlot[i-1].transform.position.x)
+                    StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x - 2, trans.y)));
+                yield return YieldCache.WaitForSeconds(0.5f);
+                if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
+                    Enemy.instance.AttackArcher(i);
+                else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
+                    Enemy.instance.AttackWizard(i);
+                yield return YieldCache.WaitForSeconds(1f);
+            }
         }
         else
         {
-            for (int i = 0; i < enemySlot.Length; i++)
+            for (i = 0; i < enemySlot.Length; i++)
             {
                 if (enemySlot[i] == null)
                     continue;
