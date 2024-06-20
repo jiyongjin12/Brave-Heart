@@ -52,7 +52,6 @@ public class Dice : MonoBehaviour
                 DiceManager.instance.diceEventCheckList.Remove(GetComponent<Dice>());
                 DiceManager.instance.selectedDice.Add(GetComponent<Dice>());
                 SelectedDice = true;
-                Debug.Log("안녕하세요");
             }
         }
     }
@@ -76,8 +75,7 @@ public class Dice : MonoBehaviour
 
         if (DiceRotationTime)
         {
-            int randomRollIndex = UnityEngine.Random.Range(0, diceRoll.Length);
-            rend.sprite = diceRoll[randomRollIndex];
+            //StartCoroutine(DiceSpinningAnimation());
         }
     }
 
@@ -95,7 +93,7 @@ public class Dice : MonoBehaviour
         {
             BounceTime = true;
 
-            acceleration -= Time.deltaTime * 0.2f;
+            acceleration -= Time.deltaTime * 0.3f;
             height += acceleration;  // 높이값에 가속력값 계속 더하기
 
             if (height <= .6) // 튕기는 이벤트
@@ -141,5 +139,12 @@ public class Dice : MonoBehaviour
 
             Debug.Log(acceleration);
         }
+    }
+
+    private IEnumerator DiceSpinningAnimation()
+    {
+        int randomRollIndex = UnityEngine.Random.Range(0, diceRoll.Length);
+        rend.sprite = diceRoll[randomRollIndex];
+        yield return new WaitForSeconds(0.3f);
     }
 }

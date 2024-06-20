@@ -373,8 +373,8 @@ MonoBehaviour:
   backgroundColor:
     serializedVersion: 2
     rgba: 4294967295
-  xSize: 40
-  yOffset: 7
+  xSize: 15
+  yOffset: 4
   linePrefab: {fileID: 5857439060437771865, guid: 71ba31cc6fc8c2748afbb475b9f1307a, type: 3}
   linePointsCount: 10
   offsetFromNodes: 0.5
@@ -390,6 +390,7 @@ MonoBehaviour:
   lineLockedColor:
     serializedVersion: 2
     rgba: 4286611584
+  isMainMapScene: 1
 --- !u!1 &1140754982
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +528,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -64.05005, y: 61}
+  m_AnchoredPosition: {x: -1666, y: 980}
   m_SizeDelta: {x: 283.90002, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1632107169
@@ -678,7 +679,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 17.5
+  orthographic size: 6.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -702,7 +703,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857419207}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 1.3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
