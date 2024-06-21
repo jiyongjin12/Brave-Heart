@@ -389,8 +389,9 @@ MonoBehaviour:
     rgba: 4294967295
   lineLockedColor:
     serializedVersion: 2
-    rgba: 4286611584
+    rgba: 4285756275
   isMainMapScene: 1
+  MapBlindBackGround: {fileID: 0}
 --- !u!1 &1140754982
 GameObject:
   m_ObjectHideFlags: 0
