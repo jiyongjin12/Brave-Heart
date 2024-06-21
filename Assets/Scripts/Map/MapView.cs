@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 namespace Map
 {
@@ -37,7 +38,10 @@ namespace Map
         public Color32 lineVisitedColor = Color.white;
         public Color32 lineLockedColor = Color.gray;
 
-        public bool isMainMapScene = false;  
+        public bool isMainMapScene = false;
+
+        public Image MapBlindBackGround;
+        public MapButton MapButtonOnOff;
 
         protected GameObject firstParent;
         protected GameObject mapParent;
@@ -130,7 +134,11 @@ namespace Map
 
             if (isMainMapScene == false)
             {
-                var MapOnOffCode = mapParent.AddComponent<MapOnOff>();
+                var MapOnOffCode = firstParent.AddComponent<MapOnOff>();
+                MapOnOffCode.OnOffMap = mapParent;
+                MapOnOffCode.MapBlind = MapBlindBackGround;
+
+                MapButtonOnOff.ShowMap = MapOnOffCode;
             }
         }
 
