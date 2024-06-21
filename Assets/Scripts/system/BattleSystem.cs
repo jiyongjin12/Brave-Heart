@@ -184,7 +184,7 @@ public class BattleSystem : MonoBehaviour
         if (enemySlot[0].transform.position.x == -6)
         {
             GameManager.instance.EnemyAttack(0);
-            for (i = 1; i < BattleSystem.instance.enemySlot.Length; i++)
+            for (i = 1; i < enemySlot.Length; i++)
             {
                 if (enemySlot[i] == null)
                     continue;
@@ -223,7 +223,7 @@ public class BattleSystem : MonoBehaviour
 
         //Debug.Log("플레이어 턴");
         int num = 0;
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j <= number + 1; j++)
         {
             if (enemySlot[j] == null && enemySlot[j + 1] == null)
             {
