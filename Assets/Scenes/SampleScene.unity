@@ -2132,7 +2132,7 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 1054607304419080496, guid: 5a2af9a53c764524d92adcd55ef539a9, type: 3}
   enemyPrefab:
   - prefab: {fileID: 9076197679635151396, guid: a9eb052b594d8f24db7c37d7bcabbed3, type: 3}
-    chance: 0
+    chance: 100
   - prefab: {fileID: 9076197679635151396, guid: 7676e2b55acdfad499bd2df230cbdf96, type: 3}
     chance: 100
   - prefab: {fileID: 9076197679635151396, guid: 6ca6a2306835db54d99c5e280f8a6a34, type: 3}
@@ -2144,7 +2144,7 @@ MonoBehaviour:
   - prefab: {fileID: 9076197679635151396, guid: a6753c4446e79cd4aaca5643d2f7bfa0, type: 3}
     chance: 25
   - prefab: {fileID: 9076197679635151396, guid: f7678a6e48c7f2c4d8cba093ffd46149, type: 3}
-    chance: 0
+    chance: 100
   - prefab: {fileID: 9076197679635151396, guid: 3cbc53e7067837e4b89a7c9e608cc175, type: 3}
     chance: 100
   - prefab: {fileID: 9076197679635151396, guid: b2ca47c98b401c84883ec29271ed2a1c, type: 3}
