@@ -32,6 +32,7 @@ public class Dice : MonoBehaviour
     [SerializeField]
     private bool DiceRotationTime = false;
     public Sprite[] diceRoll;
+    private bool Rolling_test = true;
 
     private void Start()
     {
@@ -73,9 +74,10 @@ public class Dice : MonoBehaviour
             DiceRotationTime = false;
         }
 
-        if (DiceRotationTime)
+        if (DiceRotationTime && Rolling_test)
         {
-            //StartCoroutine(DiceSpinningAnimation());
+            StartCoroutine(DiceSpinningAnimation());
+            Rolling_test = false;
         }
     }
 
@@ -146,5 +148,6 @@ public class Dice : MonoBehaviour
         int randomRollIndex = UnityEngine.Random.Range(0, diceRoll.Length);
         rend.sprite = diceRoll[randomRollIndex];
         yield return new WaitForSeconds(0.3f);
+        Rolling_test = true;
     }
 }

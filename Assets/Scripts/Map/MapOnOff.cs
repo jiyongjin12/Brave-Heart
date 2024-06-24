@@ -10,6 +10,7 @@ public class MapOnOff : MonoBehaviour
 
     public bool OnOffStatus;
 
+
     private void Start()
     {
         OFFMap();

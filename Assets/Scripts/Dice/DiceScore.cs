@@ -46,10 +46,14 @@ public class DiceScore : MonoBehaviour
 
         System.Array.Sort(sides);
 
-        CheckFullHouse(sides);
-        CheckFourOfAKind(sides);
-        CheckStraight(sides);
-        CheckYacht(sides);
+        if (DiceManager.instance.StartSetUpBool == true && DiceManager.instance.isRollingDice)
+        {
+            CheckFullHouse(sides);
+            CheckFourOfAKind(sides);
+            CheckStraight(sides);
+            CheckYacht(sides);
+        }
+            
     }
 
     public void PlayerAttackButton()

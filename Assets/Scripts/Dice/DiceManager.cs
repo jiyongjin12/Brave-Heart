@@ -30,7 +30,16 @@ public class DiceManager : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
 
         foreach(var n in diceList)
         {
@@ -240,4 +249,5 @@ public class DiceManager : MonoBehaviour
         diceRollingList.Clear();
         yield return null;
     }
+
 }
