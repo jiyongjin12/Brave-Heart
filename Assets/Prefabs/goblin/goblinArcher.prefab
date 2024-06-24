@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 9076197679635151398}
   - component: {fileID: 9076197679635151397}
   - component: {fileID: 5335420522683115055}
+  - component: {fileID: -7645763346162941295}
   m_Layer: 6
   m_Name: goblinArcher
   m_TagString: Untagged
@@ -277,3 +278,20 @@ MonoBehaviour:
   yPos: 0
   Charge: 0
   enemyNum: 0
+  MouseClick: 0
+--- !u!70 &-7645763346162941295
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9076197679635151396}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1}
+  m_Direction: 0

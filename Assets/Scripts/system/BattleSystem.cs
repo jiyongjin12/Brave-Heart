@@ -33,12 +33,14 @@ public class BattleSystem : MonoBehaviour
     public Transform playerBattleTrans; //플레이어의 좌표
     public Enemy[] enemySlot;
 
+    public int TNum = 0;
+
     public int enemyCount; //0이 되면 플레이어 승리
     public int curEnemy; //생성될 에너미 수
 
     public GameObject enemy;
 
-    public int number = 0;
+    public int number;
     private Vector3 newEnemyPos = new Vector3(12, 5);
 
     public float battleMotion = 0;
@@ -133,7 +135,6 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator PlayerTurn()
     {
-        yield return YieldCache.WaitForSeconds(1f);
 
         if (battleMotion == 1)
         {
@@ -155,6 +156,7 @@ public class BattleSystem : MonoBehaviour
             GameManager.instance.counterAttack = true;
         }
 
+        GameManager.instance.DeadEnmey();
         yield return YieldCache.WaitForSeconds(1f);
         //Debug.Log("적 턴");
         state = State.enemyTurn;
@@ -222,19 +224,20 @@ public class BattleSystem : MonoBehaviour
         }
 
         //Debug.Log("플레이어 턴");
-        int num = 0;
-        for (int j = 0; j <= number + 1; j++)
-        {
-            if (enemySlot[j] == null && enemySlot[j + 1] == null)
-            {
-                num++;
-            }
-            else if (enemySlot[j] == null && enemySlot[j + 1] != null)
-            {
-                enemySlot[j - num] = enemySlot[j + 1];
-                enemySlot[j + 1] = null;
-            }
-        }
+        //int num = 0;
+        //for (int j = 0; j <= number + 1; j++)
+        //{
+        //    if (enemySlot[j] == null && enemySlot[j + 1] == null)
+        //    {
+        //        num++;
+        //    }
+        //    else if (enemySlot[j] == null && enemySlot[j + 1] != null)
+        //    {
+        //        enemySlot[j - num] = enemySlot[j + 1];
+        //        enemySlot[j + 1] = null;
+        //    }
+        //}
+        GameManager.instance.DeadEnmey();
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
         DiceManager.instance.IsMyTurn();

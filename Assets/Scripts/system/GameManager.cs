@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 using TMPro;
 
@@ -32,11 +33,15 @@ public class GameManager : MonoBehaviour
     private int emptyEnemy;
     public bool isClick;
 
+    public bool isPause;
+    public GameObject ClickObj;
+
     private void Awake()
     {
         emptyEnemy = 1;
         instance = this;
         hp = Maxhp;
+        isPause = false;
         counterAttack = false;
         isClick = false;
     }
@@ -45,6 +50,14 @@ public class GameManager : MonoBehaviour
     {
         _hpBar.fillAmount =  hp / Maxhp;
         TextDefense.text = shield.ToString();
+        if (!isPause && Input.GetMouseButtonDown(0) && BattleSystem.instance.state == BattleSystem.State.playerTurn)
+        {
+            ClickObj = mouseGetObject();
+            if (ClickObj != null && ClickObj.layer == LayerMask.NameToLayer("Monster"))
+            {
+                BattleSystem.instance.TNum = BattleSystem.instance.enemyCount - ClickObj.GetComponent<Enemy>().enemyNum;
+            }
+        }
         if (isClick == true && adc.activeInHierarchy == true)
             adc.SetActive(false);
     }
@@ -95,23 +108,25 @@ public class GameManager : MonoBehaviour
     //적이 죽었을 때 배열 변경
     public void DeadEnmey()
     {
-        for (int i = 1; i < BattleSystem.instance.enemySlot.Length; i++)
+        emptyEnemy = 0;
+        for (int i = 0; i < BattleSystem.instance.enemySlot.Length; i++)
         {
-            
-            if (BattleSystem.instance.enemySlot[i - emptyEnemy] == null)
+            if(i == BattleSystem.instance.enemySlot.Length - 1) break;
+            else if (BattleSystem.instance.enemySlot[i] == null && BattleSystem.instance.enemySlot[i + 1] != null)
             {
-                BattleSystem.instance.number--;
-                emptyEnemy++;
-                break;
+                Debug.Log("ON");
+                BattleSystem.instance.enemySlot[i - emptyEnemy] = BattleSystem.instance.enemySlot[i + 1];
+                BattleSystem.instance.enemySlot[i + 1] = null;
+                continue;
             }
-            else BattleSystem.instance.enemySlot[i - emptyEnemy] = BattleSystem.instance.enemySlot[i];
-
-            if (i == BattleSystem.instance.enemySlot.Length - emptyEnemy)
+            else if(BattleSystem.instance.enemySlot[i + 1] == null && BattleSystem.instance.enemySlot[i] == null)
             {
-                BattleSystem.instance.enemySlot[i] = null;
+                Debug.Log("OFF");
+                emptyEnemy++;
+                continue;
             }
         }
-        emptyEnemy = 1;
+        
     }
 
     public void EnemyAttack(int num)
@@ -174,5 +189,18 @@ public class GameManager : MonoBehaviour
             StartCoroutine(Unit.instance.ShakePlayer());
             hp += shield;
         }
+    }
+
+    public GameObject mouseGetObject()
+    {
+        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
+        GameObject clickObject = null;
+        if (hit.collider != null)
+        {
+            clickObject = hit.transform.gameObject;
+            return clickObject;
+        }
+        return null;
     }
 }

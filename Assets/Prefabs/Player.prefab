@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 1800044300, guid: 065f28a5d967b0d489022a0905d98a8d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -100,8 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   Damage: {fileID: 3047497941406286605, guid: 15d21ad32202e484dbc080b9c57fcd39, type: 3}
-  CurDamage: {fileID: 3047497941406286595, guid: 15d21ad32202e484dbc080b9c57fcd39, type: 3}
-  canvasTransform: {fileID: 0}
+  CurDamage: 0
 --- !u!95 &-7124108236936226394
 Animator:
   serializedVersion: 5

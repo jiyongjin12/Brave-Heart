@@ -29,6 +29,7 @@ public class Enemy : MonoBehaviour
     private float BeforeHp;
 
     public int enemyNum;
+    public bool MouseClick;
 
     public static Enemy instance { get; private set; }
 
@@ -58,10 +59,10 @@ public class Enemy : MonoBehaviour
     IEnumerator Dead()
     {
         deadEnemy = true;
+        BattleSystem.instance.TNum = 0;
         yield return YieldCache.WaitForSeconds(1f);
         Destroy(gameObject);
-        if(BattleSystem.instance.state == BattleSystem.State.playerTurn) GameManager.instance.DeadEnmey();
-        if(BattleSystem.instance.state == BattleSystem.State.enemyTurn) BattleSystem.instance.number--;
+        BattleSystem.instance.number--;
         BattleSystem.instance.enemyCount--;
     }
 

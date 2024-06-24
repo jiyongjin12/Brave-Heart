@@ -31,7 +31,7 @@ public class Unit : MonoBehaviour
     IEnumerator playerAttack()
     {
         isAttacking = true;
-        StartCoroutine(PlayerMoveTo(new Vector3(BattleSystem.instance.enemySlot[0].transform.position.x - 2, 4)));
+        StartCoroutine(PlayerMoveTo(new Vector3(BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].transform.position.x - 2, 4)));
         animator.SetInteger("Attack", 1);
         yield return YieldCache.WaitForSeconds(5f);
         transform.position = playerPos;
@@ -40,16 +40,16 @@ public class Unit : MonoBehaviour
     //스킬 베기 데미지
     public void SleshDamage()
     {
-        BattleSystem.instance.enemySlot[0].hp -= GameManager.instance.playerDamage / 6;
-        GameManager.instance.SpawnDamageText(BattleSystem.instance.enemySlot[0]);
+        BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].hp -= GameManager.instance.playerDamage / 6;
+        GameManager.instance.SpawnDamageText(BattleSystem.instance.enemySlot[BattleSystem.instance.TNum]);
         CurDamage = (GameManager.instance.playerDamage / 6);
 
     }
     //스킬 찍기 데미지
     public void EndDamage()
     {
-        BattleSystem.instance.enemySlot[0].hp -= GameManager.instance.playerDamage / 2;
-        GameManager.instance.SpawnDamageText(BattleSystem.instance.enemySlot[0]);
+        BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].hp -= GameManager.instance.playerDamage / 2;
+        GameManager.instance.SpawnDamageText(BattleSystem.instance.enemySlot[BattleSystem.instance.TNum]);
         CurDamage = (GameManager.instance.playerDamage / 2);
         animator.SetInteger("Attack", 0);
         isAttacking = false;
@@ -63,14 +63,14 @@ public class Unit : MonoBehaviour
     //motion
     public void SleshMotion()
     {
-        StopCoroutine(Enemy.instance.ShakeMonster(0));
-        StartCoroutine(Enemy.instance.ShakeMonster(0));
+        StopCoroutine(Enemy.instance.ShakeMonster(BattleSystem.instance.TNum));
+        StartCoroutine(Enemy.instance.ShakeMonster(BattleSystem.instance.TNum));
     }
 
     public void EndMotion()
     {
-        StopCoroutine(Enemy.instance.ShakeMonster(0));
-        StartCoroutine(Enemy.instance.ShakeMonster(0));
+        StopCoroutine(Enemy.instance.ShakeMonster(BattleSystem.instance.TNum));
+        StartCoroutine(Enemy.instance.ShakeMonster(BattleSystem.instance.TNum));
     }
 
     public IEnumerator ShakePlayer()

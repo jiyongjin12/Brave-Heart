@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 9076197679635151398}
   - component: {fileID: 9076197679635151397}
   - component: {fileID: 5335420522683115055}
+  - component: {fileID: -1065656489048332246}
   m_Layer: 6
   m_Name: SlimeArcher
   m_TagString: Untagged
@@ -267,7 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8d461470d9416448a3e8861a41a337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpView: {fileID: -7706670487225686620, guid: 2e66f9a59540998459e04d73e5774c2f, type: 3}
   enemyData: {fileID: 11400000, guid: 31002d1574caa1b49823aa5e7f4943c3, type: 2}
   enemyType: 1
   Enemykind: 0
@@ -277,3 +277,21 @@ MonoBehaviour:
   Maxhp: 0
   yPos: 0
   Charge: 0
+  enemyNum: 0
+  MouseClick: 0
+--- !u!70 &-1065656489048332246
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9076197679635151396}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1}
+  m_Direction: 0
