@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        this.enemyNum = BattleSystem.instance.number;
+        this.enemyNum = BattleSystem.instance.curEnemy;
         Charge = 0;
         hp = enemyData.baseHp + enemyData.maxHp[Level];
         Maxhp = enemyData.baseHp + enemyData.maxHp[Level];
