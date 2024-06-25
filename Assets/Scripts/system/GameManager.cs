@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
             ClickObj = mouseGetObject();
             if (ClickObj != null && ClickObj.layer == LayerMask.NameToLayer("Monster"))
             {
-                BattleSystem.instance.TNum = BattleSystem.instance.enemyCount - ClickObj.GetComponent<Enemy>().enemyNum;
+                BattleSystem.instance.TNum = ClickObj.GetComponent<Enemy>().enemyNum;
             }
         }
         if (isClick == true && adc.activeInHierarchy == true)
