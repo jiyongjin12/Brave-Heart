@@ -46,7 +46,7 @@ public class DiceScore : MonoBehaviour
 
         System.Array.Sort(sides);
 
-        if (DiceManager.instance.StartSetUpBool == true && DiceManager.instance.isRollingDice)
+        if (DiceManager.instance.StartSetUpBool == true)
         {
             CheckFullHouse(sides);
             CheckFourOfAKind(sides);
