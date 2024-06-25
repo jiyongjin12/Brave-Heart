@@ -2176,6 +2176,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  TNum: 0
   enemyCount: 10
   curEnemy: 10
   enemy: {fileID: 0}
@@ -4282,6 +4283,8 @@ MonoBehaviour:
   counter: 0
   counterAttack: 0
   isClick: 0
+  isPause: 0
+  ClickObj: {fileID: 0}
 --- !u!4 &841290107
 Transform:
   m_ObjectHideFlags: 0

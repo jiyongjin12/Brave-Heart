@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        this.enemyNum = BattleSystem.instance.curEnemy;
+        this.enemyNum = (BattleSystem.instance.curEnemy - 10) * -1;
         Charge = 0;
         hp = enemyData.baseHp + enemyData.maxHp[Level];
         Maxhp = enemyData.baseHp + enemyData.maxHp[Level];
@@ -104,7 +104,14 @@ public class Enemy : MonoBehaviour
 
     public void AttackArcher(int i)
     {
+        //switch (Enemykind)
+        //{
+        //    case EnemyKind.goblin:
 
+        //        break;
+        //    case EnemyKind.Slime:
+        //        break;
+        //}
         GameManager.instance.EnemyAttack(i);
     }
 

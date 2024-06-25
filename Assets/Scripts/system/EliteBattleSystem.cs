@@ -9,6 +9,7 @@ public class EliteBattleSystem : MonoBehaviour
 
     public Transform playerBattleTrans; //플레이어의 좌표
     public Enemy[] enemySlot;
+    [SerializeField] private Transform[] enemyTrans;
 
     public int enemyCount; //0이 되면 플레이어 승리
     public int curEnemy; //생성될 에너미 수
