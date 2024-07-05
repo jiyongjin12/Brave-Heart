@@ -22,8 +22,7 @@ public class Enemy : MonoBehaviour
 
     public float yPos;
 
-    [SerializeField]
-    private int Charge;
+    public int Charge;
 
     private float shakeTime = 4f;
     private float BeforeHp;
@@ -31,11 +30,16 @@ public class Enemy : MonoBehaviour
     public int enemyNum;
     public bool MouseClick;
 
+    public bool isArcher;
+    public bool isWizard;
+
+    public int MonsterAttackNum;
+
     public static Enemy instance { get; private set; }
 
     private void Awake()
     {
-        this.enemyNum = (BattleSystem.instance.curEnemy - 10) * -1;
+        this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum) * -1;
         Charge = 0;
         hp = enemyData.baseHp + enemyData.maxHp[Level];
         Maxhp = enemyData.baseHp + enemyData.maxHp[Level];
@@ -46,24 +50,32 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if(hp <= 0 && !Unit.instance.isAttacking) StartCoroutine(Dead());
-        if (deadEnemy == true)
-            deadEnemy = false;
-        //if(hp != BeforeHp)
-        //{
-        //    BeforeHp = hp;
-        //    HitText();
-        //}
+        if (hp <= 0 && !Unit.instance.isAttacking && deadEnemy == false)
+        {
+            StartCoroutine(Dead());
+        }
     }
 
     IEnumerator Dead()
     {
         deadEnemy = true;
+        BattleSystem.instance.EliteDead = true;
+        ReEnemyNum();
         BattleSystem.instance.TNum = 0;
         yield return YieldCache.WaitForSeconds(1f);
         Destroy(gameObject);
         BattleSystem.instance.number--;
         BattleSystem.instance.enemyCount--;
+        deadEnemy = false;
+    }
+
+    public void ReEnemyNum()
+    {
+        BattleSystem.instance.minusNum -= 1;
+        for (int i = BattleSystem.instance.TNum + 1; i < BattleSystem.instance.number; i++)
+        {
+            BattleSystem.instance.enemySlot[i].enemyNum -= 1;
+        }
     }
 
     public IEnumerator ShakeMonster(int i)
@@ -104,20 +116,15 @@ public class Enemy : MonoBehaviour
 
     public void AttackArcher(int i)
     {
-        //switch (Enemykind)
-        //{
-        //    case EnemyKind.goblin:
-
-        //        break;
-        //    case EnemyKind.Slime:
-        //        break;
-        //}
+        isArcher = true;
+        MonsterAttackNum = i;
         GameManager.instance.EnemyAttack(i);
     }
 
     public void AttackWizard(int i)
     {
-
+        isWizard = true;
+        MonsterAttackNum = i;
         BattleSystem.instance.enemySlot[i].Charge++;
         if(BattleSystem.instance.enemySlot[i].Charge >= 3)
         {

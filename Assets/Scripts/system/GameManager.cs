@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
             if (ClickObj != null && ClickObj.layer == LayerMask.NameToLayer("Monster"))
             {
                 BattleSystem.instance.TNum = ClickObj.GetComponent<Enemy>().enemyNum;
+                BattleSystem.instance.EliteTrans = new Vector3(BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].transform.position.x, 5);
             }
         }
         if (isClick == true && adc.activeInHierarchy == true)

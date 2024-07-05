@@ -9,6 +9,7 @@ public class Menu : MonoBehaviour
 {
     public AudioMixer mixer;
     public Slider audio;
+    [SerializeField] private GameObject No;
 
     public Vector2 newSize = new Vector2(200, 100);
     public void ExitGame()
@@ -23,6 +24,11 @@ public class Menu : MonoBehaviour
     public void NewGame()
     {
         SceneManager.LoadScene("SampleScene");
+    }
+
+    public void LoadGame()
+    {
+        No.SetActive(true);
     }
 
     public void AudioControl()

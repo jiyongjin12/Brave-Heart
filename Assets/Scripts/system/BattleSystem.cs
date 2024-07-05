@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
@@ -24,6 +25,7 @@ public class BattleSystem : MonoBehaviour
 {
     public GameObject PlayerPrefab;
     public EnemyPer[] enemyPrefab;
+    public EnemyPer[] ElitePrefab;
     [SerializeField]
     private GameObject[] button;
 
@@ -41,10 +43,15 @@ public class BattleSystem : MonoBehaviour
     public GameObject enemy;
 
     public int number;
-    private Vector3 newEnemyPos = new Vector3(12, 5);
+    private Vector3 newEnemyPos = new Vector3(10, 5);
+
+    public Vector3 EliteTrans;
+    public bool EliteDead = false;
 
     public float battleMotion = 0;
     private float acc;
+
+    public int minusNum;
 
     public enum State
     {
@@ -57,6 +64,7 @@ public class BattleSystem : MonoBehaviour
     {
         Instantiate(PlayerPrefab, playerBattleTrans);
         instance = this;
+        minusNum = 10;
         state = State.start;
         shieldIcon.SetActive(false);
         EnemyPercent();
@@ -107,6 +115,32 @@ public class BattleSystem : MonoBehaviour
         GameManager.instance.SpawnEnemyHPSlider(enemySlot[number]);
     }
 
+    private void SpawnElite(Vector2 pos)
+    {
+        var clone = ElitePrefab[GetRandomElite()];
+
+        enemy = Instantiate(clone.Prefab, pos, Quaternion.identity);
+        Enemy.instance.EnemyPos(clone.Prefab.GetComponent<Enemy>());
+        enemy.transform.position = new Vector3(pos.x, Enemy.instance.yPos);
+        enemySlot[number] = enemy.GetComponent<Enemy>();
+        GameManager.instance.SpawnEnemyHPSlider(enemySlot[number]);
+    }
+
+    private int GetRandomElite()
+    {
+        float random = Random.value * acc;
+
+        for (int i = 0; i < ElitePrefab.Length; ++i)
+        {
+            if (ElitePrefab[i].Weight >= random)
+            {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
     private int GetRandom()
     {
         float random = Random.value * acc;
@@ -124,12 +158,26 @@ public class BattleSystem : MonoBehaviour
 
     private void BattleStart()
     {
-        for (int i = 0; i < 4; i++)
+        if (SceneManager.GetActiveScene().name == "EliteScene")
         {
-            SpawnEnemy(new Vector2(4 + i * 2, 5));
-            number++;
-            curEnemy--;
+            for (int i = 0; i < 4; i++)
+            {
+                SpawnElite(new Vector2(2 + i * 2, 5));
+                number++;
+                curEnemy--;
+            }
         }
+        else
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                SpawnEnemy(new Vector2(2 + i * 2, 5));
+                number++;
+                curEnemy--;
+            }
+        }
+
+        EliteTrans = new Vector3(enemySlot[TNum].transform.position.x, 5);
         state = State.playerTurn;
     }
 
@@ -140,7 +188,7 @@ public class BattleSystem : MonoBehaviour
         {
             //Debug.Log("공격");
             Unit.instance.AttackMotion();
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(6f);
             //enemySlot[0].hp -= GameManager.instance.playerDamage;
         }    
         else if (battleMotion == 2)
@@ -157,7 +205,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         GameManager.instance.DeadEnmey();
-        yield return YieldCache.WaitForSeconds(1f);
+        yield return YieldCache.WaitForSeconds(0.5f);
         //Debug.Log("적 턴");
         state = State.enemyTurn;
         StartCoroutine(EnemyTurn());
@@ -165,14 +213,32 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator EnemyTurn()
     {
-        NewEnemy();
-        yield return YieldCache.WaitForSeconds(0.5f);
-        StartCoroutine(Turn());
+        if (SceneManager.GetActiveScene().name == "EliteScene")
+        {
+            StartCoroutine(EliteTurn());
+        }
+        else
+        {
+            NewEnemy();
+            yield return YieldCache.WaitForSeconds(0.5f);
+            StartCoroutine(Turn());
+        }
+    }
+
+    void NewElite()
+    {
+        if (curEnemy <= 0)
+            return;
+
+        SpawnElite(EliteTrans);
+        EliteDead = false;
+        number++;
+        curEnemy--;
     }
 
     void NewEnemy()
     {
-        if (curEnemy <= 0 || enemySlot[8] != null)
+        if (curEnemy <= 0 || enemySlot[7] != null)
             return;
 
         SpawnEnemy(newEnemyPos);
@@ -241,6 +307,41 @@ public class BattleSystem : MonoBehaviour
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
         DiceManager.instance.IsMyTurn();
+        state = State.playerTurn;
+    }
+
+    IEnumerator EliteTurn()
+    {
+        int i = 0;
+        for (i = 0; i < enemySlot.Length; i++)
+        {
+            if (enemySlot[i] == null)
+                continue;
+
+            yield return YieldCache.WaitForSeconds(0.5f);
+            if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
+                Enemy.instance.AttackArcher(i);
+            else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
+                Enemy.instance.AttackWizard(i);
+            else
+            {
+                Vector3 trans = enemySlot[i].transform.position;
+                StartCoroutine(MoveTo(enemySlot[i], new Vector3(playerBattleTrans.position.x + 2, trans.y)));
+                yield return YieldCache.WaitForSeconds(0.5f);
+                GameManager.instance.EnemyAttack(i);
+                StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x, trans.y)));
+            }
+            yield return YieldCache.WaitForSeconds(1f);
+            if (enemySlot[i] == null) i--;
+        }
+
+        if (curEnemy <= 0) GameManager.instance.DeadEnmey();
+        yield return YieldCache.WaitForSeconds(0.5f);
+        if (EliteDead) NewElite();
+        GameManager.instance.counterAttack = false;
+        GameManager.instance.isClick = false;
+        DiceManager.instance.IsMyTurn();
+        EliteTrans = new Vector3(enemySlot[TNum].transform.position.x, 5);
         state = State.playerTurn;
     }
 
