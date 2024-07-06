@@ -8,9 +8,8 @@ using TMPro;
 
 public class Menu : MonoBehaviour
 {
-    public AudioMixer mixer;
-    public Slider audio;
     [SerializeField] private GameObject No;
+    [SerializeField] private GameObject Audio;
     //public TextEffect TextTitle;
 
     public Vector2 newSize = new Vector2(200, 100);
@@ -23,9 +22,13 @@ public class Menu : MonoBehaviour
 #endif
     }
 
-    private void Update()
+    public void AudioTrue()
     {
-        //TextTitle.WobbleText();
+        Audio.SetActive(true);
+    }
+    public void AudioFalse()
+    {
+        Audio.SetActive(false);
     }
 
     public void NewGame()
@@ -36,18 +39,6 @@ public class Menu : MonoBehaviour
     public void LoadGame()
     {
         No.SetActive(true);
-    }
-
-    public void AudioControl()
-    {
-        float sound = audio.value;
-
-        if (sound == -40f) mixer.SetFloat("BGM", -80);
-        else mixer.SetFloat("BGM", sound);
-    }
-    public void AudioVolume()
-    {
-        AudioListener.volume = AudioListener.volume == 0 ? 1 : 0;
     }
 
     public void PointerEnter()
