@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemTetrisGhost : MonoBehaviour
+public class ItemGhost : MonoBehaviour
 {
     private RectTransform rectTransform;
     private Transform visual;

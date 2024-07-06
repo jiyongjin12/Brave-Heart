@@ -7,6 +7,28 @@ using UnityEngine.EventSystems;
 
 public class UtilsClass : MonoBehaviour
 {
+    //public static bool IsPointerOverUI()
+    //{
+    //    if (EventSystem.current.IsPointerOverGameObject())
+    //    {
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        PointerEventData pe = new PointerEventData(EventSystem.current);
+    //        pe.position = Input.mousePosition;
+    //        List<RaycastResult> hits = new List<RaycastResult>();
+    //        EventSystem.current.RaycastAll(pe, hits);
+    //        return hits.Count > 0;
+    //    }
+    //}
+
+
+
+    //==================================================================================
+
+
+
     private static readonly Vector3 Vector3zero = Vector3.zero;
     private static readonly Vector3 Vector3one = Vector3.one;
     private static readonly Vector3 Vector3yDown = new Vector3(0, -1);
@@ -1527,6 +1549,20 @@ public class UtilsClass : MonoBehaviour
         }
         DebugDrawLines(position, color, size, duration, vecList.ToArray());
     }
+
+    public static void ClearLogConsole()
+    {
+#if UNITY_EDITOR
+        //Debug.Log("################# DISABLED BECAUSE OF BUILD!");
+        /*
+        Assembly assembly = Assembly.GetAssembly(typeof(UnityEditor.SceneView));
+        System.Type logEntries = System.Type.GetType("UnityEditor.LogEntries, UnityEditor.dll");
+        MethodInfo clearConsoleMethod = logEntries.GetMethod("Clear");
+        clearConsoleMethod.Invoke(new object(), null);
+        //*/
+#endif
+    }
+
 
     public static string GetPercentString(float f, bool includeSign = true)
     {
