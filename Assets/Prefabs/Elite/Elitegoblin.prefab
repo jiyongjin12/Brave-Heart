@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8d461470d9416448a3e8861a41a337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: d77d7cade092cf24992b20aca5cf75db, type: 2}
+  enemyData: {fileID: 11400000, guid: 2ad41fbc7dcc54d46a180d16bf2a183c, type: 2}
   enemyType: 0
   Enemykind: 2
   Level: 0
@@ -109,6 +109,9 @@ MonoBehaviour:
   Charge: 0
   enemyNum: 0
   MouseClick: 0
+  isArcher: 0
+  isWizard: 0
+  MonsterAttackNum: 0
 --- !u!70 &3007691113439777048
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

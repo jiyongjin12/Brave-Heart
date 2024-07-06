@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 
 public class Menu : MonoBehaviour
 {
     public AudioMixer mixer;
     public Slider audio;
+    [SerializeField] private GameObject No;
+    //public TextEffect TextTitle;
 
     public Vector2 newSize = new Vector2(200, 100);
     public void ExitGame()
@@ -20,9 +23,19 @@ public class Menu : MonoBehaviour
 #endif
     }
 
+    private void Update()
+    {
+        //TextTitle.WobbleText();
+    }
+
     public void NewGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Map");
+    }
+
+    public void LoadGame()
+    {
+        No.SetActive(true);
     }
 
     public void AudioControl()
