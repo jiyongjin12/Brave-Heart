@@ -15,5 +15,5 @@ MonoBehaviour:
   nameString: Medicine
   prefab: {fileID: 6374125543331760910, guid: cfaa8b6f6b9f35a4a86e102214700418, type: 3}
   visual: {fileID: 6903557727191577591, guid: 735305860b9dcbe46a83e071c7037bbb, type: 3}
-  width: 0
-  height: 0
+  width: 1
+  height: 1
