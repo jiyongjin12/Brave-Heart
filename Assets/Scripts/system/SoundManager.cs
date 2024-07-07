@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
+    public Slider BGMslider;
+    public Slider SFXslider;
     public AudioMixer mixer;
     public AudioSource bgSound;
     public AudioClip[] bglist;
@@ -17,11 +20,17 @@ public class SoundManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(instance);
             SceneManager.sceneLoaded += OnSceneLoaded;
+            if(SceneManager.GetActiveScene().name == "Title")
+            {
+                BgSoundPlay(bglist[0]);
+            }
         }
         else
         {
             Destroy(gameObject);
         }
+        BGMslider.value = PlayerPrefs.GetFloat("MusicVolume", 0);
+        SFXslider.value = PlayerPrefs.GetFloat("MusicVolume", 0);
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -35,12 +44,18 @@ public class SoundManager : MonoBehaviour
 
     public void BGMVolume(float val)
     {
-        mixer.SetFloat("BGMVolume", Mathf.Log10(val) * 20);
+        float sound = BGMslider.value;
+
+        if (sound == -1f) mixer.SetFloat("BGM", -80);
+        else mixer.SetFloat("BGM", sound * 20);
     }
 
     public void SFXVolume(float val)
     {
-        mixer.SetFloat("SFXVolume", Mathf.Log10(val) * 20);
+        float sound = SFXslider.value;
+
+        if (sound == -1f) mixer.SetFloat("BGM", -80);
+        else mixer.SetFloat("BGM", sound * 20);
     }
 
     public void SFXPlay(string sfxName, AudioClip clip)
