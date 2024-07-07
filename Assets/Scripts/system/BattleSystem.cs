@@ -318,19 +318,11 @@ public class BattleSystem : MonoBehaviour
             if (enemySlot[i] == null)
                 continue;
 
+            Vector3 trans = enemySlot[i].transform.position;
+            StartCoroutine(MoveTo(enemySlot[i], new Vector3(playerBattleTrans.position.x + 2, trans.y)));
             yield return YieldCache.WaitForSeconds(0.5f);
-            if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
-                Enemy.instance.AttackArcher(i);
-            else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
-                Enemy.instance.AttackWizard(i);
-            else
-            {
-                Vector3 trans = enemySlot[i].transform.position;
-                StartCoroutine(MoveTo(enemySlot[i], new Vector3(playerBattleTrans.position.x + 2, trans.y)));
-                yield return YieldCache.WaitForSeconds(0.5f);
-                GameManager.instance.EnemyAttack(i);
-                StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x, trans.y)));
-            }
+            Enemy.instance.AttackElite(i);
+            StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x, trans.y)));
             yield return YieldCache.WaitForSeconds(1f);
             if (enemySlot[i] == null) i--;
         }

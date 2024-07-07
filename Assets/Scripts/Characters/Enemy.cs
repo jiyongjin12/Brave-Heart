@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     public EnemyData enemyData;
-    public enum EnemyType { Warrior = 0, Archer = 1, Wizard = 2, Boss }
-    public enum EnemyKind { Slime, Orc, goblin, Boss }
+    public enum EnemyType { Warrior = 0, Archer = 1, Wizard = 2, Elite = 3, Boss }
+    public enum EnemyKind { Slime, Orc, Goblin, Boss }
     public EnemyType enemyType;
     public EnemyKind Enemykind;
     public int Level;
@@ -30,8 +30,7 @@ public class Enemy : MonoBehaviour
     public int enemyNum;
     public bool MouseClick;
 
-    public bool isArcher;
-    public bool isWizard;
+    public bool isAttacking = false;
 
     public int MonsterAttackNum;
 
@@ -110,20 +109,20 @@ public class Enemy : MonoBehaviour
 
     public void EnemyPos(Enemy Enemy)
     {
-        if (Enemy.Enemykind == EnemyKind.goblin || Enemy.Enemykind == EnemyKind.Slime) yPos = 5;
+        if (Enemy.Enemykind == EnemyKind.Goblin || Enemy.Enemykind == EnemyKind.Slime) yPos = 5;
         else if (Enemy.Enemykind == EnemyKind.Orc) yPos = 5.25f;
     }
 
     public void AttackArcher(int i)
     {
-        isArcher = true;
+        isAttacking = true;
         MonsterAttackNum = i;
         GameManager.instance.EnemyAttack(i);
     }
 
     public void AttackWizard(int i)
     {
-        isWizard = true;
+        isAttacking = true;
         MonsterAttackNum = i;
         BattleSystem.instance.enemySlot[i].Charge++;
         if(BattleSystem.instance.enemySlot[i].Charge >= 3)
@@ -132,6 +131,13 @@ public class Enemy : MonoBehaviour
             BattleSystem.instance.enemySlot[i].Charge = 0;
         }
         
+    }
+
+    public void AttackElite(int i)
+    {
+        isAttacking = true;
+        MonsterAttackNum = i;
+        GameManager.instance.EnemyAttack(i);
     }
 
     private void HitText()

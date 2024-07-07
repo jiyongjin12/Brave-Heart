@@ -589,7 +589,7 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: 5482ce1703af66b4d972e45180939668, type: 2}
   bgSound: {fileID: 199265121}
   bglist:
-  - {fileID: 8300000, guid: 23dc1a8ae8d80e74e8d59aa6cde79a80, type: 3}
+  - {fileID: 8300000, guid: b90faa5ec6664b84eadede84e68f36b1, type: 3}
   - {fileID: 8300000, guid: 23dc1a8ae8d80e74e8d59aa6cde79a80, type: 3}
 --- !u!1 &202227450
 GameObject:
@@ -2531,7 +2531,7 @@ MonoBehaviour:
   m_MinValue: -1
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3055,7 +3055,7 @@ MonoBehaviour:
   m_MinValue: -1
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

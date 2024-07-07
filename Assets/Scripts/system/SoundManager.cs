@@ -20,24 +20,18 @@ public class SoundManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(instance);
             SceneManager.sceneLoaded += OnSceneLoaded;
-            if(SceneManager.GetActiveScene().name == "Title")
-            {
-                BgSoundPlay(bglist[0]);
-            }
         }
         else
         {
             Destroy(gameObject);
         }
-        BGMslider.value = PlayerPrefs.GetFloat("MusicVolume", 0);
-        SFXslider.value = PlayerPrefs.GetFloat("MusicVolume", 0);
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         for(int i = 0; i < bglist.Length; i++)
         {
-            if(arg0.name == bglist[i].name)
+            if(SceneManager.GetActiveScene().buildIndex == i)
                 BgSoundPlay(bglist[i]);
         }
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeAttack : Enemy
+public class GoblinAttack : Enemy
 {
     public Animator anime;
     // Start is called before the first frame update
@@ -14,9 +14,9 @@ public class SlimeAttack : Enemy
     // Update is called once per frame
     void Update()
     {
-        //if (BattleSystem.instance.enemySlot[MonsterAttackNum].enemyType == EnemyType.Archer == true && BattleSystem.instance.enemySlot[MonsterAttackNum].Enemykind == EnemyKind.Slime && isAttacking == true) 
+        //if (BattleSystem.instance.enemySlot[MonsterAttackNum].enemyType == EnemyType.Archer == true && BattleSystem.instance.enemySlot[MonsterAttackNum].Enemykind == EnemyKind.Goblin && isAttacking == true) 
         //    AcherAttack();
-        //if (BattleSystem.instance.enemySlot[MonsterAttackNum].enemyType == EnemyType.Wizard == true && BattleSystem.instance.enemySlot[MonsterAttackNum].Enemykind == EnemyKind.Slime && isAttacking == true) 
+        //if (BattleSystem.instance.enemySlot[MonsterAttackNum].enemyType == EnemyType.Wizard == true && BattleSystem.instance.enemySlot[MonsterAttackNum].Enemykind == EnemyKind.Goblin && isAttacking == true) 
         //    WizardAttack();
     }
 
