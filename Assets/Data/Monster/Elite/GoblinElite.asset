@@ -16,10 +16,10 @@ MonoBehaviour:
   baseDamage: 5
   baseHp: 15
   damages:
-  - 4
-  - 8
-  - 12
+  - 5
+  - 10
+  - 15
   maxHp:
   - 10
-  - 20
   - 30
+  - 50

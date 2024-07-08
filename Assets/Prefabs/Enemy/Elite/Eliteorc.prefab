@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 667a596dff952a647958fb5785cb132f, type: 2}
-  enemyType: 0
+  enemyType: 3
   Enemykind: 1
   Level: 0
   hp: 0

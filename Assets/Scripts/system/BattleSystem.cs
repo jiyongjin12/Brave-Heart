@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
-
 [System.Serializable]
 public class EnemyPer
 {
@@ -43,10 +41,10 @@ public class BattleSystem : MonoBehaviour
     public GameObject enemy;
 
     public int number;
-    private Vector3 newEnemyPos = new Vector3(10, 5);
+    private Vector3 newEnemyPos = new Vector3(8, 5);
 
     public Vector3 EliteTrans;
-    public bool EliteDead = false;
+    //public bool EliteDead = false;
 
     public float battleMotion = 0;
     private float acc;
@@ -64,10 +62,10 @@ public class BattleSystem : MonoBehaviour
     {
         Instantiate(PlayerPrefab, playerBattleTrans);
         instance = this;
-        minusNum = 10;
         state = State.start;
         shieldIcon.SetActive(false);
         EnemyPercent();
+        EliteEnemyPercent();
     }
 
     private void Start()
@@ -98,6 +96,16 @@ public class BattleSystem : MonoBehaviour
     {
         acc = 0;
         foreach(var item in enemyPrefab)
+        {
+            acc += item.Chance;
+            item.Weight = acc;
+        }
+    }
+
+    private void EliteEnemyPercent()
+    {
+        acc = 0;
+        foreach (var item in ElitePrefab)
         {
             acc += item.Chance;
             item.Weight = acc;
@@ -160,7 +168,10 @@ public class BattleSystem : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "EliteScene")
         {
-            for (int i = 0; i < 4; i++)
+            curEnemy = 3;
+            minusNum = curEnemy;
+            enemyCount = curEnemy;
+            for (int i = 0; i < 3; i++)
             {
                 SpawnElite(new Vector2(2 + i * 2, 5));
                 number++;
@@ -169,7 +180,10 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < 4; i++)
+            curEnemy = 7;
+            minusNum = curEnemy;
+            enemyCount = curEnemy;
+            for (int i = 0; i < 3; i++)
             {
                 SpawnEnemy(new Vector2(2 + i * 2, 5));
                 number++;
@@ -200,7 +214,6 @@ public class BattleSystem : MonoBehaviour
         else
         {
             //Debug.Log("카운터");
-            GameManager.instance.counter = GameManager.instance.playerDamage;
             GameManager.instance.counterAttack = true;
         }
 
@@ -231,7 +244,7 @@ public class BattleSystem : MonoBehaviour
             return;
 
         SpawnElite(EliteTrans);
-        EliteDead = false;
+        //EliteDead = false;
         number++;
         curEnemy--;
     }
@@ -318,26 +331,18 @@ public class BattleSystem : MonoBehaviour
             if (enemySlot[i] == null)
                 continue;
 
+            Vector3 trans = enemySlot[i].transform.position;
+            StartCoroutine(MoveTo(enemySlot[i], new Vector3(playerBattleTrans.position.x + 2, trans.y)));
             yield return YieldCache.WaitForSeconds(0.5f);
-            if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
-                Enemy.instance.AttackArcher(i);
-            else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
-                Enemy.instance.AttackWizard(i);
-            else
-            {
-                Vector3 trans = enemySlot[i].transform.position;
-                StartCoroutine(MoveTo(enemySlot[i], new Vector3(playerBattleTrans.position.x + 2, trans.y)));
-                yield return YieldCache.WaitForSeconds(0.5f);
-                GameManager.instance.EnemyAttack(i);
-                StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x, trans.y)));
-            }
+            Enemy.instance.AttackElite(i);
+            StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x, trans.y)));
             yield return YieldCache.WaitForSeconds(1f);
             if (enemySlot[i] == null) i--;
         }
 
         if (curEnemy <= 0) GameManager.instance.DeadEnmey();
         yield return YieldCache.WaitForSeconds(0.5f);
-        if (EliteDead) NewElite();
+        //if (EliteDead) NewElite();
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
         DiceManager.instance.IsMyTurn();
@@ -368,8 +373,16 @@ public class BattleSystem : MonoBehaviour
     void BatleEnd()
     {
         Time.timeScale = 0;
-        if (GameManager.instance.hp > 0)  Debug.Log("게임 승리");
-        if (GameManager.instance.hp <= 0) Debug.Log("게임 패배");
+        if (GameManager.instance.hp > 0)
+        {
+            Debug.Log("게임 승리");
+            SceneManager.LoadScene("Map");
+        }
+        if (GameManager.instance.hp <= 0)
+        {
+            Debug.Log("게임 패배");
+            SceneManager.LoadScene("Title");
+        }
     }
 }
 
