@@ -16,7 +16,10 @@ public class DiceScore : MonoBehaviour
     public TextEffect yachtText;
 
     public TMP_Text DamageText;
+    public TMP_Text DamagePlus;
     public TMP_Text ADCText;
+
+    public float plus;
 
     private void Update()
     {
@@ -34,7 +37,9 @@ public class DiceScore : MonoBehaviour
         }
         DamageScore = sum;
 
-        GameManager.instance.playerDamage = DamageScore;
+        PlusDamage();
+
+        GameManager.instance.playerDamage = DamageScore + plus;
         DamageText.text = DamageScore.ToString("0.0");
 
         // DiceManager에 있는 diceList.finalSide 값을 가져와서 배열에 저장
@@ -84,6 +89,30 @@ public class DiceScore : MonoBehaviour
         BattleSystem.instance.battleMotion = 3;
         ADCText.text = "Counter";
         GameManager.instance.adc.SetActive(false);
+    }
+
+    private void PlusDamage()
+    {
+        if (fullHouse == true)
+        {
+            plus = DamageScore;
+        }
+        else if (fourOfKind == true)
+        {
+            plus = DamageScore;
+        }
+        else if (straight == true)
+        {
+            plus = 30;
+        }
+        else if (yacht == true)
+        {
+            plus = 50;
+        }
+        else
+        {
+            plus = 0;
+        }
     }
 
     // Full House

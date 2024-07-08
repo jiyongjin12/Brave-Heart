@@ -74,10 +74,11 @@ namespace Map
             {
                 case NodeType.MinorEnemy:
                     Debug.Log("老馆各");
-                    //Test();
+                    Test();
                     break;
                 case NodeType.EliteEnemy:
                     Debug.Log("郡府飘各");
+                    EditorSceneManager.LoadScene("EliteScene");
                     break;
                 case NodeType.RestSite:
                     Debug.Log("桨磐");

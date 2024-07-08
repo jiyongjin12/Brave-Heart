@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
     IEnumerator Dead()
     {
         deadEnemy = true;
-        BattleSystem.instance.EliteDead = true;
+        //BattleSystem.instance.EliteDead = true;
         ReEnemyNum();
         BattleSystem.instance.TNum = 0;
         yield return YieldCache.WaitForSeconds(1f);

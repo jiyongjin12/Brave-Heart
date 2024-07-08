@@ -4544,7 +4544,13 @@ MonoBehaviour:
     chance: 100
   - prefab: {fileID: 9076197679635151396, guid: b2ca47c98b401c84883ec29271ed2a1c, type: 3}
     chance: 0
-  ElitePrefab: []
+  ElitePrefab:
+  - prefab: {fileID: 9076197679635151396, guid: 2587ed8e4aa8ac44d953562944702662, type: 3}
+    chance: 50
+  - prefab: {fileID: 9076197679635151396, guid: 9d15c1faada7d814194e58c46a1f23d1, type: 3}
+    chance: 50
+  - prefab: {fileID: 9076197679635151396, guid: 111c84cb18f24f04fb90cccaa00731ff, type: 3}
+    chance: 50
   button:
   - {fileID: 0}
   - {fileID: 0}
@@ -9450,7 +9456,9 @@ MonoBehaviour:
   straightText: {fileID: 1675722278}
   yachtText: {fileID: 880660301}
   DamageText: {fileID: 172411771}
+  DamagePlus: {fileID: 0}
   ADCText: {fileID: 1410306776}
+  plus: 0
 --- !u!1 &664015497
 GameObject:
   m_ObjectHideFlags: 0

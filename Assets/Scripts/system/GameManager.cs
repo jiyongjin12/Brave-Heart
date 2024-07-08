@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using UnityEngine.UI;
 using TMPro;
 
@@ -38,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        counter = 50;
         emptyEnemy = 1;
         instance = this;
         hp = Maxhp;
@@ -150,34 +150,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private int GetRandom()
+    {
+        float random = Random.value * 100;
+
+        if (counter >= random)
+        {
+            return 1;
+        }
+
+        return 0;
+    }
+
     public void Counter(int num)
     {
-        if (BattleSystem.instance.enemySlot[num].damage > counter && shield > 0)
+        float Success = GetRandom();
+        if (Success == 0)
         {
-            shield -= BattleSystem.instance.enemySlot[num].damage * 2;
+            if(shield > 0)
+            {
+                shield -= BattleSystem.instance.enemySlot[num].damage * 2;
+                ShieldBreak();
+            }
+            else
+            {
+                hp -= BattleSystem.instance.enemySlot[num].damage * 2;
+                StartCoroutine(Unit.instance.ShakePlayer());
+            }
             Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage * 2);
             TextDamage(BattleSystem.instance.playerBattleTrans);
-            ShieldBreak();
-        }
-        else if (BattleSystem.instance.enemySlot[num].damage > counter)
-        {
-            hp -= BattleSystem.instance.enemySlot[num].damage * 2;
-            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage * 2);
-            StartCoroutine(Unit.instance.ShakePlayer());
-            TextDamage(BattleSystem.instance.playerBattleTrans);
-        }
-        else if (BattleSystem.instance.enemySlot[num].damage == counter)
-        {
-            StartCoroutine(Enemy.instance.ShakeMonster(num));
-            BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage * 2;
-            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage * 2);
-            SpawnDamageText(BattleSystem.instance.enemySlot[num]);
         }
         else
         {
             StartCoroutine(Enemy.instance.ShakeMonster(num));
-            BattleSystem.instance.enemySlot[num].hp -= BattleSystem.instance.enemySlot[num].damage;
-            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage);
+            BattleSystem.instance.enemySlot[num].hp -= playerDamage * 1.5f;
+            Unit.instance.TextEnemyDamage(playerDamage * 1.5f);
             SpawnDamageText(BattleSystem.instance.enemySlot[num]);
         }
     }
