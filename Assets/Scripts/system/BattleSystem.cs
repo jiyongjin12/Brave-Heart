@@ -51,6 +51,9 @@ public class BattleSystem : MonoBehaviour
 
     public int minusNum;
 
+    public bool deadEnemy = false;
+    public int num;
+
     public enum State
     {
         start, playerTurn, enemyTurn, win, loss
@@ -65,7 +68,7 @@ public class BattleSystem : MonoBehaviour
         state = State.start;
         shieldIcon.SetActive(false);
         EnemyPercent();
-        EliteEnemyPercent();
+        if(SceneManager.GetActiveScene().name == "EliteScene") EliteEnemyPercent();
     }
 
     private void Start()
@@ -185,7 +188,7 @@ public class BattleSystem : MonoBehaviour
             enemyCount = curEnemy;
             for (int i = 0; i < 3; i++)
             {
-                SpawnEnemy(new Vector2(2 + i * 2, 5));
+                SpawnEnemy(new Vector2(4 + i * 2, 5));
                 number++;
                 curEnemy--;
             }
@@ -217,6 +220,7 @@ public class BattleSystem : MonoBehaviour
             GameManager.instance.counterAttack = true;
         }
 
+        //ReEnemyNum();
         GameManager.instance.DeadEnmey();
         yield return YieldCache.WaitForSeconds(0.5f);
         //Debug.Log("적 턴");
@@ -226,14 +230,13 @@ public class BattleSystem : MonoBehaviour
 
     public IEnumerator EnemyTurn()
     {
+        yield return null;
         if (SceneManager.GetActiveScene().name == "EliteScene")
         {
             StartCoroutine(EliteTurn());
         }
         else
         {
-            NewEnemy();
-            yield return YieldCache.WaitForSeconds(0.5f);
             StartCoroutine(Turn());
         }
     }
@@ -279,6 +282,7 @@ public class BattleSystem : MonoBehaviour
                 else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
                     Enemy.instance.AttackWizard(i);
                 yield return YieldCache.WaitForSeconds(1f);
+                if (enemySlot[i] == null) i--;
             }
         }
         else
@@ -288,6 +292,7 @@ public class BattleSystem : MonoBehaviour
                 if (enemySlot[i] == null)
                     continue;
 
+                TNum = i;
                 Vector3 trans = enemySlot[i].transform.position;
                 StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x - 2, trans.y)));
                 yield return YieldCache.WaitForSeconds(0.5f);
@@ -316,9 +321,14 @@ public class BattleSystem : MonoBehaviour
         //        enemySlot[j + 1] = null;
         //    }
         //}
+        //ReEnemyNum();
+        NewEnemy();
         GameManager.instance.DeadEnmey();
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
+        TNum = 0;
+        num = 0;
+        Enemy.instance.MonsterAttackNum = 0;
         DiceManager.instance.IsMyTurn();
         state = State.playerTurn;
     }
@@ -340,14 +350,27 @@ public class BattleSystem : MonoBehaviour
             if (enemySlot[i] == null) i--;
         }
 
+        //ReEnemyNum();
         if (curEnemy <= 0) GameManager.instance.DeadEnmey();
         yield return YieldCache.WaitForSeconds(0.5f);
         //if (EliteDead) NewElite();
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
+        //num = 0;
         DiceManager.instance.IsMyTurn();
         EliteTrans = new Vector3(enemySlot[TNum].transform.position.x, 5);
         state = State.playerTurn;
+    }
+
+    public void ReEnemyNum()
+    {
+        //if (num == 0) return;
+        minusNum -= 1;
+        int i;
+        for (i = TNum; i < number; i++)
+        {
+            enemySlot[i].enemyNum -= 1;
+        }
     }
 
     //적 움직임
@@ -372,7 +395,6 @@ public class BattleSystem : MonoBehaviour
 
     void BatleEnd()
     {
-        Time.timeScale = 0;
         if (GameManager.instance.hp > 0)
         {
             Debug.Log("게임 승리");

@@ -4544,13 +4544,7 @@ MonoBehaviour:
     chance: 100
   - prefab: {fileID: 9076197679635151396, guid: b2ca47c98b401c84883ec29271ed2a1c, type: 3}
     chance: 0
-  ElitePrefab:
-  - prefab: {fileID: 9076197679635151396, guid: 2587ed8e4aa8ac44d953562944702662, type: 3}
-    chance: 50
-  - prefab: {fileID: 9076197679635151396, guid: 9d15c1faada7d814194e58c46a1f23d1, type: 3}
-    chance: 50
-  - prefab: {fileID: 9076197679635151396, guid: 111c84cb18f24f04fb90cccaa00731ff, type: 3}
-    chance: 50
+  ElitePrefab: []
   button:
   - {fileID: 0}
   - {fileID: 0}
@@ -4584,9 +4578,10 @@ MonoBehaviour:
   enemy: {fileID: 0}
   number: 0
   EliteTrans: {x: 0, y: 0, z: 0}
-  EliteDead: 0
   battleMotion: 0
   minusNum: 0
+  deadEnemy: 0
+  num: 0
   state: 0
 --- !u!4 &335662175
 Transform:

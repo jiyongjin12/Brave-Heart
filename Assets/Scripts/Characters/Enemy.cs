@@ -18,8 +18,6 @@ public class Enemy : MonoBehaviour
     public float Maxhp;
     //public bool isMovement = false;
 
-    private bool deadEnemy = false;
-
     public float yPos;
 
     public int Charge;
@@ -49,32 +47,23 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (hp <= 0 && !Unit.instance.isAttacking && deadEnemy == false)
+        if (hp <= 0 && !Unit.instance.isAttacking && BattleSystem.instance.deadEnemy == false)
         {
+            BattleSystem.instance.num++;
             StartCoroutine(Dead());
         }
     }
 
     IEnumerator Dead()
     {
-        deadEnemy = true;
+        BattleSystem.instance.deadEnemy = true;
         //BattleSystem.instance.EliteDead = true;
-        ReEnemyNum();
-        BattleSystem.instance.TNum = 0;
+        BattleSystem.instance.ReEnemyNum();
         yield return YieldCache.WaitForSeconds(1f);
-        Destroy(gameObject);
+        BattleSystem.instance.deadEnemy = false;
         BattleSystem.instance.number--;
         BattleSystem.instance.enemyCount--;
-        deadEnemy = false;
-    }
-
-    public void ReEnemyNum()
-    {
-        BattleSystem.instance.minusNum -= 1;
-        for (int i = BattleSystem.instance.TNum + 1; i < BattleSystem.instance.number; i++)
-        {
-            BattleSystem.instance.enemySlot[i].enemyNum -= 1;
-        }
+        Destroy(gameObject);
     }
 
     public IEnumerator ShakeMonster(int i)
