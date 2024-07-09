@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         sliderClone.transform.SetParent(canvasTransform);
         sliderClone.transform.localPosition = Vector3.one;
 
-        sliderClone.GetComponent<HpPos>().SetUp(enemy.transform);
+        sliderClone.GetComponent<HpPos>().SetUp(enemy.transform, enemy);
     }
 
     public void SpawnDamageText(Enemy enemy)

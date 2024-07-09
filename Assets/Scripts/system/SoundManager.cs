@@ -36,6 +36,13 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public int Rand()
+    {
+        int rand = Random.Range(2, 4);
+
+        return rand;
+    }
+
     public void BGMVolume(float val)
     {
         float sound = BGMslider.value;

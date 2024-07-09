@@ -7,7 +7,6 @@ using TMPro;
 public class Unit : MonoBehaviour
 {
     public static Unit instance { get; private set; }
-    Vector3 playerPos = new Vector3(-8, 4);
 
     private Animator animator;
 
@@ -31,10 +30,10 @@ public class Unit : MonoBehaviour
     IEnumerator playerAttack()
     {
         isAttacking = true;
-        StartCoroutine(PlayerMoveTo(new Vector3(BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].transform.position.x - 2, 4)));
+        StartCoroutine(PlayerMoveTo(new Vector3(BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].transform.position.x - 2, BattleSystem.instance.playerBattleTrans.position.y)));
         animator.SetInteger("Attack", 1);
         yield return YieldCache.WaitForSeconds(5f);
-        transform.position = playerPos;
+        transform.position = BattleSystem.instance.playerBattleTrans.position;
     }
 
     //스킬 베기 데미지
@@ -77,7 +76,7 @@ public class Unit : MonoBehaviour
     {
         float shakeTime = 2f;
         float shakePower = 0.3f;
-        Vector3 origin = playerPos;
+        Vector3 origin = BattleSystem.instance.playerBattleTrans.position;
 
         while (shakeTime >= 0f)
         {

@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     public float Maxhp;
     //public bool isMovement = false;
 
+    public float xPos;
     public float yPos;
 
     public int Charge;
@@ -53,6 +54,12 @@ public class Enemy : MonoBehaviour
             StartCoroutine(Dead());
         }
     }
+
+    //private void TransOrc()
+    //{
+    //    if (BattleSystem.instance.enemySlot[this.enemyNum].Enemykind == EnemyKind.Orc)
+    //        BattleSystem.instance.enemySlot[this.enemyNum].transform.position = new Vector3(BattleSystem.instance.enemySlot[this.enemyNum].transform.position.x - 0.5f, transform.position.y);
+    //}
 
     IEnumerator Dead()
     {
@@ -98,8 +105,16 @@ public class Enemy : MonoBehaviour
 
     public void EnemyPos(Enemy Enemy)
     {
-        if (Enemy.Enemykind == EnemyKind.Goblin || Enemy.Enemykind == EnemyKind.Slime) yPos = 5;
-        else if (Enemy.Enemykind == EnemyKind.Orc) yPos = 5.25f;
+        if (Enemy.Enemykind == EnemyKind.Goblin || Enemy.Enemykind == EnemyKind.Slime)
+        {
+            xPos = 0;
+            yPos = 4f;
+        }
+        else if (Enemy.Enemykind == EnemyKind.Orc)
+        {
+            xPos = 0.5f;
+            yPos = 4.5f;
+        }
     }
 
     public void AttackArcher(int i)

@@ -41,7 +41,7 @@ public class BattleSystem : MonoBehaviour
     public GameObject enemy;
 
     public int number;
-    private Vector3 newEnemyPos = new Vector3(8, 5);
+    private Vector3 newEnemyPos = new Vector3(8, 4f);
 
     public Vector3 EliteTrans;
     //public bool EliteDead = false;
@@ -121,7 +121,7 @@ public class BattleSystem : MonoBehaviour
         
         enemy = Instantiate(clone.Prefab, pos, Quaternion.identity);
         Enemy.instance.EnemyPos(clone.Prefab.GetComponent<Enemy>());
-        enemy.transform.position = new Vector3(pos.x, Enemy.instance.yPos);
+        enemy.transform.position = new Vector3(pos.x - Enemy.instance.xPos, Enemy.instance.yPos);
         enemySlot[number] = enemy.GetComponent<Enemy>();
         GameManager.instance.SpawnEnemyHPSlider(enemySlot[number]);
     }
@@ -132,7 +132,7 @@ public class BattleSystem : MonoBehaviour
 
         enemy = Instantiate(clone.Prefab, pos, Quaternion.identity);
         Enemy.instance.EnemyPos(clone.Prefab.GetComponent<Enemy>());
-        enemy.transform.position = new Vector3(pos.x, Enemy.instance.yPos);
+        enemy.transform.position = new Vector3(pos.x - Enemy.instance.xPos, Enemy.instance.yPos);
         enemySlot[number] = enemy.GetComponent<Enemy>();
         GameManager.instance.SpawnEnemyHPSlider(enemySlot[number]);
     }
@@ -176,7 +176,7 @@ public class BattleSystem : MonoBehaviour
             enemyCount = curEnemy;
             for (int i = 0; i < 3; i++)
             {
-                SpawnElite(new Vector2(2 + i * 2, 5));
+                SpawnElite(new Vector2(2 + i * 2, 4f));
                 number++;
                 curEnemy--;
             }
@@ -188,7 +188,7 @@ public class BattleSystem : MonoBehaviour
             enemyCount = curEnemy;
             for (int i = 0; i < 3; i++)
             {
-                SpawnEnemy(new Vector2(4 + i * 2, 5));
+                SpawnEnemy(new Vector2(4 + i * 2, 4));
                 number++;
                 curEnemy--;
             }
@@ -358,7 +358,7 @@ public class BattleSystem : MonoBehaviour
         GameManager.instance.isClick = false;
         //num = 0;
         DiceManager.instance.IsMyTurn();
-        EliteTrans = new Vector3(enemySlot[TNum].transform.position.x, 5);
+        EliteTrans = new Vector3(enemySlot[TNum].transform.position.x, 4);
         state = State.playerTurn;
     }
 

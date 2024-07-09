@@ -94,6 +94,7 @@ namespace Map
                     break;
                 case NodeType.Mystery:
                     Debug.Log("물음표방");
+                    EditorSceneManager.LoadScene(SoundManager.instance.Rand());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
