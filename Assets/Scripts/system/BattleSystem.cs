@@ -372,7 +372,7 @@ public class BattleSystem : MonoBehaviour
 
     void BatleEnd()
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         if (GameManager.instance.hp > 0)
         {
             Debug.Log("╟тюс ╫б╦╝");
