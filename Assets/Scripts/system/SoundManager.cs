@@ -13,6 +13,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource bgSound;
     public AudioClip[] bglist;
     public static SoundManager instance;
+
+    public float stage = 1;
     private void Awake()
     {
         if(instance == null)

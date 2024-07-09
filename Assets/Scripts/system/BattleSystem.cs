@@ -86,11 +86,13 @@ public class BattleSystem : MonoBehaviour
         if (enemyCount <= 0)
         {
             state = State.win;
+            SoundManager.instance.stage += 0.2f;
             BatleEnd();
         }
         else if (GameManager.instance.hp <= 0)
         {
             state = State.loss;
+            SoundManager.instance.stage = 1f;
             BatleEnd();
         }
     }

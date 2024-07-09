@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour
 
     public void EnemyAttack(int num)
     {
-
+        StartCoroutine(AttackRot(num));
         if (counterAttack == true) Counter(num);
         else if (shield > 0)
         {
@@ -148,6 +148,13 @@ public class GameManager : MonoBehaviour
             Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage);
             TextDamage(BattleSystem.instance.playerBattleTrans);
         }
+    }
+
+    IEnumerator AttackRot(int num)
+    {
+        BattleSystem.instance.enemySlot[num].transform.rotation = Quaternion.Euler(0, 0, 10);
+        yield return YieldCache.WaitForSeconds(0.5f);
+        BattleSystem.instance.enemySlot[num].transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     private int GetRandom()

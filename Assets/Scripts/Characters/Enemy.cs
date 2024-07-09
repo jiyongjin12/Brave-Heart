@@ -39,9 +39,9 @@ public class Enemy : MonoBehaviour
     {
         this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum) * -1;
         Charge = 0;
-        hp = enemyData.baseHp + enemyData.maxHp[Level];
-        Maxhp = enemyData.baseHp + enemyData.maxHp[Level];
-        damage = enemyData.baseDamage + enemyData.damages[Level];
+        hp = (enemyData.baseHp + enemyData.maxHp[Level]) * SoundManager.instance.stage;
+        Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * SoundManager.instance.stage;
+        damage = (enemyData.baseDamage + enemyData.damages[Level]) *SoundManager.instance.stage;
         //this.BeforeHp = this.hp;
         instance = this;
     }
@@ -108,12 +108,12 @@ public class Enemy : MonoBehaviour
         if (Enemy.Enemykind == EnemyKind.Goblin || Enemy.Enemykind == EnemyKind.Slime)
         {
             xPos = 0;
-            yPos = 4f;
+            yPos = 4.3f;
         }
         else if (Enemy.Enemykind == EnemyKind.Orc)
         {
             xPos = 0.5f;
-            yPos = 4.5f;
+            yPos = 4.8f;
         }
     }
 
