@@ -39,9 +39,9 @@ public class Enemy : MonoBehaviour
     {
         this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum) * -1;
         Charge = 0;
-        hp = (enemyData.baseHp + enemyData.maxHp[Level]) * SoundManager.instance.stage;
-        Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * SoundManager.instance.stage;
-        damage = (enemyData.baseDamage + enemyData.damages[Level]) *SoundManager.instance.stage;
+        hp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.stage;
+        Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.stage;
+        damage = (enemyData.baseDamage + enemyData.damages[Level]) * GameSuvManager.instance.stage;
         //this.BeforeHp = this.hp;
         instance = this;
     }

@@ -14,7 +14,6 @@ public class SoundManager : MonoBehaviour
     public AudioClip[] bglist;
     public static SoundManager instance;
 
-    public float stage = 1;
     private void Awake()
     {
         if(instance == null)
@@ -36,13 +35,6 @@ public class SoundManager : MonoBehaviour
             if(SceneManager.GetActiveScene().buildIndex == i)
                 BgSoundPlay(bglist[i]);
         }
-    }
-
-    public int Rand()
-    {
-        int rand = Random.Range(2, 4);
-
-        return rand;
     }
 
     public void BGMVolume(float val)

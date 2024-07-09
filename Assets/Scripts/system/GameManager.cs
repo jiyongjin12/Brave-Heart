@@ -34,13 +34,15 @@ public class GameManager : MonoBehaviour
 
     public bool isPause;
     public GameObject ClickObj;
+    //public GameObject ClickArea;
 
     private void Awake()
     {
         counter = 50;
         emptyEnemy = 1;
         instance = this;
-        hp = Maxhp;
+        hp = GameSuvManager.instance.playerHP;
+        Maxhp = GameSuvManager.instance.playerMaxHP;
         isPause = false;
         counterAttack = false;
         isClick = false;
@@ -49,7 +51,17 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         _hpBar.fillAmount =  hp / Maxhp;
+        GameSuvManager.instance.playerMaxHP = Maxhp;
         TextDefense.text = shield.ToString();
+        //if (BattleSystem.instance.state == BattleSystem.State.playerTurn)
+        //{
+        //    ClickArea.transform.position = BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].transform.position;
+        //    ClickArea.SetActive(true);
+        //}
+        //else
+        //{
+        //    ClickArea.SetActive(false);
+        //}
         if (!isPause && Input.GetMouseButtonDown(0) && BattleSystem.instance.state == BattleSystem.State.playerTurn)
         {
             ClickObj = mouseGetObject();

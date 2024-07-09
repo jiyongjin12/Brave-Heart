@@ -82,6 +82,7 @@ namespace Map
                     break;
                 case NodeType.RestSite:
                     Debug.Log("쉼터");
+                    EditorSceneManager.LoadScene("RecoveryScene");
                     break;
                 case NodeType.Treasure:
                     Debug.Log("상자");
@@ -94,7 +95,7 @@ namespace Map
                     break;
                 case NodeType.Mystery:
                     Debug.Log("물음표방");
-                    EditorSceneManager.LoadScene(SoundManager.instance.Rand());
+                    EditorSceneManager.LoadScene(GameSuvManager.instance.Rand());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

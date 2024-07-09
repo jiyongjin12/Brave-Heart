@@ -33,6 +33,9 @@ public class Menu : MonoBehaviour
 
     public void NewGame()
     {
+        GameSuvManager.instance.playerMaxHP = 100;
+        GameSuvManager.instance.playerHP = 100;
+        GameSuvManager.instance.stage = 1;
         SceneManager.LoadScene("Map");
     }
 
