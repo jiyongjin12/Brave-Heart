@@ -7,5 +7,5 @@ public class ItemListings : ScriptableObject
 {
     [TextArea] [SerializeField] public string rewardDescription;
 
-    [SerializeField] private List<ItemSO> Item;
+    [SerializeField] public List<ItemSO> Item;
 }

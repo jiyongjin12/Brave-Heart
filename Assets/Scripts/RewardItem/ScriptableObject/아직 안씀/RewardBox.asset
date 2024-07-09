@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48364733825932b40918f643078690d8, type: 3}
   m_Name: RewardBox
   m_EditorClassIdentifier: 
-  cardRewardDataList: []
-  goldRewardDataList: []
+  itemRewardDataList:
+  - {fileID: 11400000, guid: 633e8e074dfec274dba291a21e00651a, type: 2}
+  goldRewardDataList:
+  - {fileID: 11400000, guid: b26dbabda6d5fa240b445120aa6a039d, type: 2}

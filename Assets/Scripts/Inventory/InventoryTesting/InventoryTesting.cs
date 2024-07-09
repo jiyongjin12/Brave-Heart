@@ -12,7 +12,7 @@ public class InventoryTesting : MonoBehaviour
     private Inventory outerInventoryTetris;
 
     [SerializeField]
-    private List<ItemSO> ItemInfo;
+    public List<ItemSO> ItemInfo;
 
 
     private void Update()

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [CreateAssetMenu()]
 public class ItemSO : PlacedObjectTypeSO
 {
+    public Sprite Test;
+
     public static void CreateVisualGrid(Transform visualParentTransform, ItemSO itemTetrisSO, float cellSize)
     {
         Transform visualTransform = Instantiate(InventoryAssets.Instance.gridVisual, visualParentTransform);
