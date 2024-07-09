@@ -7,6 +7,7 @@ public class HpPos : MonoBehaviour
     [SerializeField]
     private Vector3 distance = Vector3.up;
     private Transform targetTransform;
+    private Enemy enemy;
     private RectTransform rectTransform;
 
     private void Start()
@@ -14,9 +15,10 @@ public class HpPos : MonoBehaviour
         transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
     }
 
-    public void SetUp(Transform target)
+    public void SetUp(Transform target, Enemy thisenemy)
     {
         targetTransform = target;
+        enemy = thisenemy;
         rectTransform = GetComponent<RectTransform>();
     }
 
@@ -28,7 +30,12 @@ public class HpPos : MonoBehaviour
             return;
         }
 
-        Vector3 screenPos = new Vector3(targetTransform.position.x, targetTransform.transform.position.y + 1.5f);
+        Vector3 screenPos;
+
+        if (enemy.Enemykind == Enemy.EnemyKind.Orc)
+             screenPos = new Vector3(targetTransform.position.x + 0.5f, targetTransform.transform.position.y + 2f);
+        else
+             screenPos = new Vector3(targetTransform.position.x, targetTransform.transform.position.y + 1.5f);
 
         rectTransform.position = screenPos;
     }

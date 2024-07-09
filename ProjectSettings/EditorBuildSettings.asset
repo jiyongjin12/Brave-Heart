@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EliteScene.unity
     guid: aecdf040888265e4794154e826e1b8f7
+  - enabled: 1
+    path: Assets/Scenes/RecoveryScene.unity
+    guid: cebba50fdb4ad7b4e9ae9f198c3564d7
   m_configObjects: {}

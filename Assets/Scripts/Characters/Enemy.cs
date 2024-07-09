@@ -18,8 +18,7 @@ public class Enemy : MonoBehaviour
     public float Maxhp;
     //public bool isMovement = false;
 
-    private bool deadEnemy = false;
-
+    public float xPos;
     public float yPos;
 
     public int Charge;
@@ -40,41 +39,38 @@ public class Enemy : MonoBehaviour
     {
         this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum) * -1;
         Charge = 0;
-        hp = enemyData.baseHp + enemyData.maxHp[Level];
-        Maxhp = enemyData.baseHp + enemyData.maxHp[Level];
-        damage = enemyData.baseDamage + enemyData.damages[Level];
+        hp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.stage;
+        Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.stage;
+        damage = (enemyData.baseDamage + enemyData.damages[Level]) * GameSuvManager.instance.stage;
         //this.BeforeHp = this.hp;
         instance = this;
     }
 
     private void Update()
     {
-        if (hp <= 0 && !Unit.instance.isAttacking && deadEnemy == false)
+        if (hp <= 0 && !Unit.instance.isAttacking && BattleSystem.instance.deadEnemy == false)
         {
+            BattleSystem.instance.num++;
             StartCoroutine(Dead());
         }
     }
 
+    //private void TransOrc()
+    //{
+    //    if (BattleSystem.instance.enemySlot[this.enemyNum].Enemykind == EnemyKind.Orc)
+    //        BattleSystem.instance.enemySlot[this.enemyNum].transform.position = new Vector3(BattleSystem.instance.enemySlot[this.enemyNum].transform.position.x - 0.5f, transform.position.y);
+    //}
+
     IEnumerator Dead()
     {
-        deadEnemy = true;
+        BattleSystem.instance.deadEnemy = true;
         //BattleSystem.instance.EliteDead = true;
-        ReEnemyNum();
-        BattleSystem.instance.TNum = 0;
+        BattleSystem.instance.ReEnemyNum();
         yield return YieldCache.WaitForSeconds(1f);
-        Destroy(gameObject);
+        BattleSystem.instance.deadEnemy = false;
         BattleSystem.instance.number--;
         BattleSystem.instance.enemyCount--;
-        deadEnemy = false;
-    }
-
-    public void ReEnemyNum()
-    {
-        BattleSystem.instance.minusNum -= 1;
-        for (int i = BattleSystem.instance.TNum + 1; i < BattleSystem.instance.number; i++)
-        {
-            BattleSystem.instance.enemySlot[i].enemyNum -= 1;
-        }
+        Destroy(gameObject);
     }
 
     public IEnumerator ShakeMonster(int i)
@@ -109,8 +105,16 @@ public class Enemy : MonoBehaviour
 
     public void EnemyPos(Enemy Enemy)
     {
-        if (Enemy.Enemykind == EnemyKind.Goblin || Enemy.Enemykind == EnemyKind.Slime) yPos = 5;
-        else if (Enemy.Enemykind == EnemyKind.Orc) yPos = 5.25f;
+        if (Enemy.Enemykind == EnemyKind.Goblin || Enemy.Enemykind == EnemyKind.Slime)
+        {
+            xPos = 0;
+            yPos = 4.3f;
+        }
+        else if (Enemy.Enemykind == EnemyKind.Orc)
+        {
+            xPos = 0.5f;
+            yPos = 4.8f;
+        }
     }
 
     public void AttackArcher(int i)

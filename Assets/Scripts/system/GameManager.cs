@@ -34,13 +34,15 @@ public class GameManager : MonoBehaviour
 
     public bool isPause;
     public GameObject ClickObj;
+    //public GameObject ClickArea;
 
     private void Awake()
     {
         counter = 50;
         emptyEnemy = 1;
         instance = this;
-        hp = Maxhp;
+        hp = GameSuvManager.instance.playerHP;
+        Maxhp = GameSuvManager.instance.playerMaxHP;
         isPause = false;
         counterAttack = false;
         isClick = false;
@@ -49,7 +51,17 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         _hpBar.fillAmount =  hp / Maxhp;
+        GameSuvManager.instance.playerMaxHP = Maxhp;
         TextDefense.text = shield.ToString();
+        //if (BattleSystem.instance.state == BattleSystem.State.playerTurn)
+        //{
+        //    ClickArea.transform.position = BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].transform.position;
+        //    ClickArea.SetActive(true);
+        //}
+        //else
+        //{
+        //    ClickArea.SetActive(false);
+        //}
         if (!isPause && Input.GetMouseButtonDown(0) && BattleSystem.instance.state == BattleSystem.State.playerTurn)
         {
             ClickObj = mouseGetObject();
@@ -75,7 +87,7 @@ public class GameManager : MonoBehaviour
         sliderClone.transform.SetParent(canvasTransform);
         sliderClone.transform.localPosition = Vector3.one;
 
-        sliderClone.GetComponent<HpPos>().SetUp(enemy.transform);
+        sliderClone.GetComponent<HpPos>().SetUp(enemy.transform, enemy);
     }
 
     public void SpawnDamageText(Enemy enemy)
@@ -132,7 +144,7 @@ public class GameManager : MonoBehaviour
 
     public void EnemyAttack(int num)
     {
-
+        StartCoroutine(AttackRot(num));
         if (counterAttack == true) Counter(num);
         else if (shield > 0)
         {
@@ -148,6 +160,13 @@ public class GameManager : MonoBehaviour
             Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[num].damage);
             TextDamage(BattleSystem.instance.playerBattleTrans);
         }
+    }
+
+    IEnumerator AttackRot(int num)
+    {
+        BattleSystem.instance.enemySlot[num].transform.rotation = Quaternion.Euler(0, 0, 10);
+        yield return YieldCache.WaitForSeconds(0.5f);
+        BattleSystem.instance.enemySlot[num].transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     private int GetRandom()
