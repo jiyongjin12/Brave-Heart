@@ -10,30 +10,13 @@ public class InventoryTesting : MonoBehaviour
     private Inventory inventoryTetris;
     [SerializeField]
     private Inventory outerInventoryTetris;
-    [SerializeField]
-    private List<string> addItemTetrisSaveList;
 
     [SerializeField]
     private List<ItemSO> ItemInfo;
-    private int currentItemIndex = 0;
 
-    private int addItemTetrisSaveListIndex;
-
-    private void Start()
-    {
-        outerInventoryTetrisBackground.gameObject.SetActive(false);
-    }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            outerInventoryTetrisBackground.gameObject.SetActive(true);
-            outerInventoryTetris.Load(addItemTetrisSaveList[addItemTetrisSaveListIndex]);
-
-            addItemTetrisSaveListIndex = (addItemTetrisSaveListIndex + 1) % addItemTetrisSaveList.Count;
-        }
-
         if (Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log(inventoryTetris.Save());
@@ -52,7 +35,7 @@ public class InventoryTesting : MonoBehaviour
         }
     }
 
-    private void ExportIncomingItems()
+    public void ExportIncomingItems()
     {
         List<ItemSO> itemsToPlace = new List<ItemSO>(ItemInfo);
 
@@ -82,6 +65,8 @@ public class InventoryTesting : MonoBehaviour
                 Debug.LogWarning($"Could not place item: {currentItem.name}, no valid position found.");
             }
         }
+
+        ItemInfo.Clear();
     }
 
     private Vector2Int GetRandomGridPosition(int gridWidth, int gridHeight)
