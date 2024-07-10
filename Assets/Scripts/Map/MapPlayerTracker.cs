@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using DG.Tweening;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 namespace Map
 {
@@ -65,7 +65,7 @@ namespace Map
         private static void Test()
         {
             Debug.Log("´ÙÀ½ ¾À");
-            EditorSceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("SampleScene");
         }
 
         private static void EnterNode(MapNode mapNode)
@@ -78,11 +78,11 @@ namespace Map
                     break;
                 case NodeType.EliteEnemy:
                     Debug.Log("¿¤¸®Æ®¸÷");
-                    EditorSceneManager.LoadScene("EliteScene");
+                    SceneManager.LoadScene("EliteScene");
                     break;
                 case NodeType.RestSite:
                     Debug.Log("½°ÅÍ");
-                    EditorSceneManager.LoadScene("RecoveryScene");
+                    SceneManager.LoadScene("RecoveryScene");
                     break;
                 case NodeType.Treasure:
                     Debug.Log("»óÀÚ");
@@ -95,7 +95,7 @@ namespace Map
                     break;
                 case NodeType.Mystery:
                     Debug.Log("¹°À½Ç¥¹æ");
-                    EditorSceneManager.LoadScene(GameSuvManager.instance.Rand());
+                    SceneManager.LoadScene(GameSuvManager.instance.Rand());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

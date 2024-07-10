@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class RewardItem : MonoBehaviour
 {
+    public static RewardItem instance { get; private set; }
     [SerializeField] private GameObject CombatRewardPanel;
     [SerializeField] private GameObject Reward;
     //[SerializeField] private GameObject[] BoxPrefab;
@@ -14,9 +17,9 @@ public class RewardItem : MonoBehaviour
 
     public int Gold;
 
-    private void Start()
+    private void Awake()
     {
-        WaveWin();
+        instance = this;
     }
 
     public void WaveWin()
@@ -56,5 +59,6 @@ public class RewardItem : MonoBehaviour
     public void NextButton()
     {
         CombatRewardPanel.SetActive(false);
+        SceneManager.LoadScene("Map");
     }
 }

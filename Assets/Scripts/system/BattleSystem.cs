@@ -401,7 +401,8 @@ public class BattleSystem : MonoBehaviour
         if (GameManager.instance.hp > 0)
         {
             Debug.Log("°ÔÀÓ ½Â¸®");
-            SceneManager.LoadScene("Map");
+            RewardItem.instance.WaveWin();
+            //SceneManager.LoadScene("Map");
         }
         if (GameManager.instance.hp <= 0)
         {
