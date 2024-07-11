@@ -32,10 +32,8 @@ public class HpPos : MonoBehaviour
 
         Vector3 screenPos;
 
-        if (enemy.Enemykind == Enemy.EnemyKind.Orc)
-             screenPos = new Vector3(targetTransform.position.x + 0.5f, targetTransform.transform.position.y + 2f);
-        else
-             screenPos = new Vector3(targetTransform.position.x, targetTransform.transform.position.y + 1.5f);
+        screenPos = new Vector3(targetTransform.position.x, targetTransform.transform.position.y + 1.5f);
+
 
         rectTransform.position = screenPos;
     }

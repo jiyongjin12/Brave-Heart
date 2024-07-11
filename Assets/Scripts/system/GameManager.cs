@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        counter = 50;
+        counter = 100;
         emptyEnemy = 1;
         instance = this;
         hp = GameSuvManager.instance.playerHP;

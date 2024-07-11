@@ -83,10 +83,9 @@ public class BattleSystem : MonoBehaviour
 
     void battle()
     {
-        if (enemyCount <= 0)
+        if (enemyCount <= 0 && state != State.win)
         {
             state = State.win;
-            GameSuvManager.instance.stage += 0.2f;
             GameSuvManager.instance.playerHP = GameManager.instance.hp;
             BatleEnd();
         }
@@ -268,7 +267,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator Turn()
     {
         int i = 0;
-        if (enemySlot[0].transform.position.x == -6)
+        if (enemySlot[0].transform.position.x <= -7)
         {
             GameManager.instance.EnemyAttack(0);
             for (i = 1; i < enemySlot.Length; i++)
@@ -374,6 +373,7 @@ public class BattleSystem : MonoBehaviour
         {
             enemySlot[i].enemyNum -= 1;
         }
+        number--;
     }
 
     //적 움직임
