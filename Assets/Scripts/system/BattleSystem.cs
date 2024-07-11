@@ -208,7 +208,6 @@ public class BattleSystem : MonoBehaviour
             //Debug.Log("공격");
             Unit.instance.AttackMotion();
             yield return new WaitForSeconds(6f);
-            //enemySlot[0].hp -= GameManager.instance.playerDamage;
         }    
         else if (battleMotion == 2)
         {
@@ -222,10 +221,8 @@ public class BattleSystem : MonoBehaviour
             GameManager.instance.counterAttack = true;
         }
 
-        //ReEnemyNum();
         GameManager.instance.DeadEnmey();
         yield return YieldCache.WaitForSeconds(0.5f);
-        //Debug.Log("적 턴");
         state = State.enemyTurn;
         StartCoroutine(EnemyTurn());
     }
@@ -243,16 +240,16 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    void NewElite()
-    {
-        if (curEnemy <= 0)
-            return;
+    //void NewElite()
+    //{
+    //    if (curEnemy <= 0)
+    //        return;
 
-        SpawnElite(EliteTrans);
-        //EliteDead = false;
-        number++;
-        curEnemy--;
-    }
+    //    SpawnElite(EliteTrans);
+    //    //EliteDead = false;
+    //    number++;
+    //    curEnemy--;
+    //}
 
     void NewEnemy()
     {
@@ -275,6 +272,7 @@ public class BattleSystem : MonoBehaviour
                 if (enemySlot[i] == null)
                     continue;
 
+                TNum = i;
                 Vector3 trans = enemySlot[i].transform.position;
                 if (trans.x - 2 != enemySlot[i-1].transform.position.x)
                     StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x - 2, trans.y)));
@@ -309,23 +307,8 @@ public class BattleSystem : MonoBehaviour
             }
         }
 
-        //Debug.Log("플레이어 턴");
-        //int num = 0;
-        //for (int j = 0; j <= number + 1; j++)
-        //{
-        //    if (enemySlot[j] == null && enemySlot[j + 1] == null)
-        //    {
-        //        num++;
-        //    }
-        //    else if (enemySlot[j] == null && enemySlot[j + 1] != null)
-        //    {
-        //        enemySlot[j - num] = enemySlot[j + 1];
-        //        enemySlot[j + 1] = null;
-        //    }
-        //}
-        //ReEnemyNum();
-        NewEnemy();
         GameManager.instance.DeadEnmey();
+        NewEnemy();
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
         TNum = 0;
@@ -358,7 +341,6 @@ public class BattleSystem : MonoBehaviour
         //if (EliteDead) NewElite();
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
-        //num = 0;
         DiceManager.instance.IsMyTurn();
         EliteTrans = new Vector3(enemySlot[TNum].transform.position.x, 4);
         state = State.playerTurn;
@@ -366,7 +348,6 @@ public class BattleSystem : MonoBehaviour
 
     public void ReEnemyNum()
     {
-        //if (num == 0) return;
         minusNum -= 1;
         int i;
         for (i = TNum; i < number; i++)
@@ -402,7 +383,6 @@ public class BattleSystem : MonoBehaviour
         {
             Debug.Log("게임 승리");
             RewardItem.instance.WaveWin();
-            //SceneManager.LoadScene("Map");
         }
         if (GameManager.instance.hp <= 0)
         {
@@ -417,7 +397,7 @@ static class YieldCache
 {
     public static readonly WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
     public static readonly WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
-
+     
     private static readonly Dictionary<float, WaitForSeconds>
 _timeInterval = new Dictionary<float, WaitForSeconds>(new FloatComparer());
 
