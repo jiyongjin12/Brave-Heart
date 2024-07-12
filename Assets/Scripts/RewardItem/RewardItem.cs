@@ -25,7 +25,8 @@ public class RewardItem : MonoBehaviour
     public void WaveWin()
     {
         CombatRewardPanel.SetActive(true);
-        GameSuvManager.instance.stage += 0.2f;
+        GameSuvManager.instance.HPUp += 0.2f;
+        GameSuvManager.instance.DamageUP += 0.05f;
 
         //foreach (GameObject prefab in BoxPrefab)  
         //{

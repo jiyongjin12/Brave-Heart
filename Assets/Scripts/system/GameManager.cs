@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public GameObject adc;
 
     public float shield;
-    public float counter;
+    public float counter; //카운터 확률
 
     public bool counterAttack = false;
 
@@ -121,6 +121,9 @@ public class GameManager : MonoBehaviour
     //적이 죽었을 때 배열 변경
     public void DeadEnmey()
     {
+        if (BattleSystem.instance.enemySlot[0] == null)
+            return;
+
         emptyEnemy = 0;
         for (int i = 0; i < BattleSystem.instance.enemySlot.Length; i++)
         {

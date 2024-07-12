@@ -24,6 +24,8 @@ public class BattleSystem : MonoBehaviour
     public GameObject PlayerPrefab;
     public EnemyPer[] enemyPrefab;
     public EnemyPer[] ElitePrefab;
+    public Enemy Boss;
+
     [SerializeField]
     private GameObject[] button;
 
@@ -36,11 +38,11 @@ public class BattleSystem : MonoBehaviour
     public int TNum = 0;
 
     public int enemyCount; //0이 되면 플레이어 승리
-    public int curEnemy; //생성될 에너미 수
+    public int curEnemy = 1; //생성될 에너미 수
 
     public GameObject enemy;
 
-    public int number;
+    public int number = 0; //다음에 소환될 몬스터에 번호
     private Vector3 newEnemyPos = new Vector3(8, 4f);
 
     public Vector3 EliteTrans;
@@ -49,14 +51,14 @@ public class BattleSystem : MonoBehaviour
     public float battleMotion = 0;
     private float acc;
 
-    public int minusNum;
+    public int minusNum = 1; //적의 번호를 맞추기 위해 만듬
 
     public bool deadEnemy = false;
-    public int num;
+    public bool BossDead = false;
 
     public enum State
     {
-        start, playerTurn, enemyTurn, win, loss
+        start, playerTurn, enemyTurn, win, loss, clear
     }
 
     public State state;
@@ -69,6 +71,12 @@ public class BattleSystem : MonoBehaviour
         shieldIcon.SetActive(false);
         EnemyPercent();
         if(SceneManager.GetActiveScene().name == "EliteScene") EliteEnemyPercent();
+        if (SceneManager.GetActiveScene().name == "BossScene")
+        {
+            Instantiate(Boss, new Vector3(10, 4), Quaternion.identity);
+            curEnemy--;
+            number++;
+        }
     }
 
     private void Start()
@@ -83,11 +91,23 @@ public class BattleSystem : MonoBehaviour
 
     void battle()
     {
-        if (enemyCount <= 0 && state != State.win)
+        if(SceneManager.GetActiveScene().name == "BossScene")
         {
-            state = State.win;
-            GameSuvManager.instance.playerHP = GameManager.instance.hp;
-            BatleEnd();
+            if (BossDead == true && state != State.clear)
+            {
+                state = State.clear;
+                BatleEnd();
+            }
+        }
+        else if(SceneManager.GetActiveScene().name != "BossScene")
+        {
+            if (enemyCount <= 0 && state != State.win)
+            {
+                state = State.win;
+                GameSuvManager.instance.playerHP = GameManager.instance.hp;
+                BatleEnd();
+            }
+            
         }
         else if (GameManager.instance.hp <= 0)
         {
@@ -117,7 +137,7 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    private void SpawnEnemy(Vector2 pos)
+    public void SpawnEnemy(Vector2 pos)
     {
         var clone = enemyPrefab[GetRandom()];
         
@@ -183,6 +203,12 @@ public class BattleSystem : MonoBehaviour
                 curEnemy--;
             }
         }
+        else if(SceneManager.GetActiveScene().name == "BossScene")
+        {
+            curEnemy = 0;
+            minusNum = 0;
+            enemyCount = 1;
+        }
         else
         {
             curEnemy = 7;
@@ -230,6 +256,10 @@ public class BattleSystem : MonoBehaviour
     public IEnumerator EnemyTurn()
     {
         yield return null;
+        if(SceneManager.GetActiveScene().name == "BossScene")
+        {
+            StartCoroutine(BossSystem.instance.BossTurn());
+        }
         if (SceneManager.GetActiveScene().name == "EliteScene")
         {
             StartCoroutine(EliteTurn());
@@ -312,7 +342,6 @@ public class BattleSystem : MonoBehaviour
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
         TNum = 0;
-        num = 0;
         Enemy.instance.MonsterAttackNum = 0;
         DiceManager.instance.IsMyTurn();
         state = State.playerTurn;
@@ -350,7 +379,7 @@ public class BattleSystem : MonoBehaviour
     {
         minusNum -= 1;
         int i;
-        for (i = TNum; i < number; i++)
+        for (i = TNum; i <= number; i++)
         {
             enemySlot[i].enemyNum -= 1;
         }

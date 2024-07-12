@@ -15,6 +15,8 @@ public class Unit : MonoBehaviour
     public GameObject Damage;
     public float CurDamage;
 
+    public float originHP;
+
     private void Awake()
     {
         instance = this;
@@ -31,6 +33,7 @@ public class Unit : MonoBehaviour
     {
         isAttacking = true;
         StartCoroutine(PlayerMoveTo(new Vector3(BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].transform.position.x - 2, BattleSystem.instance.playerBattleTrans.position.y)));
+        originHP = BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].hp;
         animator.SetInteger("Attack", 1);
         yield return YieldCache.WaitForSeconds(5f);
         transform.position = BattleSystem.instance.playerBattleTrans.position;
@@ -50,6 +53,8 @@ public class Unit : MonoBehaviour
         BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].hp -= GameManager.instance.playerDamage / 2;
         GameManager.instance.SpawnDamageText(BattleSystem.instance.enemySlot[BattleSystem.instance.TNum]);
         CurDamage = (GameManager.instance.playerDamage / 2);
+        BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].hp = originHP;
+        BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].hp -= GameManager.instance.playerDamage;
         animator.SetInteger("Attack", 0);
         isAttacking = false;
     }

@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameSuvManager : MonoBehaviour
 {
-    public float stage;
+    public float stage = 0;
+    public float HPUp;
+    public float DamageUP;
+
     public float playerHP;
     public float playerMaxHP;
     public int Gold;
