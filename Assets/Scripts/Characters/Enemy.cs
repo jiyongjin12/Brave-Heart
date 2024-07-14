@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (hp <= 0 && !Unit.instance.isAttacking && BattleSystem.instance.deadEnemy == false)
+        if (hp <= 0 && !Unit.instance.isAttacking && BattleSystem.instance.deadEnemy == false || Maxhp < hp)
         {
             BattleSystem.instance.num++;
             StartCoroutine(Dead());
@@ -67,9 +67,8 @@ public class Enemy : MonoBehaviour
         //BattleSystem.instance.EliteDead = true;
         BattleSystem.instance.ReEnemyNum();
         yield return YieldCache.WaitForSeconds(1f);
-        BattleSystem.instance.deadEnemy = false;
-        BattleSystem.instance.number--;
         BattleSystem.instance.enemyCount--;
+        BattleSystem.instance.deadEnemy = false;
         Destroy(gameObject);
     }
 
@@ -112,8 +111,8 @@ public class Enemy : MonoBehaviour
         }
         else if (Enemy.Enemykind == EnemyKind.Orc)
         {
-            xPos = 0.5f;
-            yPos = 4.8f;
+            xPos = 0f;
+            yPos = 5f;
         }
     }
 
