@@ -121,9 +121,6 @@ public class GameManager : MonoBehaviour
     //적이 죽었을 때 배열 변경
     public void DeadEnmey()
     {
-        if (BattleSystem.instance.enemySlot[0] == null)
-            return;
-
         emptyEnemy = 0;
         for (int i = 0; i < BattleSystem.instance.enemySlot.Length; i++)
         {
@@ -172,7 +169,7 @@ public class GameManager : MonoBehaviour
         BattleSystem.instance.enemySlot[num].transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    private int GetRandom()
+    public int GetRandom()
     {
         float random = Random.value * 100;
 

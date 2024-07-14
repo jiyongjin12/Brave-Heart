@@ -55,6 +55,7 @@ public class BattleSystem : MonoBehaviour
 
     public bool deadEnemy = false;
     public bool BossDead = false;
+    public bool isDead = false;
 
     public enum State
     {
@@ -81,6 +82,7 @@ public class BattleSystem : MonoBehaviour
 
     private void Start()
     {
+        isDead = false;
         BattleStart();
     }
 
@@ -93,7 +95,7 @@ public class BattleSystem : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name == "BossScene")
         {
-            if (BossDead == true && state != State.clear)
+            if (BossDead == true && state != State.clear && isDead == false)
             {
                 state = State.clear;
                 BatleEnd();
@@ -101,7 +103,7 @@ public class BattleSystem : MonoBehaviour
         }
         else if(SceneManager.GetActiveScene().name != "BossScene")
         {
-            if (enemyCount <= 0 && state != State.win)
+            if (enemyCount <= 0 && state != State.win && isDead == false)
             {
                 state = State.win;
                 GameSuvManager.instance.playerHP = GameManager.instance.hp;
@@ -199,9 +201,10 @@ public class BattleSystem : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 SpawnElite(new Vector2(2 + i * 2, 4f));
-                number++;
                 curEnemy--;
+                number++;
             }
+            EliteTrans = new Vector3(enemySlot[TNum].transform.position.x, 5);
         }
         else if(SceneManager.GetActiveScene().name == "BossScene")
         {
@@ -217,12 +220,12 @@ public class BattleSystem : MonoBehaviour
             for (int i = 0; i < 3; i++)
             {
                 SpawnEnemy(new Vector2(4 + i * 2, 4));
-                number++;
                 curEnemy--;
+                number++;
             }
+            EliteTrans = new Vector3(enemySlot[TNum].transform.position.x, 5);
         }
 
-        EliteTrans = new Vector3(enemySlot[TNum].transform.position.x, 5);
         state = State.playerTurn;
     }
 
@@ -258,7 +261,9 @@ public class BattleSystem : MonoBehaviour
         yield return null;
         if(SceneManager.GetActiveScene().name == "BossScene")
         {
-            StartCoroutine(BossSystem.instance.BossTurn());
+            BossSystem.instance.BossTurn();
+            if (enemySlot[0] != null)
+                StartCoroutine(Turn());
         }
         if (SceneManager.GetActiveScene().name == "EliteScene")
         {
@@ -338,7 +343,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         GameManager.instance.DeadEnmey();
-        NewEnemy();
+        if(SceneManager.GetActiveScene().name != "BossScene") NewEnemy();
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
         TNum = 0;
@@ -379,7 +384,7 @@ public class BattleSystem : MonoBehaviour
     {
         minusNum -= 1;
         int i;
-        for (i = TNum; i <= number; i++)
+        for (i = TNum; i < number; i++)
         {
             enemySlot[i].enemyNum -= 1;
         }
@@ -408,9 +413,11 @@ public class BattleSystem : MonoBehaviour
 
     void BatleEnd()
     {
+        isDead = true;
         if (GameManager.instance.hp > 0)
         {
             Debug.Log("게임 승리");
+            MonsterPowerUp();
             RewardItem.instance.WaveWin();
         }
         if (GameManager.instance.hp <= 0)
@@ -418,6 +425,12 @@ public class BattleSystem : MonoBehaviour
             Debug.Log("게임 패배");
             SceneManager.LoadScene("Title");
         }
+    }
+
+    void MonsterPowerUp()
+    {
+        GameSuvManager.instance.DamageUP += 0.2f;
+        GameSuvManager.instance.HPUp += 0.4f;
     }
 }
 
