@@ -31,11 +31,15 @@ public class Menu : MonoBehaviour
         Audio.SetActive(false);
     }
 
+
     public void NewGame()
     {
         GameSuvManager.instance.playerMaxHP = 100;
         GameSuvManager.instance.playerHP = 100;
-        GameSuvManager.instance.stage = 1;
+        GameSuvManager.instance.stage = 0;
+        GameSuvManager.instance.HPUp = 1f;
+        GameSuvManager.instance.DamageUP = 1f;
+
         SceneManager.LoadScene("Map");
     }
 

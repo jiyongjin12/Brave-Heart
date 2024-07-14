@@ -37,20 +37,19 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum) * -1;
+        //this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum) * -1;
         Charge = 0;
-        hp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.stage;
-        Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.stage;
-        damage = (enemyData.baseDamage + enemyData.damages[Level]) * GameSuvManager.instance.stage;
+        hp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.HPUp;
+        Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.HPUp;
+        damage = (enemyData.baseDamage + enemyData.damages[Level]) * GameSuvManager.instance.DamageUP;
         //this.BeforeHp = this.hp;
         instance = this;
     }
 
     private void Update()
     {
-        if (hp <= 0 && !Unit.instance.isAttacking && BattleSystem.instance.deadEnemy == false || Maxhp < hp)
+        if (hp <= 0 && !Unit.instance.isAttacking && BattleSystem.instance.deadEnemy == false)
         {
-            BattleSystem.instance.num++;
             StartCoroutine(Dead());
         }
     }

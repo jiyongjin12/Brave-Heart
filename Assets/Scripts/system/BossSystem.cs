@@ -4,35 +4,50 @@ using UnityEngine;
 
 public class BossSystem : MonoBehaviour
 {
-    public GameObject Boss;
-
-    public EnemyPer[] enemyPrefab;
-    public Enemy[] enemySlot;
-
-    public int TNum = 0;
-    public int number;
-
-    private float acc;
-
-    public int minusNum;
-
-    public bool deadEnemy = false;
-    public int num;
     private Vector3 newEnemyPos = new Vector3(8, 4f);
-
+    public static BossSystem instance { get; private set; }
     private void Awake()
     {
-        Instantiate(Boss, new Vector3(10, 4), Quaternion.identity);
+        instance = this;
     }
-    // Start is called before the first frame update
-    void Start()
+    public IEnumerator BossTurn()
     {
-        
+        int rand = Random.Range(0, 3);
+        switch (rand)
+        {
+            case 0:
+                FirstBossSkill();
+                break;
+            case 1:
+                SecondBossSkill();
+                break;
+            case 2:
+                ThirdBossSkill();
+                break;
+        }
+        yield return null;
+        Debug.Log("Boss");
+        BattleSystem.instance.state = BattleSystem.State.playerTurn;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FirstBossSkill()
     {
-        
+        BattleSystem.instance.curEnemy++;
+        BattleSystem.instance.minusNum++;
+        BattleSystem.instance.SpawnEnemy(newEnemyPos);
+    }
+
+    public void SecondBossSkill()
+    {
+        BattleSystem.instance.curEnemy++;
+        BattleSystem.instance.minusNum++;
+        BattleSystem.instance.SpawnEnemy(newEnemyPos);
+    }
+
+    public void ThirdBossSkill()
+    {
+        BattleSystem.instance.curEnemy++;
+        BattleSystem.instance.minusNum++;
+        BattleSystem.instance.SpawnEnemy(newEnemyPos);
     }
 }

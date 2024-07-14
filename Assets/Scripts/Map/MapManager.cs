@@ -37,6 +37,12 @@ namespace Map
             {
                 GenerateNewMap();
             }
+
+            //
+            if (GameSuvManager.instance.stage == 0)
+                GenerateNewMap();
+            GameSuvManager.instance.stage += 1f;
+            //
         }
 
         public void GenerateNewMap()

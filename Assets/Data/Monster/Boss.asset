@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyName: "\uBCF4\uC2A4"
   baseDamage: 20
-  baseHp: 100
+  baseHp: 150
   damages:
-  - 10
+  - 0
   maxHp:
-  - 50
+  - 0
