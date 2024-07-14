@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
-public class RewardItemInformation : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class ChoiceItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public ItemSO item;
     public InventoryTesting Inventory;

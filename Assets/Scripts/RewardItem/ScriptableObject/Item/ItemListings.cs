@@ -8,5 +8,6 @@ public class ItemListings : RewardDataBase
     //[TextArea] [SerializeField] public string rewardDescription;
     //public Sprite itemImage;
 
-    [SerializeField] public List<ItemSO> Item;
+    [SerializeField] public List<ItemSO> item;
+    public List<ItemSO> Item => item;
 }
