@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e662f0cf34a8047901bad1dabc86ee, type: 3}
   m_Name: RewardGold
   m_EditorClassIdentifier: 
+  rewardSprite: {fileID: 0}
   rewardDescription: Gold
   maxGold: 100
   minGold: 50
