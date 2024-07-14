@@ -10451,6 +10451,7 @@ MonoBehaviour:
   - prefab: {fileID: 9076197679635151396, guid: b2ca47c98b401c84883ec29271ed2a1c, type: 3}
     chance: 41.2
   ElitePrefab: []
+  Boss: {fileID: 5335420522683115055, guid: 6fd1054c70aa2d449bd28f62c460bb45, type: 3}
   button:
   - {fileID: 0}
   - {fileID: 0}
@@ -10487,7 +10488,8 @@ MonoBehaviour:
   battleMotion: 0
   minusNum: 0
   deadEnemy: 0
-  num: 0
+  BossDead: 0
+  isDead: 0
   state: 0
 --- !u!4 &686827938
 Transform:
@@ -17199,12 +17201,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84d8a224e783b540aeb2696a2a45bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CombatRewardPanel: {fileID: 944718575}
-  Reward: {fileID: 1960512185}
-  ItemBox: {fileID: 278053540}
-  _Gold: {fileID: 11400000, guid: b26dbabda6d5fa240b445120aa6a039d, type: 2}
-  _Item: {fileID: 11400000, guid: 633e8e074dfec274dba291a21e00651a, type: 2}
-  Gold: 0
+  combatRewardPanel: {fileID: 0}
+  boxInformation: {fileID: 0}
+  RewardRoot: {fileID: 0}
+  SpawnBox: {fileID: 0}
+  rewardContainer: {fileID: 0}
 --- !u!4 &1160141150
 Transform:
   m_ObjectHideFlags: 0
