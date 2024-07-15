@@ -14,7 +14,6 @@ public class InventoryOnOff : MonoBehaviour
     [SerializeField]
     private bool OnOffCheck = true;
 
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && OnOffCheck == true)
@@ -26,6 +25,11 @@ public class InventoryOnOff : MonoBehaviour
         {
             Inventory.SetActive(false);
             OnOffCheck = true;
+        }
+
+        if (RewardItem.instance.GetItem == true)
+        {
+            
         }
     }
 

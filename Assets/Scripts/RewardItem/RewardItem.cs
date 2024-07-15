@@ -20,6 +20,8 @@ public class RewardItem : MonoBehaviour
 
     [SerializeField] private int SpawnItemNum = 4;
 
+    public bool GetItem = false;
+
     private readonly List<RewardContainer> _currentRewardsList = new List<RewardContainer>();
     private readonly List<ItemSO> _ItemRewardList = new List<ItemSO>();
 
@@ -70,7 +72,7 @@ public class RewardItem : MonoBehaviour
                 foreach (var itemData in rewardItemList)
                     _ItemRewardList.Add(itemData);
                 rewardClone.BuildReward(ItemRewardData.RewardSprite, ItemRewardData.RewardDescription);
-                rewardClone.RewardButton.onClick.AddListener(() => GetItemReward(SpawnItemNum));
+                rewardClone.RewardButton.onClick.AddListener(() => GetItemReward(rewardClone ,SpawnItemNum));
                 break;
         }
 
@@ -85,9 +87,10 @@ public class RewardItem : MonoBehaviour
         Destroy(rewardContainer.gameObject);
     }
 
-    private void GetItemReward(int num)
+    private void GetItemReward(RewardContainer rewardContainer, int num)
     {
         ChoicePanel.SetActive(true);
+        GetItem = true;
 
         for (int i = 0; i < num; i++)
         {
@@ -100,11 +103,15 @@ public class RewardItem : MonoBehaviour
                 choiceItemClone.item = itemData;
             }
         }
+
+        Destroy(rewardContainer.gameObject);
     }
 
-
-
-
+    public void ChoicePanelActiveFalse()
+    {
+        ChoicePanel.SetActive(false);
+        GetItem = false;
+    }
 
 
 
