@@ -5,10 +5,13 @@ using UnityEngine;
 public class BossSystem : MonoBehaviour
 {
     private Vector3 newEnemyPos = new Vector3(8, 4f);
+    private float charge = 0;
+    private float originDamage;
     public static BossSystem instance { get; private set; }
     private void Awake()
     {
         instance = this;
+        originDamage = BattleSystem.instance.Boss.damage;
     }
 
     public void BossTurn()
@@ -22,43 +25,50 @@ public class BossSystem : MonoBehaviour
     IEnumerator FirstPage()
     {
         int rand;
-        if(BattleSystem.instance.enemySlot[8] != null)
-            rand = Random.Range(1, 3);
+        if (BattleSystem.instance.enemySlot[8] != null)
+            rand = 1;
         else
-            rand = Random.Range(0, 3);
+            rand = 0;
 
+        yield return null;
         switch (rand)
         {
             case 0:
                 FirstBossSkill();
                 break;
             case 1:
-                SecondBossSkill();
+                NullBossSkill();
+                break;
+        }
+    }
+
+    IEnumerator SecondPage()
+    {
+        int rand;
+        if (BattleSystem.instance.enemySlot[8] != null)
+            rand = Random.Range(1, 3);
+        else if (charge >= 1)
+            rand = 2;
+        else
+            rand = Random.Range(0, 3);
+        switch (rand)
+        {
+            case 0:
+                FirstBossSkill();
+                break;
+            case 1:
+                StartCoroutine(SecondBossSkill());
                 break;
             case 2:
-                ThirdBossSkill();
+                StartCoroutine(ThirdBossSkill());
                 break;
         }
         yield return null;
         BattleSystem.instance.state = BattleSystem.State.playerTurn;
     }
 
-    IEnumerator SecondPage()
+    public void NullBossSkill()
     {
-        int rand = Random.Range(0, 3);
-        switch (rand)
-        {
-            case 0:
-                FirstBossSkill();
-                break;
-            case 1:
-                SecondBossSkill();
-                break;
-            case 2:
-                ThirdBossSkill();
-                break;
-        }
-        yield return null;
         BattleSystem.instance.state = BattleSystem.State.playerTurn;
     }
 
@@ -67,20 +77,30 @@ public class BossSystem : MonoBehaviour
         BattleSystem.instance.curEnemy++;
         BattleSystem.instance.minusNum++;
         BattleSystem.instance.SpawnEnemy(newEnemyPos);
+        BattleSystem.instance.state = BattleSystem.State.playerTurn;
     }
 
-    public void SecondBossSkill()
+    public IEnumerator SecondBossSkill()
     {
-        BattleSystem.instance.curEnemy++;
-        BattleSystem.instance.minusNum++;
         BossAttack();
+        yield return YieldCache.WaitForSeconds(0.5f);
+        BattleSystem.instance.state = BattleSystem.State.playerTurn;
     }
 
-    public void ThirdBossSkill()
+    public IEnumerator ThirdBossSkill()
     {
-        BattleSystem.instance.curEnemy++;
-        BattleSystem.instance.minusNum++;
-        BattleSystem.instance.SpawnEnemy(newEnemyPos);
+        if(charge < 2)
+        {
+            charge++;
+        }
+        else
+        {
+            charge = 0;
+            BattleSystem.instance.Boss.damage *= 1.5f;
+            BossAttack();
+        }
+        yield return YieldCache.WaitForSeconds(0.5f);
+        BattleSystem.instance.state = BattleSystem.State.playerTurn;
     }
 
     public void BossAttack()
@@ -100,6 +120,7 @@ public class BossSystem : MonoBehaviour
             Unit.instance.TextEnemyDamage(BattleSystem.instance.Boss.damage);
             GameManager.instance.TextDamage(BattleSystem.instance.playerBattleTrans);
         }
+        BattleSystem.instance.Boss.damage = originDamage;
     }
 
     public void Counter()

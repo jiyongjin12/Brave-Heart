@@ -65,7 +65,7 @@ namespace Map
         private static void Test()
         {
             Debug.Log("´ÙÀ½ ¾À");
-            SceneManager.LoadScene("SampleScene");
+            FadeSystem.instance.ChangeScene("SampleScene");
         }
 
         private static void EnterNode(MapNode mapNode)
@@ -78,11 +78,11 @@ namespace Map
                     break;
                 case NodeType.EliteEnemy:
                     Debug.Log("¿¤¸®Æ®¸÷");
-                    SceneManager.LoadScene("EliteScene");
+                    FadeSystem.instance.ChangeScene("EliteScene");
                     break;
                 case NodeType.RestSite:
                     Debug.Log("½°ÅÍ");
-                    SceneManager.LoadScene("RecoveryScene");
+                    FadeSystem.instance.ChangeScene("RecoveryScene");
                     break;
                 case NodeType.Treasure:
                     Debug.Log("»óÀÚ");
@@ -92,10 +92,11 @@ namespace Map
                     break;
                 case NodeType.Boss:
                     Debug.Log("º¸½º");
+                    FadeSystem.instance.ChangeScene("BossScene");
                     break;
                 case NodeType.Mystery:
                     Debug.Log("¹°À½Ç¥¹æ");
-                    SceneManager.LoadScene(GameSuvManager.instance.Rand());
+                    FadeSystem.instance.ChangeIntScene(GameSuvManager.instance.Rand());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

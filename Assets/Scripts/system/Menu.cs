@@ -40,7 +40,7 @@ public class Menu : MonoBehaviour
         GameSuvManager.instance.HPUp = 1f;
         GameSuvManager.instance.DamageUP = 1f;
 
-        SceneManager.LoadScene("Map");
+        FadeSystem.instance.ChangeScene("Map");
     }
 
     public void LoadGame()
