@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class ChoiceItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private InventoryTesting Inventory;
+    public InventoryTesting Inventory;
     public ItemSO item;
 
     private Vector3 originalScale;
@@ -27,6 +27,8 @@ public class ChoiceItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             Inventory.ItemInfo.Add(item);
             Reward.ChoicePanelActiveFalse(); // Choice 패널 SetActive(false)하는 코드
+            Debug.Log("CHECK");
+            InventoryOnOff.inventoryOnOff.OnInventory(); // 인벤 켜지기
         }
     }
 

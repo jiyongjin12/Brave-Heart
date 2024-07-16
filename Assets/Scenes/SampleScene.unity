@@ -903,7 +903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &83784219
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19238,6 +19238,7 @@ MonoBehaviour:
   ChoicePanel: {fileID: 396677194}
   ChoiceItemPrefab: {fileID: 7986915284646518572, guid: d394c675f5e768143b78053036e4f1f0, type: 3}
   itemSpawnRoot: {fileID: 1154217063}
+  TemporaryInvetory: {fileID: 413232845}
   SpawnItemNum: 4
   GetItem: 0
 --- !u!4 &1205465814

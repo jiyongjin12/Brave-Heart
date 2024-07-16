@@ -14,14 +14,13 @@ public class InventoryTesting : MonoBehaviour
     [SerializeField]
     public List<ItemSO> ItemInfo;
 
-
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log(inventoryTetris.Save());
-            inventoryTetris.SaveToFile();
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    Debug.Log(inventoryTetris.Save());
+        //    inventoryTetris.SaveToFile();
+        //}
 
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -29,10 +28,10 @@ public class InventoryTesting : MonoBehaviour
             inventoryTetris.LoadFromFile();
         }
 
-        if (Input.GetKeyDown(KeyCode.R)) // 아이템 소환
-        {
-            ExportIncomingItems();
-        }
+        //if (Input.GetKeyDown(KeyCode.R)) // 아이템 소환
+        //{
+        //    ExportIncomingItems();
+        //}
     }
 
     public void ExportIncomingItems()

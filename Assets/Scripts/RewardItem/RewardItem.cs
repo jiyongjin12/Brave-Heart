@@ -18,6 +18,8 @@ public class RewardItem : MonoBehaviour
     [SerializeField] private ChoiceItem ChoiceItemPrefab;// 소환 프리펩 
     [SerializeField] private Transform itemSpawnRoot; // 소환 위치
 
+    [SerializeField] private InventoryTesting TemporaryInvetory; // 임시 인벤
+
     [SerializeField] private int SpawnItemNum = 4;
 
     public bool GetItem = false;
@@ -39,7 +41,7 @@ public class RewardItem : MonoBehaviour
 
     private void Update() // 실행테스트용
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             WaveWin();
         }
@@ -101,6 +103,7 @@ public class RewardItem : MonoBehaviour
 
                 var choiceItemClone = Instantiate(ChoiceItemPrefab, itemSpawnRoot);
                 choiceItemClone.item = itemData;
+                choiceItemClone.Inventory = TemporaryInvetory;
             }
         }
 
@@ -111,6 +114,7 @@ public class RewardItem : MonoBehaviour
     {
         ChoicePanel.SetActive(false);
         GetItem = false;
+
     }
 
 

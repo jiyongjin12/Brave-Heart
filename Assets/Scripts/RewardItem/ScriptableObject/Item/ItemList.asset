@@ -16,7 +16,3 @@ MonoBehaviour:
   rewardDescription: "\uC548\uB144\uD558\uC138\uC694"
   item:
   - {fileID: 11400000, guid: e5a6560574e95a94fb7534d853aa4c55, type: 2}
-  - {fileID: 11400000, guid: 9c0c914fe1c91ff42bf8cda3661a89ef, type: 2}
-  - {fileID: 11400000, guid: eee37587c22c5c741829646127347344, type: 2}
-  - {fileID: 11400000, guid: c9364582e82f261429d5b97c6e42a828, type: 2}
-  - {fileID: 11400000, guid: 764bbd3d7ab3e45448b468e8ced8cad5, type: 2}
