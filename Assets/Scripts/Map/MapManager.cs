@@ -39,9 +39,9 @@ namespace Map
             }
 
             //
-            if (GameSuvManager.instance.stage == 0)
+            if (GameSuvManager.instance.gameData.stage == 0)
                 GenerateNewMap();
-            GameSuvManager.instance.stage += 1f;
+            GameSuvManager.instance.gameData.stage += 1f;
             //
         }
 

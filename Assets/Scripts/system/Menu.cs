@@ -34,11 +34,14 @@ public class Menu : MonoBehaviour
 
     public void NewGame()
     {
-        GameSuvManager.instance.playerMaxHP = 100;
-        GameSuvManager.instance.playerHP = 100;
-        GameSuvManager.instance.stage = 0;
-        GameSuvManager.instance.HPUp = 1f;
-        GameSuvManager.instance.DamageUP = 1f;
+        GameSuvManager.instance.gameData.playerMaxHP = 100;
+        GameSuvManager.instance.gameData.playerHP = 100;
+        GameSuvManager.instance.gameData.playerDmg = 0;
+        GameSuvManager.instance.gameData.stage = 0;
+        GameSuvManager.instance.gameData.HPUp = 1f;
+        GameSuvManager.instance.gameData.DamageUP = 1f;
+        GameSuvManager.instance.gameData.playerCounter = 50f;
+        GameSuvManager.instance.gameData.Gold = 0;
 
         FadeSystem.instance.ChangeScene("Map");
     }

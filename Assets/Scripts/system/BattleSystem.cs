@@ -106,7 +106,7 @@ public class BattleSystem : MonoBehaviour
             if (enemyCount <= 0 && state != State.win && isDead == false)
             {
                 state = State.win;
-                GameSuvManager.instance.playerHP = GameManager.instance.hp;
+                GameSuvManager.instance.gameData.playerHP = GameManager.instance.hp;
                 BatleEnd();
             }
             
@@ -114,7 +114,7 @@ public class BattleSystem : MonoBehaviour
         else if (GameManager.instance.hp <= 0)
         {
             state = State.loss;
-            GameSuvManager.instance.stage = 1f;
+            GameSuvManager.instance.gameData.stage = 1f;
             BatleEnd();
         }
     }
@@ -346,6 +346,7 @@ public class BattleSystem : MonoBehaviour
         if(SceneManager.GetActiveScene().name != "BossScene") NewEnemy();
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
+        GameManager.instance.counter = GameSuvManager.instance.gameData.playerCounter;
         TNum = 0;
         Enemy.instance.MonsterAttackNum = 0;
         DiceManager.instance.IsMyTurn();
@@ -375,6 +376,7 @@ public class BattleSystem : MonoBehaviour
         //if (EliteDead) NewElite();
         GameManager.instance.counterAttack = false;
         GameManager.instance.isClick = false;
+        GameManager.instance.counter = GameSuvManager.instance.gameData.playerCounter;
         DiceManager.instance.IsMyTurn();
         EliteTrans = new Vector3(enemySlot[TNum].transform.position.x, 4);
         state = State.playerTurn;
@@ -429,8 +431,8 @@ public class BattleSystem : MonoBehaviour
 
     void MonsterPowerUp()
     {
-        GameSuvManager.instance.DamageUP += 0.2f;
-        GameSuvManager.instance.HPUp += 0.4f;
+        GameSuvManager.instance.gameData.DamageUP += 0.2f;
+        GameSuvManager.instance.gameData.HPUp += 0.4f;
     }
 }
 

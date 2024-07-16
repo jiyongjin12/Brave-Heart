@@ -12,14 +12,14 @@ public class ReCovery : MonoBehaviour
     private void Awake()
     {
         Instantiate(PlayerPrefab, playerBattleTrans);
-        GameSuvManager.instance.playerHP += 10;
+        GameSuvManager.instance.gameData.playerHP += 10;
     }
 
     private void Update()
     {
-        if(GameSuvManager.instance.playerHP >= GameSuvManager.instance.playerMaxHP)
+        if(GameSuvManager.instance.gameData.playerHP >= GameSuvManager.instance.gameData.playerMaxHP)
         {
-            GameSuvManager.instance.playerHP = GameSuvManager.instance.playerMaxHP;
+            GameSuvManager.instance.gameData.playerHP = GameSuvManager.instance.gameData.playerMaxHP;
         }
     }
 

@@ -1,32 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using System.IO;
 
-public class GameSuvManager : MonoBehaviour
+[System.Serializable]
+public class GameData
 {
+    public float BGMSound = 0;
+    public float EffectSound = 0;
+
     public float stage = 0;
     public float HPUp;
     public float DamageUP;
 
     public float playerHP;
     public float playerMaxHP;
+    public float playerDmg;
+    public float playerCounter;
+
     public int Gold;
+}
 
-    public static GameSuvManager instance;
+public class GameSuvManager : MonoBehaviour
+{
+    public string GameDataFileName = ".json";
 
-    private void Awake()
+    public GameData _gameData;
+    public GameData gameData
     {
-        if (instance == null)
+        get
         {
-            instance = this;
-            DontDestroyOnLoad(instance);
+            if (_gameData == null)
+            {
+                LoadGameData();
+                SaveGameData();
+            }
+            return _gameData;
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+    }
 
+    static GameObject _container;
+    static GameObject Container
+    {
+        get
+        {
+            return _container;
+        }
+    }
+    static GameSuvManager _instance;
+    public static GameSuvManager instance
+    {
+        get
+        {
+            if (!_instance)
+            {
+                _container = new GameObject();
+                _container.name = "GameSuvManager";
+                _instance = _container.AddComponent(typeof(GameSuvManager)) as GameSuvManager;
+                DontDestroyOnLoad(_container);
+            }
+            return _instance;
+        }
     }
 
     public int Rand()
@@ -34,5 +68,35 @@ public class GameSuvManager : MonoBehaviour
         int rand = Random.Range(2, 5);
 
         return rand;
+    }
+
+    public void LoadGameData()
+    {
+        string filePath = Application.persistentDataPath + GameDataFileName;
+
+        if (File.Exists(filePath))
+        {
+            Debug.Log("불러오기 성공");
+            string FormJsonData = File.ReadAllText(filePath);
+            _gameData = JsonUtility.FromJson<GameData>(FormJsonData);
+        }
+        else
+        {
+            Debug.Log("새로운 파일 생성");
+            _gameData = new GameData();
+        }
+    }
+
+    public void SaveGameData()
+    {
+        string ToJsonData = JsonUtility.ToJson(gameData);
+        string filePath = Application.persistentDataPath + GameDataFileName;
+        File.WriteAllText(filePath, ToJsonData);
+        Debug.Log("저장 완료");
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveGameData();
     }
 }
