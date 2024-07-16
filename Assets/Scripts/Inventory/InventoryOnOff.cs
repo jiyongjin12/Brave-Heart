@@ -14,6 +14,10 @@ public class InventoryOnOff : MonoBehaviour
     [SerializeField]
     private bool OnOffCheck = true;
 
+    private void Awake()
+    {
+        inventoryOnOff = this;
+    }
 
     private void Update()
     {
@@ -22,7 +26,7 @@ public class InventoryOnOff : MonoBehaviour
             OnInventory();
             OnOffCheck = false;
         }
-        else if (Input.GetKeyDown(KeyCode.E) && OnOffCheck == false)
+        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E) && OnOffCheck == false)
         {
             Inventory.SetActive(false);
             OnOffCheck = true;
@@ -46,8 +50,8 @@ public class InventoryOnOff : MonoBehaviour
     public void OnInventory()
     {
         Inventory.gameObject.SetActive(true);
-        inventoryTest.ExportIncomingItems();
-        inventory.LoadFromFile();
+        inventoryTest.ExportIncomingItems(); // 임시 인벤에 저장된 리스트 넣기
+        inventory.LoadFromFile(); // 인벤의 저장을 로드해옴
     }
 
 }

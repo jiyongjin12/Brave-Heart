@@ -18,7 +18,11 @@ public class RewardItem : MonoBehaviour
     [SerializeField] private ChoiceItem ChoiceItemPrefab;// 소환 프리펩 
     [SerializeField] private Transform itemSpawnRoot; // 소환 위치
 
+    [SerializeField] private InventoryTesting TemporaryInvetory; // 임시 인벤
+
     [SerializeField] private int SpawnItemNum = 4;
+
+    public bool GetItem = false;
 
     private readonly List<RewardContainer> _currentRewardsList = new List<RewardContainer>();
     private readonly List<ItemSO> _ItemRewardList = new List<ItemSO>();
@@ -37,7 +41,7 @@ public class RewardItem : MonoBehaviour
 
     private void Update() // 실행테스트용
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             WaveWin();
         }
@@ -70,7 +74,7 @@ public class RewardItem : MonoBehaviour
                 foreach (var itemData in rewardItemList)
                     _ItemRewardList.Add(itemData);
                 rewardClone.BuildReward(ItemRewardData.RewardSprite, ItemRewardData.RewardDescription);
-                rewardClone.RewardButton.onClick.AddListener(() => GetItemReward(SpawnItemNum));
+                rewardClone.RewardButton.onClick.AddListener(() => GetItemReward(rewardClone ,SpawnItemNum));
                 break;
         }
 
@@ -85,9 +89,10 @@ public class RewardItem : MonoBehaviour
         Destroy(rewardContainer.gameObject);
     }
 
-    private void GetItemReward(int num)
+    private void GetItemReward(RewardContainer rewardContainer, int num)
     {
         ChoicePanel.SetActive(true);
+        GetItem = true;
 
         for (int i = 0; i < num; i++)
         {
@@ -98,13 +103,19 @@ public class RewardItem : MonoBehaviour
 
                 var choiceItemClone = Instantiate(ChoiceItemPrefab, itemSpawnRoot);
                 choiceItemClone.item = itemData;
+                choiceItemClone.Inventory = TemporaryInvetory;
             }
         }
+
+        Destroy(rewardContainer.gameObject);
     }
 
+    public void ChoicePanelActiveFalse()
+    {
+        ChoicePanel.SetActive(false);
+        GetItem = false;
 
-
-
+    }
 
 
 

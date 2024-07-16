@@ -6,9 +6,8 @@ using DG.Tweening;
 
 public class ChoiceItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public ItemSO item;
     public InventoryTesting Inventory;
-    public GameObject ii;
+    public ItemSO item;
 
     private Vector3 originalScale;
     private float scaleMultiplier = 1.17f;
@@ -17,14 +16,19 @@ public class ChoiceItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     void Start()
     {
         originalScale = transform.localScale;
+        
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        var Reward = RewardItem.instance;
+
         if (Inventory != null)
         {
             Inventory.ItemInfo.Add(item);
-            ii.SetActive(false);
+            Reward.ChoicePanelActiveFalse(); // Choice 패널 SetActive(false)하는 코드
+            Debug.Log("CHECK");
+            InventoryOnOff.inventoryOnOff.OnInventory(); // 인벤 켜지기
         }
     }
 
