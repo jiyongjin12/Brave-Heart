@@ -10,6 +10,7 @@ public class GameData
     public float EffectSound = 0;
 
     public float stage = 0;
+    public float stageNum = 0;
     public float HPUp;
     public float DamageUP;
 
