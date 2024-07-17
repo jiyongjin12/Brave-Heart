@@ -82,7 +82,7 @@ public class RewardItem : MonoBehaviour
 
     private void GetGoldReward(RewardContainer rewardContainer, int amount)
     {
-        GameSuvManager.instance.Gold += amount;
+        GameSuvManager.instance.gameData.Gold += amount;
         _currentRewardsList.Remove(rewardContainer);
         //골드 텍스트 업데이트 여기에 작성하면 됨
 

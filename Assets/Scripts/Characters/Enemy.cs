@@ -41,9 +41,9 @@ public class Enemy : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "BossScene") this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum + 1) * -1;
         else this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum) * -1;
         Charge = 0;
-        hp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.HPUp;
-        Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.HPUp;
-        damage = (enemyData.baseDamage + enemyData.damages[Level]) * GameSuvManager.instance.DamageUP;
+        hp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.gameData.HPUp;
+        Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.gameData.HPUp;
+        damage = (enemyData.baseDamage + enemyData.damages[Level]) * GameSuvManager.instance.gameData.DamageUP;
         //this.BeforeHp = this.hp;
         instance = this;
     }

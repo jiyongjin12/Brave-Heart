@@ -16,7 +16,7 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(instance);
@@ -26,6 +26,14 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        BGMslider.value = GameSuvManager.instance.gameData.BGMSound;
+        SFXslider.value = GameSuvManager.instance.gameData.EffectSound;
+        mixer.SetFloat("BGM", BGMslider.value * 20);
+        mixer.SetFloat("SFX", BGMslider.value * 20);
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -39,18 +47,20 @@ public class SoundManager : MonoBehaviour
 
     public void BGMVolume(float val)
     {
-        float sound = BGMslider.value;
+        val = BGMslider.value;
+        GameSuvManager.instance.gameData.BGMSound = BGMslider.value;
 
-        if (sound == -1f) mixer.SetFloat("BGM", -80);
-        else mixer.SetFloat("BGM", sound * 20);
+        if (val == -1f) mixer.SetFloat("BGM", -80);
+        else mixer.SetFloat("BGM", val * 20);
     }
 
     public void SFXVolume(float val)
     {
-        float sound = SFXslider.value;
+        val = SFXslider.value;
+        GameSuvManager.instance.gameData.EffectSound = SFXslider.value;
 
-        if (sound == -1f) mixer.SetFloat("BGM", -80);
-        else mixer.SetFloat("BGM", sound * 20);
+        if (val == -1f) mixer.SetFloat("SFX", -80);
+        else mixer.SetFloat("SFX", val * 20);
     }
 
     public void SFXPlay(string sfxName, AudioClip clip)

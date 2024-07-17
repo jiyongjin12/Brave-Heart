@@ -38,11 +38,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        counter = 50;
         emptyEnemy = 1;
         instance = this;
-        hp = GameSuvManager.instance.playerHP;
-        Maxhp = GameSuvManager.instance.playerMaxHP;
+        hp = GameSuvManager.instance.gameData.playerHP;
+        Maxhp = GameSuvManager.instance.gameData.playerMaxHP;
+        playerDamage = GameSuvManager.instance.gameData.playerDmg;
+        counter = GameSuvManager.instance.gameData.playerCounter;
         isPause = false;
         counterAttack = false;
         isClick = false;
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         _hpBar.fillAmount =  hp / Maxhp;
-        GameSuvManager.instance.playerMaxHP = Maxhp;
+        GameSuvManager.instance.gameData.playerMaxHP = Maxhp;
         TextDefense.text = shield.ToString();
         //if (BattleSystem.instance.state == BattleSystem.State.playerTurn)
         //{
