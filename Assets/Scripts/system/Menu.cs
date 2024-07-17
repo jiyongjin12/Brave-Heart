@@ -42,13 +42,41 @@ public class Menu : MonoBehaviour
         GameSuvManager.instance.gameData.DamageUP = 1f;
         GameSuvManager.instance.gameData.playerCounter = 50f;
         GameSuvManager.instance.gameData.Gold = 0;
+        GameSuvManager.instance.gameData.stageNum = 0;
 
         FadeSystem.instance.ChangeScene("Map");
     }
 
     public void LoadGame()
     {
-        No.SetActive(true);
+        switch (GameSuvManager.instance.gameData.stageNum)
+        {
+            case 0:
+                FadeSystem.instance.ChangeScene("Map");
+                break;
+            case 1:
+                FadeSystem.instance.ChangeScene("SampleScene");
+                break;
+            case 2:
+                FadeSystem.instance.ChangeScene("EliteScene");
+                break;
+            case 3:
+                FadeSystem.instance.ChangeScene("RecoveryScene");
+                break;
+            case 4:
+                FadeSystem.instance.ChangeScene("Map");
+                break;
+            case 5:
+                FadeSystem.instance.ChangeScene("Map");
+                break;
+            case 6:
+                FadeSystem.instance.ChangeScene("BossScene");
+                break;
+            default:
+                FadeSystem.instance.ChangeIntScene(GameSuvManager.instance.Rand());
+                break;
+        }
+        //No.SetActive(true);
     }
 
     public void PointerEnter()
