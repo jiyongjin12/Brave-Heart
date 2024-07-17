@@ -21,15 +21,19 @@ public class ChoiceItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        var Reward = RewardItem.instance;
-
-        if (Inventory != null)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Inventory.ItemInfo.Add(item);
-            Reward.ChoicePanelActiveFalse(); // Choice 패널 SetActive(false)하는 코드
-            Debug.Log("CHECK");
-            InventoryOnOff.inventoryOnOff.OnInventory(); // 인벤 켜지기
+            var Reward = RewardItem.instance;
+
+            if (Inventory != null)
+            {
+                Inventory.ItemInfo.Add(item);
+                Reward.ChoicePanelActiveFalse(); // Choice 패널 SetActive(false)하는 코드
+                Debug.Log("CHECK");
+                InventoryOnOff.inventoryOnOff.OnInventory(); // 인벤 켜지기
+            }
         }
+           
     }
 
     public void OnPointerEnter(PointerEventData eventData)

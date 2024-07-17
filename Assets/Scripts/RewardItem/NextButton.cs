@@ -11,13 +11,13 @@ public class NextButton : MonoBehaviour
 
         if (Reward.GetItem)
         {
-            Debug.Log("Check Destroy ChoicePanel");
+            //Debug.Log("Check Destroy ChoicePanel");
             Reward.ChoicePanelActiveFalse(); //Choice 패널 SetActive(false)하는 코드
         }
         else
         {
-            Debug.Log("Check Next Scene");
-            //FadeSystem.instance.ChangeScene("Map");
+            //Debug.Log("Check Next Scene");
+            FadeSystem.instance.ChangeScene("Map");
         }
     }
 }

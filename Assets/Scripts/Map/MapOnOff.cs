@@ -22,7 +22,7 @@ public class MapOnOff : MonoBehaviour
         {
             ONMap();
         }
-        else if (Input.GetKeyDown(KeyCode.M) && OnOffStatus == false)
+        else if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.M) && OnOffStatus == false)
         {
             OFFMap();
         }

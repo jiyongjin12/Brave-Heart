@@ -27,12 +27,16 @@ public class InventoryDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragH
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //Debug.Log("OnBeginDrag");
-        canvasGroup.alpha = .7f;
-        canvasGroup.blocksRaycasts = false;
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            //Debug.Log("OnBeginDrag");
+            canvasGroup.alpha = .7f;
+            canvasGroup.blocksRaycasts = false;
 
-        ItemSO.CreateVisualGrid(transform.GetChild(0), placedObject.GetPlacedObjectTypeSO() as ItemSO, inventoryTetris.GetGrid().GetCellSize());
-        InventoryDragDropSystem.Instance.StartedDragging(inventoryTetris, placedObject);
+            ItemSO.CreateVisualGrid(transform.GetChild(0), placedObject.GetPlacedObjectTypeSO() as ItemSO, inventoryTetris.GetGrid().GetCellSize());
+            InventoryDragDropSystem.Instance.StartedDragging(inventoryTetris, placedObject);
+        }
+        
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -43,11 +47,16 @@ public class InventoryDragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragH
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //Debug.Log("OnEndDrag");
-        canvasGroup.alpha = 1f;
-        canvasGroup.blocksRaycasts = true;
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            //Debug.Log("OnEndDrag");
+            canvasGroup.alpha = 1f;
+            canvasGroup.blocksRaycasts = true;
 
-        InventoryDragDropSystem.Instance.StoppedDragging(inventoryTetris, placedObject);
+            InventoryDragDropSystem.Instance.StoppedDragging(inventoryTetris, placedObject);
+        }
+
+        
     }
 
     public void OnPointerDown(PointerEventData eventData)
