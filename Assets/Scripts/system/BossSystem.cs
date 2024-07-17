@@ -11,12 +11,12 @@ public class BossSystem : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        originDamage = BattleSystem.instance.Boss.damage;
+        originDamage = BattleSystem.instance.enemySlot[0].damage;
     }
 
     public void BossTurn()
     {
-        if (BattleSystem.instance.Boss.hp >= BattleSystem.instance.Boss.Maxhp / 2)
+        if (BattleSystem.instance.enemySlot[0].hp >= BattleSystem.instance.enemySlot[0].Maxhp / 2)
             StartCoroutine(FirstPage());
         else
             StartCoroutine(SecondPage());
@@ -96,7 +96,7 @@ public class BossSystem : MonoBehaviour
         else
         {
             charge = 0;
-            BattleSystem.instance.Boss.damage *= 1.5f;
+            BattleSystem.instance.enemySlot[0].damage *= 1.5f;
             BossAttack();
         }
         yield return YieldCache.WaitForSeconds(0.5f);
@@ -108,19 +108,19 @@ public class BossSystem : MonoBehaviour
         if (GameManager.instance.counterAttack == true) Counter();
         else if (GameManager.instance.shield > 0)
         {
-            GameManager.instance.shield -= BattleSystem.instance.Boss.damage;
-            Unit.instance.TextEnemyDamage(BattleSystem.instance.Boss.damage);
+            GameManager.instance.shield -= BattleSystem.instance.enemySlot[0].damage;
+            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[0].damage);
             GameManager.instance.TextDamage(BattleSystem.instance.playerBattleTrans);
             ShieldBreak();
         }
         else
         {
-            GameManager.instance.hp -= BattleSystem.instance.Boss.damage;
+            GameManager.instance.hp -= BattleSystem.instance.enemySlot[0].damage;
             StartCoroutine(Unit.instance.ShakePlayer());
-            Unit.instance.TextEnemyDamage(BattleSystem.instance.Boss.damage);
+            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[0].damage);
             GameManager.instance.TextDamage(BattleSystem.instance.playerBattleTrans);
         }
-        BattleSystem.instance.Boss.damage = originDamage;
+        BattleSystem.instance.enemySlot[0].damage = originDamage;
     }
 
     public void Counter()
@@ -130,23 +130,23 @@ public class BossSystem : MonoBehaviour
         {
             if (GameManager.instance.shield > 0)
             {
-                GameManager.instance.shield -= BattleSystem.instance.Boss.damage * 2;
+                GameManager.instance.shield -= BattleSystem.instance.enemySlot[0].damage * 2;
                 ShieldBreak();
             }
             else
             {
-                GameManager.instance.hp -= BattleSystem.instance.Boss.damage * 2;
+                GameManager.instance.hp -= BattleSystem.instance.enemySlot[0].damage * 2;
                 StartCoroutine(Unit.instance.ShakePlayer());
             }
-            Unit.instance.TextEnemyDamage(BattleSystem.instance.Boss.damage * 2);
+            Unit.instance.TextEnemyDamage(BattleSystem.instance.enemySlot[0].damage * 2);
             GameManager.instance.TextDamage(BattleSystem.instance.playerBattleTrans);
         }
         else
         {
             StartCoroutine(Enemy.instance.ShakeBoss());
-            BattleSystem.instance.Boss.hp -= GameManager.instance.playerDamage * 1.5f;
+            BattleSystem.instance.enemySlot[0].hp -= GameManager.instance.playerDamage * 1.5f;
             Unit.instance.TextEnemyDamage(GameManager.instance.playerDamage * 1.5f);
-            GameManager.instance.SpawnDamageText(BattleSystem.instance.Boss);
+            GameManager.instance.SpawnDamageText(BattleSystem.instance.enemySlot[0]);
         }
     }
 

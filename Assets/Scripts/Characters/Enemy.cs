@@ -38,8 +38,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        if(SceneManager.GetActiveScene().name == "BossScene") this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum + 1) * -1;
-        else this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum) * -1;
+        this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum) * -1;
         Charge = 0;
         hp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.gameData.HPUp;
         Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.gameData.HPUp;
@@ -109,18 +108,18 @@ public class Enemy : MonoBehaviour
         shakeTime = 2f;
         shakePower = 0.2f;
 
-        Vector3 origin = BattleSystem.instance.Boss.transform.position;
+        Vector3 origin = BattleSystem.instance.enemySlot[0].transform.position;
 
         while (shakeTime >= 0f)
         {
             //if (BattleSystem.instance.state == BattleSystem.State.playerTurn) shakeTime -= 0.003f;
             //else shakeTime -= 0.05f;
             shakeTime -= 0.05f;
-            BattleSystem.instance.Boss.transform.position = origin + (Vector3)Random.insideUnitCircle * shakePower * shakeTime;
+            BattleSystem.instance.enemySlot[0].transform.position = origin + (Vector3)Random.insideUnitCircle * shakePower * shakeTime;
             yield return null;
         }
 
-        BattleSystem.instance.Boss.transform.position = origin;
+        BattleSystem.instance.enemySlot[0].transform.position = origin;
     }
 
     public void EnemyPos(Enemy Enemy)

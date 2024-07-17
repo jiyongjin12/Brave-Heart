@@ -24,7 +24,7 @@ public class BattleSystem : MonoBehaviour
     public GameObject PlayerPrefab;
     public EnemyPer[] enemyPrefab;
     public EnemyPer[] ElitePrefab;
-    public Enemy Boss;
+    public EnemyPer[] Boss;
 
     [SerializeField]
     private GameObject[] button;
@@ -74,8 +74,11 @@ public class BattleSystem : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "EliteScene") EliteEnemyPercent();
         if (SceneManager.GetActiveScene().name == "BossScene")
         {
-            Instantiate(Boss, new Vector3(10, 4), Quaternion.identity);
-            curEnemy--;
+            BossPercent();
+            curEnemy = 0;
+            minusNum = 0;
+            number = 0;
+            SpawnBoss(new Vector2(10, 4.3f));
             number++;
         }
     }
@@ -140,6 +143,16 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    private void BossPercent()
+    {
+        acc = 0;
+        foreach (var item in Boss)
+        {
+            acc += item.Chance;
+            item.Weight = acc;
+        }
+    }
+
     public void SpawnEnemy(Vector2 pos)
     {
         var clone = enemyPrefab[GetRandom()];
@@ -162,6 +175,17 @@ public class BattleSystem : MonoBehaviour
         GameManager.instance.SpawnEnemyHPSlider(enemySlot[number]);
     }
 
+    private void SpawnBoss(Vector2 pos)
+    {
+        var clone = Boss[GetRandomBoss()];
+
+        enemy = Instantiate(clone.Prefab, pos, Quaternion.identity);
+        Enemy.instance.EnemyPos(clone.Prefab.GetComponent<Enemy>());
+        enemy.transform.position = new Vector3(pos.x - Enemy.instance.xPos, Enemy.instance.yPos);
+        enemySlot[number] = enemy.GetComponent<Enemy>();
+        GameManager.instance.SpawnEnemyHPSlider(enemySlot[number]);
+    }
+
     private int GetRandomElite()
     {
         float random = Random.value * acc;
@@ -169,6 +193,21 @@ public class BattleSystem : MonoBehaviour
         for (int i = 0; i < ElitePrefab.Length; ++i)
         {
             if (ElitePrefab[i].Weight >= random)
+            {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    private int GetRandomBoss()
+    {
+        float random = Random.value * acc;
+
+        for (int i = 0; i < Boss.Length; ++i)
+        {
+            if (Boss[i].Weight >= random)
             {
                 return i;
             }
@@ -209,8 +248,6 @@ public class BattleSystem : MonoBehaviour
         }
         else if(SceneManager.GetActiveScene().name == "BossScene")
         {
-            curEnemy = 0;
-            minusNum = 0;
             enemyCount = 1;
         }
         else
@@ -251,7 +288,8 @@ public class BattleSystem : MonoBehaviour
             GameManager.instance.counterAttack = true;
         }
 
-        GameManager.instance.DeadEnmey();
+        if (SceneManager.GetActiveScene().name == "BossScene") GameManager.instance.DeadEnmeies();
+        else GameManager.instance.DeadEnmey();
         yield return YieldCache.WaitForSeconds(0.5f);
         state = State.enemyTurn;
         StartCoroutine(EnemyTurn());
@@ -263,10 +301,20 @@ public class BattleSystem : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "BossScene")
         {
             BossSystem.instance.BossTurn();
-            if (enemySlot[0] != null)
-                StartCoroutine(Turn());
+            if (enemySlot[1] != null)
+                StartCoroutine(BossTurn());
+            else
+            {
+                GameManager.instance.DeadEnmey();
+                GameManager.instance.counterAttack = false;
+                GameManager.instance.isClick = false;
+                GameManager.instance.counter = GameSuvManager.instance.gameData.playerCounter;
+                TNum = 0;
+                Enemy.instance.MonsterAttackNum = 0;
+                DiceManager.instance.IsMyTurn();
+            }
         }
-        if (SceneManager.GetActiveScene().name == "EliteScene")
+        else if (SceneManager.GetActiveScene().name == "EliteScene")
         {
             StartCoroutine(EliteTurn());
         }
@@ -354,6 +402,62 @@ public class BattleSystem : MonoBehaviour
         state = State.playerTurn;
     }
 
+    IEnumerator BossTurn()
+    {
+        int i = 0;
+        if (enemySlot[1].transform.position.x <= -7)
+        {
+            GameManager.instance.EnemyAttack(1);
+            for (i = 2; i < enemySlot.Length; i++)
+            {
+                if (enemySlot[i] == null)
+                    continue;
+
+                TNum = i;
+                Vector3 trans = enemySlot[i].transform.position;
+                if (trans.x - 2 != enemySlot[i - 1].transform.position.x)
+                    StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x - 2, trans.y)));
+                yield return YieldCache.WaitForSeconds(0.5f);
+                if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
+                    Enemy.instance.AttackArcher(i);
+                else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
+                    Enemy.instance.AttackWizard(i);
+                yield return YieldCache.WaitForSeconds(1f);
+                if (enemySlot[i] == null) i--;
+            }
+        }
+        else
+        {
+            for (i = 1; i < enemySlot.Length; i++)
+            {
+                if (enemySlot[i] == null)
+                    continue;
+
+                TNum = i;
+                Vector3 trans = enemySlot[i].transform.position;
+                StartCoroutine(MoveTo(enemySlot[i], new Vector3(trans.x - 2, trans.y)));
+                yield return YieldCache.WaitForSeconds(0.5f);
+                if (enemySlot[i].enemyType == Enemy.EnemyType.Archer)
+                    Enemy.instance.AttackArcher(i);
+                else if (enemySlot[i].enemyType == Enemy.EnemyType.Wizard)
+                    Enemy.instance.AttackWizard(i);
+                else if (enemySlot[i].enemyType == Enemy.EnemyType.Warrior && enemySlot[i].transform.position.x == -6)
+                    GameManager.instance.EnemyAttack(0);
+                yield return YieldCache.WaitForSeconds(1f);
+                if (enemySlot[i] == null) i--;
+            }
+        }
+
+        GameManager.instance.DeadEnmey();
+        GameManager.instance.counterAttack = false;
+        GameManager.instance.isClick = false;
+        GameManager.instance.counter = GameSuvManager.instance.gameData.playerCounter;
+        TNum = 0;
+        Enemy.instance.MonsterAttackNum = 0;
+        DiceManager.instance.IsMyTurn();
+        state = State.playerTurn;
+    }
+
     IEnumerator EliteTurn()
     {
         int i = 0;
@@ -395,7 +499,7 @@ public class BattleSystem : MonoBehaviour
     }
 
     //적 움직임
-    IEnumerator MoveTo(Enemy a, Vector3 toPos)
+    public IEnumerator MoveTo(Enemy a, Vector3 toPos)
     {
         float count = 0;
         Vector3 wasPos = a.transform.position;

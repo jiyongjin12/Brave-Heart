@@ -86,10 +86,11 @@ namespace Map
                     break;
                 case NodeType.Treasure:
                     Debug.Log("상자");
+                    FadeSystem.instance.ChangeScene("Map");
                     break;
                 case NodeType.Store:
                     Debug.Log("상점");
-                    FadeSystem.instance.ChangeScene("ShopStage");
+                    FadeSystem.instance.ChangeScene("Map");
                     break;
                 case NodeType.Boss:
                     Debug.Log("보스");

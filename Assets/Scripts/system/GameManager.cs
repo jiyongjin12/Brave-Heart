@@ -143,6 +143,29 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void DeadEnmeies()
+    {
+        emptyEnemy = 1;
+        for (int i = 1; i < BattleSystem.instance.enemySlot.Length; i++)
+        {
+            if (i == BattleSystem.instance.enemySlot.Length - 1) break;
+            else if (BattleSystem.instance.enemySlot[i] == null && BattleSystem.instance.enemySlot[i + 1] != null)
+            {
+                Debug.Log("ON");
+                BattleSystem.instance.enemySlot[i - emptyEnemy] = BattleSystem.instance.enemySlot[i + 1];
+                BattleSystem.instance.enemySlot[i + 1] = null;
+                continue;
+            }
+            else if (BattleSystem.instance.enemySlot[i + 1] == null && BattleSystem.instance.enemySlot[i] == null)
+            {
+                Debug.Log("OFF");
+                emptyEnemy++;
+                continue;
+            }
+        }
+
+    }
+
     public void EnemyAttack(int num)
     {
         StartCoroutine(AttackRot(num));

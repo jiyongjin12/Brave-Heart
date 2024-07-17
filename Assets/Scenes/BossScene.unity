@@ -4372,7 +4372,9 @@ MonoBehaviour:
   - prefab: {fileID: 9076197679635151396, guid: b2ca47c98b401c84883ec29271ed2a1c, type: 3}
     chance: 41.2
   ElitePrefab: []
-  Boss: {fileID: 0}
+  Boss:
+  - prefab: {fileID: 9076197679635151396, guid: 6fd1054c70aa2d449bd28f62c460bb45, type: 3}
+    chance: 100
   button:
   - {fileID: 0}
   - {fileID: 0}
@@ -13514,6 +13516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 757727691}
   - component: {fileID: 757727690}
+  - component: {fileID: 757727692}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -13564,6 +13567,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &757727692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757727689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3ea21ea0b5f784b817368dcb1e4869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &758367517
 GameObject:
   m_ObjectHideFlags: 0
