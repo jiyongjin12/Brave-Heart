@@ -6,15 +6,12 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "Item", menuName = "Scriptable Object/ItemData")]
 public class Item : ItemData
 {
-    Image icon;
-    Text Name;
-    Text Desc;
 
     private void Awake()
     {
-        icon.sprite = itemIcon;
-        Name.text = itemNum;
-        Desc.text = itemDesc;
+        this.itemIcon = itemIcon;
+        this.itemNum = itemNum;
+        this.itemDesc = itemDesc;
     }
 
     public void PessiveItem()
