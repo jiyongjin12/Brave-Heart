@@ -88,10 +88,10 @@ public class GameSuvManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex != gameData.stageNum)
             LoadScene();
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    FadeSystem.instance.ChangeScene("BossScene");
-        //}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            FadeSystem.instance.ChangeScene("BossScene");
+        }
     }
 
     public int Rand()
