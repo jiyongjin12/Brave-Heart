@@ -42,7 +42,7 @@ public class Menu : MonoBehaviour
         GameSuvManager.instance.gameData.DamageUP = 1f;
         GameSuvManager.instance.gameData.playerCounter = 50f;
         GameSuvManager.instance.gameData.Gold = 0;
-        GameSuvManager.instance.gameData.stageNum = 0;
+        GameSuvManager.instance.gameData.stageNum = 100;
 
         FadeSystem.instance.ChangeScene("Map");
     }
@@ -51,29 +51,28 @@ public class Menu : MonoBehaviour
     {
         switch (GameSuvManager.instance.gameData.stageNum)
         {
-            case 0:
-                FadeSystem.instance.ChangeScene("Map");
-                break;
             case 1:
-                FadeSystem.instance.ChangeScene("SampleScene");
+                FadeSystem.instance.ChangeScene("Map");
                 break;
             case 2:
-                FadeSystem.instance.ChangeScene("EliteScene");
+                FadeSystem.instance.ChangeScene("SampleScene");
                 break;
             case 3:
-                FadeSystem.instance.ChangeScene("RecoveryScene");
+                FadeSystem.instance.ChangeScene("EliteScene");
                 break;
             case 4:
-                FadeSystem.instance.ChangeScene("Map");
+                FadeSystem.instance.ChangeScene("RecoveryScene");
                 break;
             case 5:
                 FadeSystem.instance.ChangeScene("Map");
                 break;
             case 6:
+                FadeSystem.instance.ChangeScene("ShopStage");
+                break;
+            case 7:
                 FadeSystem.instance.ChangeScene("BossScene");
                 break;
             default:
-                FadeSystem.instance.ChangeIntScene(GameSuvManager.instance.Rand());
                 break;
         }
         //No.SetActive(true);

@@ -42,7 +42,7 @@ namespace Map
             if (GameSuvManager.instance.gameData.stage == 0)
                 GenerateNewMap();
             GameSuvManager.instance.gameData.stage += 1f;
-            GameSuvManager.instance.gameData.stageNum = 0;
+            GameSuvManager.instance.gameData.stageNum = 1;
             //
         }
 

@@ -65,7 +65,6 @@ namespace Map
         private static void Test()
         {
             Debug.Log("¥Ÿ¿Ω æ¿");
-            GameSuvManager.instance.gameData.stageNum = 1;
             FadeSystem.instance.ChangeScene("SampleScene");
         }
 
@@ -79,30 +78,26 @@ namespace Map
                     break;
                 case NodeType.EliteEnemy:
                     Debug.Log("ø§∏Æ∆Æ∏˜");
-                    GameSuvManager.instance.gameData.stageNum = 2;
                     FadeSystem.instance.ChangeScene("EliteScene");
                     break;
                 case NodeType.RestSite:
                     Debug.Log("Ω∞≈Õ");
-                    GameSuvManager.instance.gameData.stageNum = 3;
                     FadeSystem.instance.ChangeScene("RecoveryScene");
                     break;
                 case NodeType.Treasure:
                     Debug.Log("ªÛ¿⁄");
-                    GameSuvManager.instance.gameData.stageNum = 4;
+                    FadeSystem.instance.ChangeScene("Map");
                     break;
                 case NodeType.Store:
                     Debug.Log("ªÛ¡°");
-                    GameSuvManager.instance.gameData.stageNum = 5;
+                    FadeSystem.instance.ChangeScene("Map");
                     break;
                 case NodeType.Boss:
                     Debug.Log("∫∏Ω∫");
-                    GameSuvManager.instance.gameData.stageNum = 6;
                     FadeSystem.instance.ChangeScene("BossScene");
                     break;
                 case NodeType.Mystery:
                     Debug.Log("π∞¿Ω«•πÊ");
-                    GameSuvManager.instance.gameData.stageNum = 10;
                     FadeSystem.instance.ChangeIntScene(GameSuvManager.instance.Rand());
                     break;
                 default:

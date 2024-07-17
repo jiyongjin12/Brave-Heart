@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RecoveryScene.unity
     guid: cebba50fdb4ad7b4e9ae9f198c3564d7
+  - enabled: 1
+    path: Assets/Scenes/BossScene.unity
+    guid: a3b4dec6fa1e7ad40b342f5e98461cec
   m_configObjects: {}
