@@ -2161,18 +2161,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 924471071}
-        m_TargetAssemblyTypeName: InvText, Assembly-CSharp
-        m_MethodName: Fade
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &859990210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,12 +2243,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 281cad4df8a34bb45a25fbb392b2e51e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage: 0
-  HPUp: 0
-  DamageUP: 0
-  playerHP: 0
-  playerMaxHP: 0
-  Gold: 0
+  GameDataFileName: .json
+  _gameData:
+    BGMSound: 0
+    EffectSound: 0
+    stage: 0
+    stageNum: 0
+    HPUp: 0
+    DamageUP: 0
+    playerHP: 0
+    playerMaxHP: 0
+    playerDmg: 0
+    playerCounter: 0
+    Gold: 0
 --- !u!1 &924471067
 GameObject:
   m_ObjectHideFlags: 0

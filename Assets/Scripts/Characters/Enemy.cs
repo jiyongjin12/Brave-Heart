@@ -128,12 +128,12 @@ public class Enemy : MonoBehaviour
         if (Enemy.Enemykind == EnemyKind.Goblin || Enemy.Enemykind == EnemyKind.Slime)
         {
             xPos = 0;
-            yPos = 4.3f;
+            yPos = 3.6f;
         }
         else if (Enemy.Enemykind == EnemyKind.Orc)
         {
             xPos = 0f;
-            yPos = 5f;
+            yPos = 4.3f;
         }
     }
 

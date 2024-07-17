@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.IO;
 
@@ -10,7 +11,7 @@ public class GameData
     public float EffectSound = 0;
 
     public float stage = 0;
-    public float stageNum = 0;
+    public float stageNum = 100;
     public float HPUp;
     public float DamageUP;
 
@@ -61,6 +62,32 @@ public class GameSuvManager : MonoBehaviour
                 DontDestroyOnLoad(_container);
             }
             return _instance;
+        }
+    }
+
+    public void LoadScene()
+    {
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+            gameData.stageNum = 2;
+        else if (SceneManager.GetActiveScene().name == "EliteScene")
+            gameData.stageNum = 3;
+        else if (SceneManager.GetActiveScene().name == "RecoveryScene")
+            gameData.stageNum = 4;
+        else if (SceneManager.GetActiveScene().name == "EliteScene")
+            gameData.stageNum = 5;
+        else if (SceneManager.GetActiveScene().name == "ShopStage")
+            gameData.stageNum = 6;
+        else if (SceneManager.GetActiveScene().name == "BossScene")
+            gameData.stageNum = 7;
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().buildIndex != gameData.stageNum)
+            LoadScene();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+
         }
     }
 

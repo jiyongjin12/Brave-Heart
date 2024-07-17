@@ -98,6 +98,7 @@ public class BattleSystem : MonoBehaviour
             if (BossDead == true && state != State.clear && isDead == false)
             {
                 state = State.clear;
+                GameSuvManager.instance.gameData.stageNum = 100;
                 BatleEnd();
             }
         }
