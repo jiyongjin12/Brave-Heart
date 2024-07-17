@@ -29,6 +29,7 @@ public class GameSuvManager : MonoBehaviour
 {
     public string GameDataFileName = ".json";
 
+    public int Gold;
     public GameData _gameData;
     public GameData gameData
     {
