@@ -4,8 +4,10 @@ using UnityEngine;
 using System.IO;
 
 [System.Serializable]
-public class GameData
+public class GameData 
 {
+    public static GameData instance { get; private set; }
+
     public float BGMSound = 0;
     public float EffectSound = 0;
 

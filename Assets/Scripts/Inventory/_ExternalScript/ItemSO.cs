@@ -8,6 +8,11 @@ public class ItemSO : PlacedObjectTypeSO
 {
     public Sprite Test;
 
+    [SerializeField] private int maxPrice;
+    [SerializeField] private int minPrice;
+    public int MaxPrice => maxPrice;
+    public int MinPrice => minPrice;
+
     public static void CreateVisualGrid(Transform visualParentTransform, ItemSO itemTetrisSO, float cellSize)
     {
         Transform visualTransform = Instantiate(InventoryAssets.Instance.gridVisual, visualParentTransform);
