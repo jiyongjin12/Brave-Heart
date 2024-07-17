@@ -16,22 +16,12 @@ public class InventoryTesting : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    Debug.Log(inventoryTetris.Save());
-        //    inventoryTetris.SaveToFile();
-        //}
 
         if (Input.GetKeyDown(KeyCode.B))
         {
             Debug.Log("Check");
             inventoryTetris.LoadFromFile();
         }
-
-        //if (Input.GetKeyDown(KeyCode.R)) // 아이템 소환
-        //{
-        //    ExportIncomingItems();
-        //}
     }
 
     public void ExportIncomingItems()
