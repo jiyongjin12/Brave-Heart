@@ -7,6 +7,8 @@ public class BossSystem : MonoBehaviour
     private Vector3 newEnemyPos = new Vector3(8, 4f);
     private float charge = 0;
     private float originDamage;
+
+    
     public static BossSystem instance { get; private set; }
     private void Awake()
     {

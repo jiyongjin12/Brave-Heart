@@ -34,6 +34,9 @@ public class Enemy : MonoBehaviour
 
     public int MonsterAttackNum;
 
+    SpriteRenderer spriteRenderer;
+    public Sprite PageTwo;
+
     public static Enemy instance { get; private set; }
 
     private void Awake()
@@ -44,6 +47,7 @@ public class Enemy : MonoBehaviour
         Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.gameData.HPUp;
         damage = (enemyData.baseDamage + enemyData.damages[Level]) * GameSuvManager.instance.gameData.DamageUP;
         //this.BeforeHp = this.hp;
+        spriteRenderer = GetComponent<SpriteRenderer>();
         instance = this;
     }
 
@@ -52,6 +56,11 @@ public class Enemy : MonoBehaviour
         if (hp <= 0 && !Unit.instance.isAttacking && BattleSystem.instance.deadEnemy == false)
         {
             StartCoroutine(Dead());
+        }
+        if(SceneManager.GetActiveScene().name == "BossScene" && BattleSystem.instance.enemySlot[0].hp <= BattleSystem.instance.enemySlot[0].Maxhp / 2)
+        {
+            spriteRenderer.sprite = PageTwo;
+
         }
     }
 
