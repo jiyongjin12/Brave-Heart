@@ -299,8 +299,8 @@ public class BattleSystem : MonoBehaviour
         {
             if (enemySlot[1] != null)
             {
-                BossSystem.instance.BossTurn();
                 StartCoroutine(BossTurn());
+                BossSystem.instance.BossTurn();
             }
             else
             {
