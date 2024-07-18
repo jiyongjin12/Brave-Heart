@@ -72,15 +72,6 @@ public class BattleSystem : MonoBehaviour
         shieldIcon.SetActive(false);
         EnemyPercent();
         if(SceneManager.GetActiveScene().name == "EliteScene") EliteEnemyPercent();
-        if (SceneManager.GetActiveScene().name == "BossScene")
-        {
-            BossPercent();
-            curEnemy = 0;
-            minusNum = 0;
-            number = 0;
-            SpawnBoss(new Vector2(10, 4.3f));
-            number++;
-        }
     }
 
     private void Start()
@@ -249,6 +240,12 @@ public class BattleSystem : MonoBehaviour
         else if(SceneManager.GetActiveScene().name == "BossScene")
         {
             enemyCount = 1;
+            BossPercent();
+            curEnemy = 0;
+            minusNum = 0;
+            number = 0;
+            SpawnBoss(new Vector2(10, 4.3f));
+            number++;
         }
         else
         {
@@ -300,11 +297,11 @@ public class BattleSystem : MonoBehaviour
         yield return null;
         if(SceneManager.GetActiveScene().name == "BossScene")
         {
-            BossSystem.instance.BossTurn();
             if (enemySlot[1] != null)
                 StartCoroutine(BossTurn());
             else
             {
+                BossSystem.instance.BossTurn();
                 GameManager.instance.DeadEnmey();
                 GameManager.instance.counterAttack = false;
                 GameManager.instance.isClick = false;

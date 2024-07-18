@@ -4147,6 +4147,8 @@ MonoBehaviour:
   Boss:
   - prefab: {fileID: 9076197679635151396, guid: 6fd1054c70aa2d449bd28f62c460bb45, type: 3}
     chance: 100
+  - prefab: {fileID: 9076197679635151396, guid: 6fd1054c70aa2d449bd28f62c460bb45, type: 3}
+    chance: 0
   button:
   - {fileID: 0}
   - {fileID: 0}
