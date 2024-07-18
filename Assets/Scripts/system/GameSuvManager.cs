@@ -78,7 +78,7 @@ public class GameSuvManager : MonoBehaviour
             LoadScene();
         //if (Input.GetKeyDown(KeyCode.Escape))
         //{
-        //    FadeSystem.instance.ChangeScene("RecoveryScene");
+        //    FadeSystem.instance.ChangeScene("BossScene");
         //}
     }
 

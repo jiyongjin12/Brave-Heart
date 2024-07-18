@@ -4129,9 +4129,9 @@ MonoBehaviour:
   PlayerPrefab: {fileID: 1054607304419080496, guid: 5a2af9a53c764524d92adcd55ef539a9, type: 3}
   enemyPrefab:
   - prefab: {fileID: 9076197679635151396, guid: efcf672efff8daa4aadfd60d2cc10211, type: 3}
-    chance: 0
+    chance: 75
   - prefab: {fileID: 9076197679635151396, guid: a1f3e501d854e664aa083f7afc760b74, type: 3}
-    chance: 100
+    chance: 25
   ElitePrefab: []
   Boss:
   - prefab: {fileID: 9076197679635151396, guid: 6fd1054c70aa2d449bd28f62c460bb45, type: 3}
