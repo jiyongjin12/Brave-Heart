@@ -298,7 +298,10 @@ public class BattleSystem : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "BossScene")
         {
             if (enemySlot[1] != null)
+            {
                 StartCoroutine(BossTurn());
+                BossSystem.instance.BossTurn();
+            }
             else
             {
                 BossSystem.instance.BossTurn();
