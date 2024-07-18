@@ -86,7 +86,7 @@ namespace Map
                     break;
                 case NodeType.Treasure:
                     Debug.Log("상자");
-                    FadeSystem.instance.ChangeScene("Map");
+                    FadeSystem.instance.ChangeScene("BoxStage");
                     break;
                 case NodeType.Store:
                     Debug.Log("상점");

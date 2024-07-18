@@ -35,4 +35,10 @@ public class NextButton : MonoBehaviour
             FadeSystem.instance.ChangeScene("Map");
         }
     }
+
+
+    public void Next()
+    {
+        FadeSystem.instance.ChangeScene("Map");
+    }
 }

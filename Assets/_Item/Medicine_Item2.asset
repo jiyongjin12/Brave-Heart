@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60069365a603d44d9995d7ce0749349, type: 3}
-  m_Name: Medicine_Item
+  m_Name: Medicine_Item2
   m_EditorClassIdentifier: 
-  nameString: Medicine
-  prefab: {fileID: 6374125543331760910, guid: cfaa8b6f6b9f35a4a86e102214700418, type: 3}
-  visual: {fileID: 6903557727191577591, guid: 735305860b9dcbe46a83e071c7037bbb, type: 3}
+  nameString: Medicine1
+  prefab: {fileID: 6374125543331760910, guid: 8df6d8ac7bdc56f458f5e6e7d44714d2, type: 3}
+  visual: {fileID: 6903557727191577591, guid: 74ca5f4a93760b84d8086d2fa90f9efd, type: 3}
   width: 1
   height: 1
-  Test: {fileID: -435226535, guid: fa8b8c312b5f7c34ab073470b0f79f89, type: 3}
-  maxPrice: 50
+  Test: {fileID: 21300000, guid: 671fc82616f96ee469649afb818daa56, type: 3}
+  maxPrice: 60
   minPrice: 80

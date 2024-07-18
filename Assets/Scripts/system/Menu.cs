@@ -31,7 +31,6 @@ public class Menu : MonoBehaviour
         Audio.SetActive(false);
     }
 
-
     public void NewGame()
     {
         GameSuvManager.instance.gameData.playerMaxHP = 100;

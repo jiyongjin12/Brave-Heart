@@ -2037,8 +2037,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 250, y: 250}
-  m_Spacing: {x: 100, y: 50}
+  m_CellSize: {x: 200, y: 200}
+  m_Spacing: {x: 150, y: 100}
   m_Constraint: 0
   m_ConstraintCount: 4
 --- !u!1 &127386445
@@ -2087,6 +2087,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemTetrisSOArray:
   - {fileID: 11400000, guid: e5a6560574e95a94fb7534d853aa4c55, type: 2}
+  - {fileID: 11400000, guid: dab111fa61351e84982fd56cc382a1ab, type: 2}
+  - {fileID: 11400000, guid: 2f1b407ec1caa4e47963675e42a43134, type: 2}
+  - {fileID: 11400000, guid: 0b55ed12514194049b6630b8d9dc0e27, type: 2}
   ammo: {fileID: 11400000, guid: e5a6560574e95a94fb7534d853aa4c55, type: 2}
   gridBackground: {fileID: 21300000, guid: 20b8ba606d245e44daaa029221887240, type: 3}
   gridBackground_2: {fileID: 21300000, guid: 1002273b6e4ac3f49bb60ebe88b4c842, type: 3}

@@ -5,60 +5,52 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class ChoiceItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class BoxItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private Image choiceItem;
-
-    public InventoryTesting Inventory;
     public ItemSO item;
+    public Image itemImage;
 
     private Vector3 originalScale;
     private float scaleMultiplier = 1.17f;
     private float tweenTime = 0.2f;
+    private BoxStage boxStage;
 
-    void Start()
+    public void Initialize(ItemSO newItem, BoxStage stage)
     {
-        originalScale = transform.localScale;
-
-        choiceItem.sprite = item.Test;
-
+        item = newItem;
+        boxStage = stage;
+        itemImage.sprite = item.Test;
         AdjustImageToSprite();
     }
 
     private void AdjustImageToSprite()
     {
-        if (choiceItem.sprite != null)
+        if (itemImage.sprite != null)
         {
-            RectTransform rt = choiceItem.GetComponent<RectTransform>();
+            RectTransform rt = itemImage.GetComponent<RectTransform>();
             Vector2 originalSize = rt.sizeDelta;
-            Vector2 spriteSize = new Vector2(choiceItem.sprite.rect.width, choiceItem.sprite.rect.height);
+            Vector2 spriteSize = new Vector2(itemImage.sprite.rect.width, itemImage.sprite.rect.height);
 
-            // 크기 비율 계산
             float widthRatio = originalSize.x / spriteSize.x;
             float heightRatio = originalSize.y / spriteSize.y;
             float scaleFactor = Mathf.Min(widthRatio, heightRatio);
 
-            // 최종 크기 조정
             Vector2 adjustedSize = spriteSize * scaleFactor;
             rt.sizeDelta = adjustedSize;
         }
+    }
+
+    void Start()
+    {
+        originalScale = transform.localScale;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            var Reward = RewardItem.instance;
-
-            if (Inventory != null)
-            {
-                Inventory.ItemInfo.Add(item);
-                Reward.ChoicePanelActiveFalse(); // Choice 패널 SetActive(false)하는 코드
-                Debug.Log("CHECK");
-                InventoryOnOff.inventoryOnOff.OnInventory(); // 인벤 켜지기
-            }
+            boxStage.OnBoxItemClick(item);
         }
-           
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -70,5 +62,4 @@ public class ChoiceItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         transform.DOScale(originalScale, tweenTime).SetEase(Ease.OutSine);
     }
-
 }

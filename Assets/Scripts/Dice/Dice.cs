@@ -34,6 +34,10 @@ public class Dice : MonoBehaviour
     public Sprite[] diceRoll;
     private bool Rolling_test = true;
 
+    private bool soundBool = false;
+
+
+
     private void Start()
     {
         rend = dice.GetComponent<SpriteRenderer>();
@@ -110,7 +114,17 @@ public class Dice : MonoBehaviour
                 rend.sprite = diceSides[randomDiceSides];
             }
 
-            
+            if (acceleration <= 0.0001 && endLoring == false && soundBool == false) // 사운드 넣기?
+            {
+                Debug.Log("chak");
+                soundBool = true;
+            }
+
+            if (DiceRotationTime == false) 
+            {
+                soundBool = false;
+            }
+
             if (acceleration <= 0.0001 &&endLoring == false) // 주사위 옆모습 나타내기
             {
                 DiceRotationTime = true;
@@ -129,7 +143,7 @@ public class Dice : MonoBehaviour
 
                 finalSide = randomDiceSides + 1;
 
-                Debug.Log(finalSide);
+                //Debug.Log(finalSide);
                 isHolding = false;
                 BounceTime = false;
                 endLoring = true;
@@ -139,7 +153,7 @@ public class Dice : MonoBehaviour
 
             HeightChanged?.Invoke(height);
 
-            Debug.Log(acceleration);
+            //Debug.Log(acceleration);
         }
     }
 

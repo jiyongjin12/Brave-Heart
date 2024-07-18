@@ -30,6 +30,7 @@ public class ItemProp : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         transform.localRotation = blackScreen.transform.rotation;
 
         itemSprite.sprite = item.Test;
+        AdjustImageToSprite();
     }
 
     private void Update()
@@ -51,6 +52,25 @@ public class ItemProp : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     private void UpdateBlackScreenVisibility()
     {
         blackScreen.SetActive(PurchasedItem);
+    }
+
+    private void AdjustImageToSprite()
+    {
+        if (itemSprite.sprite != null)
+        {
+            RectTransform rt = itemSprite.GetComponent<RectTransform>();
+            Vector2 originalSize = rt.sizeDelta;
+            Vector2 spriteSize = new Vector2(itemSprite.sprite.rect.width, itemSprite.sprite.rect.height);
+
+            // 크기 비율 계산
+            float widthRatio = originalSize.x / spriteSize.x;
+            float heightRatio = originalSize.y / spriteSize.y;
+            float scaleFactor = Mathf.Min(widthRatio, heightRatio);
+
+            // 최종 크기 조정
+            Vector2 adjustedSize = spriteSize * scaleFactor;
+            rt.sizeDelta = adjustedSize;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
