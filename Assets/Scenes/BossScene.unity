@@ -11488,7 +11488,7 @@ MonoBehaviour:
   isClick: 0
   isPause: 0
   ClickObj: {fileID: 0}
-  audio: {fileID: 8300000, guid: fed290e111235914e87a70b2231c60ca, type: 3}
+  audio: {fileID: 8300000, guid: 254160e6e2886604b880f684185c5bdf, type: 3}
 --- !u!4 &757727691
 Transform:
   m_ObjectHideFlags: 0
@@ -11516,7 +11516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3ea21ea0b5f784b817368dcb1e4869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audio: {fileID: 8300000, guid: fed290e111235914e87a70b2231c60ca, type: 3}
+  audio: {fileID: 8300000, guid: 254160e6e2886604b880f684185c5bdf, type: 3}
 --- !u!1 &758367517
 GameObject:
   m_ObjectHideFlags: 0

@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audios:
-  - {fileID: 8300000, guid: 58dbcc45c15423544aa088467eb78385, type: 3}
-  - {fileID: 8300000, guid: fed290e111235914e87a70b2231c60ca, type: 3}
+  - {fileID: 8300000, guid: ff590e4efb386e34e86d8bb79671b2ba, type: 3}
+  - {fileID: 8300000, guid: 254160e6e2886604b880f684185c5bdf, type: 3}
   isAttacking: 0
   Damage: {fileID: 3047497941406286605, guid: 15d21ad32202e484dbc080b9c57fcd39, type: 3}
   CurDamage: 0

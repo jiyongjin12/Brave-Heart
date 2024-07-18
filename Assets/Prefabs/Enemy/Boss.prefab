@@ -112,7 +112,7 @@ MonoBehaviour:
   MouseClick: 0
   isAttacking: 0
   MonsterAttackNum: 0
-  PageTwo: {fileID: 21300000, guid: 326eaef33c0b08f47a1e3003e15b8769, type: 3}
+  PageTwo: {fileID: 21300000, guid: bcc2c0932817a5147ae71ff0f74e9b8b, type: 3}
 --- !u!70 &-7686571553698185057
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
