@@ -533,6 +533,16 @@ public class BattleSystem : MonoBehaviour
         if (GameManager.instance.hp <= 0)
         {
             Debug.Log("게임 패배");
+            GameSuvManager.instance.gameData.playerMaxHP = 100;
+            GameSuvManager.instance.gameData.playerHP = 100;
+            GameSuvManager.instance.gameData.playerDmg = 0;
+            GameSuvManager.instance.gameData.stage = 0;
+            GameSuvManager.instance.gameData.HPUp = 1f;
+            GameSuvManager.instance.gameData.DamageUP = 1f;
+            GameSuvManager.instance.gameData.playerCounter = 50f;
+            GameSuvManager.instance.gameData.Gold = 0;
+            GameSuvManager.instance.gameData.stageNum = 100;
+
             FadeSystem.instance.ChangeScene("Title");
         }
     }
@@ -554,8 +564,8 @@ public class BattleSystem : MonoBehaviour
 
     void MonsterPowerUp()
     {
-        GameSuvManager.instance.gameData.DamageUP += 0.2f;
-        GameSuvManager.instance.gameData.HPUp += 0.4f;
+        GameSuvManager.instance.gameData.DamageUP += 0.1f;
+        GameSuvManager.instance.gameData.HPUp += 0.2f;
     }
 }
 
