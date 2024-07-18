@@ -79,6 +79,7 @@ public class BossSystem : MonoBehaviour
         BattleSystem.instance.curEnemy++;
         BattleSystem.instance.minusNum++;
         BattleSystem.instance.SpawnEnemy(newEnemyPos);
+        BattleSystem.instance.number++;
         BattleSystem.instance.state = BattleSystem.State.playerTurn;
     }
 

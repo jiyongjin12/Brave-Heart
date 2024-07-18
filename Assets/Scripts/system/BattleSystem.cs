@@ -522,6 +522,8 @@ public class BattleSystem : MonoBehaviour
     void BatleEnd()
     {
         isDead = true;
+        if (state == State.clear)
+            Clear();
         if (GameManager.instance.hp > 0)
         {
             Debug.Log("게임 승리");
@@ -531,8 +533,23 @@ public class BattleSystem : MonoBehaviour
         if (GameManager.instance.hp <= 0)
         {
             Debug.Log("게임 패배");
-            SceneManager.LoadScene("Title");
+            FadeSystem.instance.ChangeScene("Title");
         }
+    }
+
+    void Clear()
+    {
+        GameSuvManager.instance.gameData.playerMaxHP = 100;
+        GameSuvManager.instance.gameData.playerHP = 100;
+        GameSuvManager.instance.gameData.playerDmg = 0;
+        GameSuvManager.instance.gameData.stage = 0;
+        GameSuvManager.instance.gameData.HPUp = 1f;
+        GameSuvManager.instance.gameData.DamageUP = 1f;
+        GameSuvManager.instance.gameData.playerCounter = 50f;
+        GameSuvManager.instance.gameData.Gold = 0;
+        GameSuvManager.instance.gameData.stageNum = 100;
+
+        FadeSystem.instance.ChangeScene("Title");
     }
 
     void MonsterPowerUp()
