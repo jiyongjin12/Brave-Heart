@@ -33,12 +33,17 @@ public class ShopCanvas : MonoBehaviour
     {
         PopulateShop();
 
-        GameSuvManager.instance.gameData.Gold += 100;
+        //GameSuvManager.instance.gameData.Gold += 100;
     }
 
     private void FixedUpdate()
     {
         ReRollPriceText.text = ReRollPrice.ToString();
+    }
+
+    public void ShowShop()
+    {
+        Shop.gameObject.SetActive(true);
     }
 
 
