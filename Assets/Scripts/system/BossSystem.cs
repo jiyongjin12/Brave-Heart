@@ -13,11 +13,11 @@ public class BossSystem : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        originDamage = BattleSystem.instance.enemySlot[0].damage;
     }
 
     public void BossTurn()
     {
+        originDamage = BattleSystem.instance.enemySlot[0].damage;
         if (BattleSystem.instance.enemySlot[0].hp >= BattleSystem.instance.enemySlot[0].Maxhp / 2)
             StartCoroutine(FirstPage());
         else
