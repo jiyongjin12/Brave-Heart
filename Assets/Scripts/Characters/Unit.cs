@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     public static Unit instance { get; private set; }
 
     private Animator animator;
+    public AudioClip[] audios;
 
     public bool isAttacking;
 
@@ -45,11 +46,13 @@ public class Unit : MonoBehaviour
         BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].hp -= GameManager.instance.playerDamage / 6;
         GameManager.instance.SpawnDamageText(BattleSystem.instance.enemySlot[BattleSystem.instance.TNum]);
         CurDamage = (GameManager.instance.playerDamage / 6);
+        SoundManager.instance.SFXPlay("Slesh", audios[0]);
 
     }
     //스킬 찍기 데미지
     public void EndDamage()
     {
+        SoundManager.instance.SFXPlay("End", audios[1]);
         BattleSystem.instance.enemySlot[BattleSystem.instance.TNum].hp -= GameManager.instance.playerDamage / 2;
         GameManager.instance.SpawnDamageText(BattleSystem.instance.enemySlot[BattleSystem.instance.TNum]);
         CurDamage = (GameManager.instance.playerDamage / 2);
