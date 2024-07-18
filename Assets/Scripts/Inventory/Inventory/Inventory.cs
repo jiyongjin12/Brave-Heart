@@ -24,9 +24,9 @@ public class Inventory : MonoBehaviour
     {
         Instance = this;
 
-        int gridWidth = 10;
-        int gridHeight = 10;
-        float cellSize = 60f;
+        int gridWidth = 8;
+        int gridHeight = 8;
+        float cellSize = 75f;
         grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, new Vector3(0, 0, 0), (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
 
         itemContainer = transform.Find("ItemContainer").GetComponent<RectTransform>();

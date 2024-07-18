@@ -90,7 +90,7 @@ namespace Map
                     break;
                 case NodeType.Store:
                     Debug.Log("상점");
-                    FadeSystem.instance.ChangeScene("Map");
+                    FadeSystem.instance.ChangeScene("ShopStage");
                     break;
                 case NodeType.Boss:
                     Debug.Log("보스");

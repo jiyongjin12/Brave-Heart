@@ -17,6 +17,6 @@ MonoBehaviour:
   visual: {fileID: 6903557727191577591, guid: 735305860b9dcbe46a83e071c7037bbb, type: 3}
   width: 1
   height: 1
-  Test: {fileID: 0}
+  Test: {fileID: -2052315878, guid: bb8c70e4a1590b14ea39ef48b3039da9, type: 3}
   maxPrice: 50
   minPrice: 80

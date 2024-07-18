@@ -14,15 +14,15 @@ public class InventoryTesting : MonoBehaviour
     [SerializeField]
     public List<ItemSO> ItemInfo;
 
-    private void Update()
-    {
+    //private void Update()
+    //{
 
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            Debug.Log("Check");
-            inventoryTetris.LoadFromFile();
-        }
-    }
+    //    if (Input.GetKeyDown(KeyCode.B))
+    //    {
+    //        Debug.Log("Check");
+    //        inventoryTetris.LoadFromFile();
+    //    }
+    //}
 
     public void ExportIncomingItems()
     {

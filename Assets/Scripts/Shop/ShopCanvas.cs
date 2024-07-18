@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using UnityEngine.UI;
+using TMPro;
 
 public class ShopCanvas : MonoBehaviour
 {
@@ -11,16 +14,15 @@ public class ShopCanvas : MonoBehaviour
     [SerializeField] private ItemProp ItemProp; // 소환 프리팹
     [SerializeField] private Shop_so ItemList;
     [SerializeField] private int numberOfItemsToDisplay = 6; // 상점에 표시할 아이템 갯수
-    [SerializeField] private bool ShowItem = true;
     [SerializeField] private InventoryTesting Inventory;
+    [SerializeField] private TMP_Text ReRollPriceText;
+
+    public bool PurchaseCheck = false;
 
     [SerializeField] private int ReRollPrice = 50;
-
-    private readonly List<ItemSO> _ItemPropList = new List<ItemSO>();
+    //[SerializeField] private GridLayoutGroup gridLayoutGroup;
 
     private readonly List<ItemProp> _currentItemPropsList = new List<ItemProp>();
-
-    public int Gold = 500;
 
     private void Awake()
     {
@@ -30,27 +32,24 @@ public class ShopCanvas : MonoBehaviour
     private void Start()
     {
         PopulateShop();
+
+        GameSuvManager.instance.gameData.Gold += 100;
     }
 
-    //private void Update()
-    //{
-    //    if (ShowItem == true)
-    //    {
-    //        RerollShop();
-    //        ShowItem = false;
-    //    }
-    //}
+    private void FixedUpdate()
+    {
+        ReRollPriceText.text = ReRollPrice.ToString();
+    }
+
 
     public void RerollShop()
     {
-        //if (GameData.instance.Gold >= ReRollPrice)
-        if (Gold >= ReRollPrice)
+        if (GameSuvManager.instance.gameData.Gold >= ReRollPrice)
         {
             ClearShop(); // 기존 아이템 프롭 삭제
             PopulateShop(); // 다시 아이템 프롭 생성
 
-            //GameData.instance.Gold -= ReRollPrice;
-            Gold -= ReRollPrice;
+            GameSuvManager.instance.gameData.Gold -= ReRollPrice;
             ReRollPrice += (ReRollPrice / 2);
         }
         else
@@ -63,7 +62,27 @@ public class ShopCanvas : MonoBehaviour
 
     private void PopulateShop()
     {
-        for (int i = 0; i < numberOfItemsToDisplay; i++)
+        //int itemsToCreate = numberOfItemsToDisplay - _currentItemPropsList.Count(item => item.PurchasedItem);
+
+        //for (int i = 0; i < itemsToCreate; i++)
+        //{
+        //    var itemSO = GetRandomItem(ItemList.ShopItem);
+        //    var itemPropInstance = Instantiate(ItemProp, ItemPropLocation);
+        //    itemPropInstance.item = itemSO;
+
+        //    // Set the itemPropInstance properties
+        //    itemPropInstance.itemProp.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-10f, 10f));
+        //    itemPropInstance.Pride = Random.Range(itemSO.MinPrice, itemSO.MaxPrice + 1);
+        //    itemPropInstance.Goldtext.text = itemPropInstance.Pride.ToString();
+        //    itemPropInstance.Inventory = Inventory;
+        //    itemPropInstance.itemSprite.sprite = itemSO.Test; // Sprite 설정
+
+        //    _currentItemPropsList.Add(itemPropInstance);
+        //}
+
+        int itemsToCreate = numberOfItemsToDisplay - _currentItemPropsList.Count(item => item.PurchasedItem);
+
+        for (int i = 0; i < itemsToCreate; i++)
         {
             var itemSO = GetRandomItem(ItemList.ShopItem);
             var itemPropInstance = Instantiate(ItemProp, ItemPropLocation);
@@ -88,11 +107,19 @@ public class ShopCanvas : MonoBehaviour
 
     private void ClearShop()
     {
-        foreach (var itemProp in _currentItemPropsList)
-        {
-            Destroy(itemProp.gameObject);
-        }
-        _currentItemPropsList.Clear();
+        //foreach (var itemProp in _currentItemPropsList)
+        //{
+        //    Destroy(itemProp.gameObject);
+        //}
+        //_currentItemPropsList.Clear();
 
+        for (int i = _currentItemPropsList.Count - 1; i >= 0; i--)
+        {
+            if (!_currentItemPropsList[i].PurchasedItem)
+            {
+                Destroy(_currentItemPropsList[i].gameObject);
+                _currentItemPropsList.RemoveAt(i);
+            }
+        }
     }
 }

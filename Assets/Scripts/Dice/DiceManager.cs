@@ -186,25 +186,25 @@ public class DiceManager : MonoBehaviour
         {
             Vector3 targetPosition = Vector3.zero;
             Quaternion targetRotation = Quaternion.identity;
-            float targetScale = 1.2f; // 목표 크기
+            float targetScale = 1.18f; // 목표 크기
 
             // 각 주사위 별로 목표 위치, 회전, 크기 설정
             switch (i)
             {
                 case 0:
-                    targetPosition = new Vector3(-3.32f, 2.36f, 0f);
+                    targetPosition = new Vector3(-3.03f, 1.65f, 0f);
                     break;
                 case 1:
-                    targetPosition = new Vector3(-1.68f, 2.36f, 0f);
+                    targetPosition = new Vector3(-1.53f, 1.65f, 0f);
                     break;
                 case 2:
-                    targetPosition = new Vector3(-0.04f, 2.36f, 0f);
+                    targetPosition = new Vector3(-0.03f, 1.65f, 0f);
                     break;
                 case 3:
-                    targetPosition = new Vector3(1.58f, 2.36f, 0f);
+                    targetPosition = new Vector3(1.45f, 1.65f, 0f);
                     break;
                 case 4:
-                    targetPosition = new Vector3(3.22f, 2.36f, 0f);
+                    targetPosition = new Vector3(2.95f, 1.65f, 0f);
                     break;
             }
 
