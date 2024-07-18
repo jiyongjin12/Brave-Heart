@@ -4125,24 +4125,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerPrefab: {fileID: 1054607304419080496, guid: 5a2af9a53c764524d92adcd55ef539a9, type: 3}
   enemyPrefab:
-  - prefab: {fileID: 9076197679635151396, guid: a9eb052b594d8f24db7c37d7bcabbed3, type: 3}
-    chance: 54.1
-  - prefab: {fileID: 9076197679635151396, guid: 7676e2b55acdfad499bd2df230cbdf96, type: 3}
-    chance: 41.8
-  - prefab: {fileID: 9076197679635151396, guid: 6ca6a2306835db54d99c5e280f8a6a34, type: 3}
-    chance: 82
-  - prefab: {fileID: 9076197679635151396, guid: 1d165ef55af302648a6f6cd60db07e28, type: 3}
+  - prefab: {fileID: 9076197679635151396, guid: efcf672efff8daa4aadfd60d2cc10211, type: 3}
+    chance: 0
+  - prefab: {fileID: 9076197679635151396, guid: a1f3e501d854e664aa083f7afc760b74, type: 3}
     chance: 100
-  - prefab: {fileID: 9076197679635151396, guid: b2bbfbca6380a4540a2d734890e212d6, type: 3}
-    chance: 100
-  - prefab: {fileID: 9076197679635151396, guid: a6753c4446e79cd4aaca5643d2f7bfa0, type: 3}
-    chance: 62.6
-  - prefab: {fileID: 9076197679635151396, guid: f7678a6e48c7f2c4d8cba093ffd46149, type: 3}
-    chance: 61.9
-  - prefab: {fileID: 9076197679635151396, guid: 3cbc53e7067837e4b89a7c9e608cc175, type: 3}
-    chance: 50.2
-  - prefab: {fileID: 9076197679635151396, guid: b2ca47c98b401c84883ec29271ed2a1c, type: 3}
-    chance: 41.2
   ElitePrefab: []
   Boss:
   - prefab: {fileID: 9076197679635151396, guid: 6fd1054c70aa2d449bd28f62c460bb45, type: 3}

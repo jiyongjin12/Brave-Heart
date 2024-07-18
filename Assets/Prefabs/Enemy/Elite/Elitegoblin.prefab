@@ -29,7 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.45131508, g: 1, b: 0.42138356, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8092f925e6abff04faeedd98af38e793, type: 3}
+  m_Color: {r: 1, g: 0.20833331, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,13 +105,14 @@ MonoBehaviour:
   hp: 0
   damage: 0
   Maxhp: 0
+  xPos: 0
   yPos: 0
   Charge: 0
   enemyNum: 0
   MouseClick: 0
-  isArcher: 0
-  isWizard: 0
+  isAttacking: 0
   MonsterAttackNum: 0
+  PageTwo: {fileID: 0}
 --- !u!70 &3007691113439777048
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -125,6 +126,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
+  m_Offset: {x: -0.027124733, y: -0.19891532}
+  m_Size: {x: 1.5364703, y: 1.5364704}
   m_Direction: 0

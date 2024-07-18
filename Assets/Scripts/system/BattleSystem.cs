@@ -300,6 +300,7 @@ public class BattleSystem : MonoBehaviour
             if (enemySlot[1] != null)
             {
                 StartCoroutine(BossTurn());
+                yield return YieldCache.WaitForSeconds(1f);
                 BossSystem.instance.BossTurn();
             }
             else

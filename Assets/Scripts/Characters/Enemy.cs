@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 {
     public EnemyData enemyData;
     public enum EnemyType { Warrior = 0, Archer = 1, Wizard = 2, Elite = 3, Boss }
-    public enum EnemyKind { Slime, Orc, Goblin, Boss }
+    public enum EnemyKind { Slime, Orc, Goblin, Spawn, Boss, Spawn1 }
     public EnemyType enemyType;
     public EnemyKind Enemykind;
     public int Level;
@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        this.enemyNum = (BattleSystem.instance.curEnemy - BattleSystem.instance.minusNum) * -1;
+        this.enemyNum = BattleSystem.instance.number;
         Charge = 0;
         hp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.gameData.HPUp;
         Maxhp = (enemyData.baseHp + enemyData.maxHp[Level]) * GameSuvManager.instance.gameData.HPUp;
@@ -55,6 +55,8 @@ public class Enemy : MonoBehaviour
     {
         if (hp <= 0 && !Unit.instance.isAttacking && BattleSystem.instance.deadEnemy == false)
         {
+            if (enemyType == EnemyType.Boss)
+                BattleSystem.instance.BossDead = true;
             StartCoroutine(Dead());
         }
         if(SceneManager.GetActiveScene().name == "BossScene" && BattleSystem.instance.enemySlot[0].hp <= BattleSystem.instance.enemySlot[0].Maxhp / 2)
@@ -133,7 +135,7 @@ public class Enemy : MonoBehaviour
 
     public void EnemyPos(Enemy Enemy)
     {
-        if (Enemy.Enemykind == EnemyKind.Goblin || Enemy.Enemykind == EnemyKind.Slime)
+        if (Enemy.Enemykind == EnemyKind.Slime || Enemy.Enemykind == EnemyKind.Spawn)
         {
             xPos = 0;
             yPos = 3.6f;
@@ -142,6 +144,16 @@ public class Enemy : MonoBehaviour
         {
             xPos = 0f;
             yPos = 4.3f;
+        }
+        else if(Enemy.Enemykind == EnemyKind.Goblin || Enemy.Enemykind == EnemyKind.Spawn1)
+        {
+            xPos = 0f;
+            yPos = 4f;
+        }
+        else if (Enemy.Enemykind == EnemyKind.Boss)
+        {
+            xPos = 0f;
+            yPos = 5f;
         }
     }
 
