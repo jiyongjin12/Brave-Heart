@@ -69,18 +69,7 @@ public class GameSuvManager : MonoBehaviour
 
     public void LoadScene()
     {
-        if (SceneManager.GetActiveScene().name == "SampleScene")
-            gameData.stageNum = 2;
-        else if (SceneManager.GetActiveScene().name == "EliteScene")
-            gameData.stageNum = 3;
-        else if (SceneManager.GetActiveScene().name == "RecoveryScene")
-            gameData.stageNum = 4;
-        else if (SceneManager.GetActiveScene().name == "EliteScene")
-            gameData.stageNum = 5;
-        else if (SceneManager.GetActiveScene().name == "ShopStage")
-            gameData.stageNum = 6;
-        else if (SceneManager.GetActiveScene().name == "BossScene")
-            gameData.stageNum = 7;
+        gameData.stageNum = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void Update()

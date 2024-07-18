@@ -8,9 +8,11 @@ public class ReCovery : MonoBehaviour
 {
     public GameObject PlayerPrefab;
     public Transform playerBattleTrans;
+    public AudioClip heal;
 
     private void Awake()
     {
+        SoundManager.instance.SFXPlay("Heal", heal);
         Instantiate(PlayerPrefab, playerBattleTrans);
         GameSuvManager.instance.gameData.playerHP += 10;
     }

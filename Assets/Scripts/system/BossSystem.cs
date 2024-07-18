@@ -7,7 +7,7 @@ public class BossSystem : MonoBehaviour
     private Vector3 newEnemyPos = new Vector3(8, 4f);
     private float charge = 0;
     private float originDamage;
-
+    public AudioClip audio;
     
     public static BossSystem instance { get; private set; }
     private void Awake()
@@ -84,6 +84,7 @@ public class BossSystem : MonoBehaviour
 
     public IEnumerator SecondBossSkill()
     {
+        SoundManager.instance.SFXPlay("Attack", audio);
         BossAttack();
         yield return YieldCache.WaitForSeconds(0.5f);
         BattleSystem.instance.state = BattleSystem.State.playerTurn;
@@ -99,6 +100,7 @@ public class BossSystem : MonoBehaviour
         {
             charge = 0;
             BattleSystem.instance.enemySlot[0].damage *= 1.5f;
+            SoundManager.instance.SFXPlay("Attack", audio);
             BossAttack();
         }
         yield return YieldCache.WaitForSeconds(0.5f);

@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
 
     public bool isPause;
     public GameObject ClickObj;
+    public AudioClip audio;
     //public GameObject ClickArea;
 
     private void Awake()
@@ -168,6 +169,7 @@ public class GameManager : MonoBehaviour
 
     public void EnemyAttack(int num)
     {
+        SoundManager.instance.SFXPlay("Attack", audio);
         StartCoroutine(AttackRot(num));
         if (counterAttack == true) Counter(num);
         else if (shield > 0)

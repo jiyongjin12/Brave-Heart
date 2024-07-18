@@ -64,10 +64,10 @@ public class Menu : MonoBehaviour
                 FadeSystem.instance.ChangeScene("RecoveryScene");
                 break;
             case 5:
-                FadeSystem.instance.ChangeScene("Map");
+                FadeSystem.instance.ChangeScene("ShopStage");
                 break;
             case 6:
-                FadeSystem.instance.ChangeScene("ShopStage");
+                FadeSystem.instance.ChangeScene("BossScene");
                 break;
             case 7:
                 FadeSystem.instance.ChangeScene("BossScene");
