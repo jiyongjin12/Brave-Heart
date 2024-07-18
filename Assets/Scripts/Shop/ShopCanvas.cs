@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using TMPro;
 
 public class ShopCanvas : MonoBehaviour
 {
@@ -14,13 +15,14 @@ public class ShopCanvas : MonoBehaviour
     [SerializeField] private Shop_so ItemList;
     [SerializeField] private int numberOfItemsToDisplay = 6; // 상점에 표시할 아이템 갯수
     [SerializeField] private InventoryTesting Inventory;
+    [SerializeField] private TMP_Text ReRollPriceText;
+
+    public bool PurchaseCheck = false;
 
     [SerializeField] private int ReRollPrice = 50;
-    [SerializeField] private GridLayoutGroup gridLayoutGroup;
+    //[SerializeField] private GridLayoutGroup gridLayoutGroup;
 
     private readonly List<ItemProp> _currentItemPropsList = new List<ItemProp>();
-
-    public int Gold = 500;
 
     private void Awake()
     {
@@ -30,19 +32,24 @@ public class ShopCanvas : MonoBehaviour
     private void Start()
     {
         PopulateShop();
+
+        GameSuvManager.instance.gameData.Gold += 100;
+    }
+
+    private void FixedUpdate()
+    {
+        ReRollPriceText.text = ReRollPrice.ToString();
     }
 
 
     public void RerollShop()
     {
-        //if (Gold >= ReRollPrice)                              // 임시로 넣은 골드
-        if (GameSuvManager.instance.Gold >= ReRollPrice)
+        if (GameSuvManager.instance.gameData.Gold >= ReRollPrice)
         {
             ClearShop(); // 기존 아이템 프롭 삭제
             PopulateShop(); // 다시 아이템 프롭 생성
 
-            //Gold -= ReRollPrice;                              // 임시로 넣은 골드
-            GameSuvManager.instance.Gold -= ReRollPrice;
+            GameSuvManager.instance.gameData.Gold -= ReRollPrice;
             ReRollPrice += (ReRollPrice / 2);
         }
         else

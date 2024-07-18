@@ -27,17 +27,22 @@ public class ItemProp : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     private void Start()
     {
         originalScale = transform.localScale;
-        originalRotation = blackScreen.transform.rotation;
+        transform.localRotation = blackScreen.transform.rotation;
 
         itemSprite.sprite = item.Test;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    GameSuvManager.instance.gameData.Gold += 100;
+        //    Debug.Log(GameSuvManager.instance.gameData.Gold);
+        //}
+
+        if (PurchasedItem == true)
         {
-            GameSuvManager.instance.Gold += 100;
-            Debug.Log(GameSuvManager.instance.Gold);
+            ShopCanvas.instance.PurchaseCheck = true;
         }
 
         UpdateBlackScreenVisibility();
@@ -52,13 +57,13 @@ public class ItemProp : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (!PurchasedItem && GameSuvManager.instance.Gold >= Pride)
+            if (!PurchasedItem && GameSuvManager.instance.gameData.Gold >= Pride)
             {
                 if (Inventory != null)
                 {
+                    GameSuvManager.instance.gameData.Gold -= Pride;
                     Inventory.ItemInfo.Add(item);
                     PurchasedItem = true;
-                    //Debug.Log("CHECK");
                     UpdateBlackScreenVisibility();
                 }
             }
