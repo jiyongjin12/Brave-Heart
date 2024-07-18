@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5335420522683115055}
   - component: {fileID: -7645763346162941295}
   m_Layer: 6
-  m_Name: goblinArcher
+  m_Name: Enemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d69b4af943569db49b04dfd0b2883b88, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f329895b23ec4e44bf646e2587bc5ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8d461470d9416448a3e8861a41a337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: f6efbb4f24e700442bbadbad227799f0, type: 2}
-  enemyType: 1
-  Enemykind: 2
+  enemyData: {fileID: 11400000, guid: 2a2e046b69aee1041a297716fa5461f9, type: 2}
+  enemyType: 0
+  Enemykind: 3
   Level: 0
   hp: -45
   damage: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   MouseClick: 0
   isAttacking: 0
   MonsterAttackNum: 0
-  PageTwo: {fileID: 0}
+  PageTwo: {fileID: 21300000, guid: 5f329895b23ec4e44bf646e2587bc5ad, type: 3}
 --- !u!70 &-7645763346162941295
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -126,6 +126,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.016690493, y: -0.2920854}
-  m_Size: {x: 2.1015792, y: 2.1015792}
+  m_Offset: {x: 0.17739606, y: -0.2920854}
+  m_Size: {x: 2.4229903, y: 2.4229903}
   m_Direction: 0

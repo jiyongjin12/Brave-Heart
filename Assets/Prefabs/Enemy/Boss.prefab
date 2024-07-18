@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5335420522683115055}
   - component: {fileID: -7686571553698185057}
   m_Layer: 6
-  m_Name: orcBoss
+  m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: c32ceb00ecd895a40ba7b6e7b57ffa15, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1c60d758a60e8d34facf1699f16d9bfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 6661aef221ead6a42b41d448dc3036f5, type: 2}
   enemyType: 4
-  Enemykind: 1
+  Enemykind: 4
   Level: 0
   hp: 0
   damage: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   MouseClick: 0
   isAttacking: 0
   MonsterAttackNum: 0
-  PageTwo: {fileID: 21300000, guid: 9999c30959bffc94790c440c5c0158d4, type: 3}
+  PageTwo: {fileID: 21300000, guid: 326eaef33c0b08f47a1e3003e15b8769, type: 3}
 --- !u!70 &-7686571553698185057
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -126,6 +126,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0036645532, y: -0.11832893}
-  m_Size: {x: 1.3135039, y: 2.6762831}
+  m_Offset: {x: 0.86968935, y: 0.033448696}
+  m_Size: {x: 1.9027579, y: 3.9440722}
   m_Direction: 0

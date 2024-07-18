@@ -10847,8 +10847,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  shieldIcon: {fileID: 0}
-  playerBattleTrans: {fileID: 0}
+  shieldIcon: {fileID: 1457253209}
+  playerBattleTrans: {fileID: 1931055193}
   enemySlot:
   - {fileID: 0}
   - {fileID: 0}
