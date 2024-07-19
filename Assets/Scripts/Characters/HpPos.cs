@@ -33,8 +33,7 @@ public class HpPos : MonoBehaviour
         Vector3 screenPos;
 
         screenPos = new Vector3(targetTransform.position.x, targetTransform.transform.position.y + 1.5f);
-
-
         rectTransform.position = screenPos;
+
     }
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   EnemyName: "\uBCF4\uC2A4"
-  baseDamage: 20
-  baseHp: 150
+  baseDamage: 25
+  baseHp: 200
   damages:
   - 0
   maxHp:
