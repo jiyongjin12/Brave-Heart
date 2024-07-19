@@ -74,23 +74,23 @@ namespace Map
             {
                 case NodeType.MinorEnemy:
                     Debug.Log("ÀÏ¹Ý¸÷");
-                    Test();
+                    //Test();
                     break;
                 case NodeType.EliteEnemy:
                     Debug.Log("¿¤¸®Æ®¸÷");
-                    FadeSystem.instance.ChangeScene("EliteScene");
+                    //FadeSystem.instance.ChangeScene("EliteScene");
                     break;
                 case NodeType.RestSite:
                     Debug.Log("½°ÅÍ");
-                    FadeSystem.instance.ChangeScene("RecoveryScene");
+                    //FadeSystem.instance.ChangeScene("RecoveryScene");
                     break;
                 case NodeType.Treasure:
                     Debug.Log("»óÀÚ");
-                    FadeSystem.instance.ChangeScene("BoxStage");
+                    //FadeSystem.instance.ChangeScene("BoxStage");
                     break;
                 case NodeType.Store:
                     Debug.Log("»óÁ¡");
-                    FadeSystem.instance.ChangeScene("ShopStage");
+                    //FadeSystem.instance.ChangeScene("ShopStage");
                     break;
                 case NodeType.Boss:
                     Debug.Log("º¸½º");
@@ -98,7 +98,7 @@ namespace Map
                     break;
                 case NodeType.Mystery:
                     Debug.Log("¹°À½Ç¥¹æ");
-                    FadeSystem.instance.ChangeIntScene(GameSuvManager.instance.Rand());
+                    //FadeSystem.instance.ChangeIntScene(GameSuvManager.instance.Rand());
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
