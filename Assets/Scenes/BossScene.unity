@@ -11481,6 +11481,7 @@ MonoBehaviour:
   _hpBar: {fileID: 58438093}
   TextDefense: {fileID: 458546278}
   enemyHPSliderPrefab: {fileID: 9104149854337968770, guid: 2e66f9a59540998459e04d73e5774c2f, type: 3}
+  BossHPSliderPrefab: {fileID: 9104149854337968770, guid: 2e66f9a59540998459e04d73e5774c2f, type: 3}
   enemyDamagePrefab: {fileID: 3047497941406286605, guid: 15d21ad32202e484dbc080b9c57fcd39, type: 3}
   canvasTransform: {fileID: 1264448549}
   Damage: {fileID: 3047497941406286605, guid: 15d21ad32202e484dbc080b9c57fcd39, type: 3}

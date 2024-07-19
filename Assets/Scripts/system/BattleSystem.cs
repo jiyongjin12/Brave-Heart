@@ -300,7 +300,7 @@ public class BattleSystem : MonoBehaviour
             if (enemySlot[1] != null)
             {
                 StartCoroutine(BossTurn());
-                yield return YieldCache.WaitForSeconds(1f);
+                yield return YieldCache.WaitForSeconds(1.6f);
                 BossSystem.instance.BossTurn();
             }
             else
@@ -448,6 +448,8 @@ public class BattleSystem : MonoBehaviour
                 if (enemySlot[i] == null) i--;
             }
         }
+
+        yield return YieldCache.WaitForSeconds(0.5f);
 
         GameManager.instance.DeadEnmey();
         GameManager.instance.counterAttack = false;
